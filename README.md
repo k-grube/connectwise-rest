@@ -1,6 +1,6 @@
 # connectwise-rest
 
-[![npm version](https://img.shields.io/npm/v/connectwise-rest.svg)](https://www.npmjs.com/package/connectwise-rest) [![npm downloads](https://img.shields.io/npm/dt/connectwise-rest.svg)](https://www.npmjs.com/package/connectwise-rest) [![Node.js CI](https://github.com/covenanttechnologysolutions/connectwise-rest/actions/workflows/node.js.yml/badge.svg?branch=master&event=push)](https://github.com/covenanttechnologysolutions/connectwise-rest/actions/workflows/node.js.yml) [![Coverage Status](https://coveralls.io/repos/github/covenanttechnologysolutions/connectwise-rest/badge.svg?branch=master)](https://coveralls.io/github/covenanttechnologysolutions/connectwise-rest?branch=master)
+[![npm version](https://img.shields.io/npm/v/connectwise-rest.svg)](https://www.npmjs.com/package/connectwise-rest) [![npm downloads](https://img.shields.io/npm/dt/connectwise-rest.svg)](https://www.npmjs.com/package/connectwise-rest) [![Node.js CI](https://github.com/k-grube/connectwise-rest/actions/workflows/node.js.yml/badge.svg?branch=master&event=push)](https://github.com/k-grube/connectwise-rest/actions/workflows/node.js.yml) [![Coverage Status](https://coveralls.io/repos/github/k-grube/connectwise-rest/badge.svg?branch=master)](https://coveralls.io/github/k-grube/connectwise-rest?branch=master)
 
 A Node.JS TypeScript module for interacting with the ConnectWise Manage and Automate REST APIs. 
 This module provides bindings for ease of development against the ConnectWise REST APIs as well as pagination, automatic retries and logging.   
@@ -45,7 +45,7 @@ upgrades Manage to the 2025.16 spec.
 
 ## Documentation
 
-See this package's full documentation [here](https://covenanttechnologysolutions.github.io/connectwise-rest/index.html)
+See this package's full documentation [here](https://k-grube.github.io/connectwise-rest/index.html)
 
 ## Usage
 
