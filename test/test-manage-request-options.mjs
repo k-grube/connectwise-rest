@@ -46,6 +46,20 @@ describe('Manage request options', () => {
     })
   })
 
+  describe('member identifier routes', () => {
+    const routes = [
+      ['getSystemInfoMembersByMemberIdentifier', '/system/info/members/'],
+      ['getSystemInfoMembersMemberhashByMemberIdentifier', '/system/info/members/memberhash/'],
+      ['getSystemMembersByMemberIdentifier', '/system/members/'],
+    ]
+    for (const [method, prefix] of routes) {
+      it(`${method} substitutes the member identifier`, async () => {
+        await cwm.SystemAPI[method]('test.member')
+        assert.strictEqual(requestArgs.url, `${prefix}test.member`)
+      })
+    }
+  })
+
   describe('binary downloads', () => {
     it('requests document downloads as arraybuffers', async () => {
       await cwm.SystemAPI.getSystemDocumentsByIdDownload(123)

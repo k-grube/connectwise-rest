@@ -26,13 +26,16 @@ const getResponseTypeInfo = ({ responses, types }) => {
     return toResponseTypeInfo('NoContentResponse')
   }
 
-  const { description, content } = responses[Object.keys(responses).pop()]
+  const { description, content } = getSuccessResponse(responses)
 
   if (responses.default) {
     return toResponseTypeInfo('any')
   }
 
   if (!content) {
+    if (description?.startsWith('PDF attachment')) {
+      return toResponseTypeInfo('PDFResponse')
+    }
     const typeName = description.split(' ').pop()
     return toResponseTypeInfo(typeName)
   }
@@ -75,6 +78,11 @@ const getResponseTypeInfo = ({ responses, types }) => {
   }
 
   return toResponseTypeInfo(schema.type)
+}
+
+const getSuccessResponse = (responses) => {
+  const codes = Object.keys(responses)
+  return responses[codes.find((code) => /^2\d\d$/.test(code)) || codes.pop()]
 }
 
 const typeMapSanitize = (input = '') => {
@@ -189,17 +197,17 @@ function generateAPIClass({ apiName, operations = [], generatorType }) {
             } else if (schema.$ref) {
               const ref = schema.$ref
               bodyParam.type = ref.split('/').pop()
-              if (requestBody.description) {
+              if (requestBody.description && /^[A-Za-z_$][\w$]*$/.test(requestBody.description)) {
                 bodyParam.name = requestBody.description
               } else {
-                bodyParam.name = ref.split('.').pop()
+                bodyParam.name = bodyParam.type.split('.').pop()
               }
               types[bodyParam.type] = {
                 schemaType: ref.includes('requestBodies') ? 'requestBody' : 'schemas',
               }
               // if clause for MonitorAlertSuspensions_PostSuspension
             } else if (!schema.description) {
-              bodyParam.type = schema.type
+              bodyParam.type = schema.type === 'object' ? 'Record<string, unknown>' : schema.type
               bodyParam.name = schema.type
             }
           } else if (requestBody.content && requestBody.content['multipart/form-data']) {
@@ -295,7 +303,7 @@ function generateAPIClass({ apiName, operations = [], generatorType }) {
         const responseTypeInfo = getResponseTypeInfo({ responses, types })
         let returnType = responseTypeInfo.returnType
 
-        const response = responses[Object.keys(responses).pop()]
+        const response = getSuccessResponse(responses)
         const content = response?.content
 
         // Detect non-JSON response content types and emit a responseType hint.
@@ -312,6 +320,9 @@ function generateAPIClass({ apiName, operations = [], generatorType }) {
           } else if (contentTypes.includes('text/html')) {
             responseTypeHint = 'text'
           }
+        } else if (response?.description?.startsWith('PDF attachment')) {
+          // Manage's customer statement endpoint describes its PDF only in prose.
+          responseTypeHint = 'arraybuffer'
         }
 
         if (!returnType) {

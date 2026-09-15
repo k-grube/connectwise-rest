@@ -2394,6 +2394,28 @@ export class ProcurementAPI extends ManageBaseAPI {
     })
   }
 
+  getProcurementRmaActionsByIdUsages(
+    id: number,
+    params: CommonParameters<Usage> = {},
+  ): Promise<Array<Usage>> {
+    return this.request({
+      path: `/procurement/rmaActions/${id}/usages`,
+      method: 'get',
+      params,
+    })
+  }
+
+  getProcurementRmaActionsByIdUsagesList(
+    id: number,
+    params: CommonParameters<Usage> = {},
+  ): Promise<Array<Usage>> {
+    return this.request({
+      path: `/procurement/rmaActions/${id}/usages/list`,
+      method: 'get',
+      params,
+    })
+  }
+
   getProcurementRmaActionsCount(params: CommonParameters<Count> = {}): Promise<Count> {
     return this.request({
       path: `/procurement/rmaActions/count`,
@@ -2484,6 +2506,28 @@ export class ProcurementAPI extends ManageBaseAPI {
   ): Promise<RmaDispositionInfo> {
     return this.request({
       path: `/procurement/RMADispositions/${id}/info`,
+      method: 'get',
+      params,
+    })
+  }
+
+  getProcurementRMADispositionsByIdUsages(
+    id: number,
+    params: CommonParameters<Usage> = {},
+  ): Promise<Array<Usage>> {
+    return this.request({
+      path: `/procurement/RMADispositions/${id}/usages`,
+      method: 'get',
+      params,
+    })
+  }
+
+  getProcurementRMADispositionsByIdUsagesList(
+    id: number,
+    params: CommonParameters<Usage> = {},
+  ): Promise<Array<Usage>> {
+    return this.request({
+      path: `/procurement/RMADispositions/${id}/usages/list`,
       method: 'get',
       params,
     })
@@ -2601,6 +2645,17 @@ export class ProcurementAPI extends ManageBaseAPI {
     })
   }
 
+  getProcurementRmaStatusesByParentIdEmailtemplates(
+    parentId: number,
+    params: CommonParameters<RmaStatusEmailTemplate> = {},
+  ): Promise<Array<RmaStatusEmailTemplate>> {
+    return this.request({
+      path: `/procurement/rmaStatuses/${parentId}/emailtemplates/`,
+      method: 'get',
+      params,
+    })
+  }
+
   postProcurementRmaStatusesByParentIdEmailtemplates(
     parentId: number,
     rmaStatusEmailTemplate: RmaStatusEmailTemplate,
@@ -2609,17 +2664,6 @@ export class ProcurementAPI extends ManageBaseAPI {
       path: `/procurement/rmaStatuses/${parentId}/emailtemplates/`,
       method: 'post',
       data: rmaStatusEmailTemplate,
-    })
-  }
-
-  getProcurementRmaStatusesByParentIdEmailTemplates(
-    parentId: number,
-    params: CommonParameters<RmaStatusEmailTemplate> = {},
-  ): Promise<Array<RmaStatusEmailTemplate>> {
-    return this.request({
-      path: `/procurement/rmaStatuses/${parentId}/emailTemplates/`,
-      method: 'get',
-      params,
     })
   }
 

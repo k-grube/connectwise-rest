@@ -4,6 +4,7 @@ import { fileURLToPath } from 'node:url'
 import dotenv from 'dotenv'
 import { describe, it } from 'mocha'
 import pkg from '../dist/index.js'
+import { FinanceAPI } from '../dist/Manage/FinanceAPI.js'
 const { ManageAPI, ManageSECTIONS } = pkg
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
@@ -26,6 +27,20 @@ describe('Manage', () => {
     clientId: MANAGE_API_CLIENT_ID,
     apiVersion: '2021.2',
     logger: () => {},
+  })
+
+  it('downloads customer statements as binary PDF data', async () => {
+    const pdf = Buffer.from('%PDF-1.7')
+    const api = new FinanceAPI({
+      request: async (options) => {
+        assert.strictEqual(options.path, '/finance/companyFinance/42/statement/pdf')
+        assert.strictEqual(options.method, 'get')
+        assert.strictEqual(options.responseType, 'arraybuffer')
+        return pdf
+      },
+    })
+
+    assert.strictEqual(await api.getFinanceCompanyFinanceByIdStatementPdf(42), pdf)
   })
 
   describe('instance', () => {

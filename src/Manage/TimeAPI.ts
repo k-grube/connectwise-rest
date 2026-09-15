@@ -718,10 +718,11 @@ export class TimeAPI extends ManageBaseAPI {
     })
   }
 
-  postTimeSheetsByIdReject(id: number): Promise<SuccessResponse> {
+  postTimeSheetsByIdReject(id: number, sheetId: TimeSheetTierUpdate): Promise<SuccessResponse> {
     return this.request({
       path: `/time/sheets/${id}/reject`,
       method: 'post',
+      data: sheetId,
     })
   }
 

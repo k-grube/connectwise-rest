@@ -112,6 +112,8 @@ export type ServiceTeam = schemas['ServiceTeam']
 export type ServiceTemplate = schemas['ServiceTemplate']
 /** {@link ServiceTemplateInfo} */
 export type ServiceTemplateInfo = schemas['ServiceTemplateInfo']
+/** {@link ServiceTemplateResource} */
+export type ServiceTemplateResource = schemas['ServiceTemplateResource']
 /** {@link ServiceTemplateTask} */
 export type ServiceTemplateTask = schemas['ServiceTemplateTask']
 /** {@link ServiceTicketLink} */
@@ -144,6 +146,10 @@ export type Ticket = schemas['Ticket']
 export type TicketBundle = schemas['TicketBundle']
 /** {@link TicketChangeLog} */
 export type TicketChangeLog = schemas['TicketChangeLog']
+/** {@link TicketContactAuthentication} */
+export type TicketContactAuthentication = schemas['TicketContactAuthentication']
+/** {@link TicketFinance} */
+export type TicketFinance = schemas['TicketFinance']
 /** {@link TicketInfo} */
 export type TicketInfo = schemas['TicketInfo']
 /** {@link TicketMerge} */
@@ -3148,6 +3154,75 @@ export class ServiceAPI extends ManageBaseAPI {
     })
   }
 
+  getServiceTemplatesByParentIdResources(
+    parentId: number,
+    params: CommonParameters<ServiceTemplateResource> = {},
+  ): Promise<Array<ServiceTemplateResource>> {
+    return this.request({
+      path: `/service/templates/${parentId}/resources`,
+      method: 'get',
+      params,
+    })
+  }
+
+  postServiceTemplatesByParentIdResources(
+    parentId: number,
+    ServiceTemplateResource: ServiceTemplateResource,
+  ): Promise<ServiceTemplateResource> {
+    return this.request({
+      path: `/service/templates/${parentId}/resources`,
+      method: 'post',
+      data: ServiceTemplateResource,
+    })
+  }
+
+  getServiceTemplatesByParentIdResourcesById(
+    id: number,
+    parentId: number,
+    params: CommonParameters<ServiceTemplateResource> = {},
+  ): Promise<ServiceTemplateResource> {
+    return this.request({
+      path: `/service/templates/${parentId}/resources/${id}`,
+      method: 'get',
+      params,
+    })
+  }
+
+  putServiceTemplatesByParentIdResourcesById(
+    id: number,
+    parentId: number,
+    ServiceTemplateResource: ServiceTemplateResource,
+  ): Promise<ServiceTemplateResource> {
+    return this.request({
+      path: `/service/templates/${parentId}/resources/${id}`,
+      method: 'put',
+      data: ServiceTemplateResource,
+    })
+  }
+
+  patchServiceTemplatesByParentIdResourcesById(
+    id: number,
+    parentId: number,
+    patchOperations: Array<PatchOperation>,
+  ): Promise<ServiceTemplateResource> {
+    return this.request({
+      path: `/service/templates/${parentId}/resources/${id}`,
+      method: 'patch',
+      data: patchOperations,
+    })
+  }
+
+  getServiceTemplatesByParentIdResourcesCount(
+    parentId: number,
+    params: CommonParameters<Count> = {},
+  ): Promise<Count> {
+    return this.request({
+      path: `/service/templates/${parentId}/resources/count`,
+      method: 'get',
+      params,
+    })
+  }
+
   getServiceTemplatesByParentIdTasks(
     parentId: number,
     params: CommonParameters<ServiceTemplateTask> = {},
@@ -3402,6 +3477,17 @@ export class ServiceAPI extends ManageBaseAPI {
     })
   }
 
+  getServiceTicketsByIdFinance(
+    id: number,
+    params: CommonParameters<TicketFinance> = {},
+  ): Promise<TicketFinance> {
+    return this.request({
+      path: `/service/tickets/${id}/finance`,
+      method: 'get',
+      params,
+    })
+  }
+
   getServiceTicketsByIdInfo(
     id: number,
     params: CommonParameters<TicketInfo> = {},
@@ -3441,6 +3527,17 @@ export class ServiceAPI extends ManageBaseAPI {
   ): Promise<Array<ServiceTicketNote>> {
     return this.request({
       path: `/service/tickets/${parentId}/allNotes`,
+      method: 'get',
+      params,
+    })
+  }
+
+  getServiceTicketsByParentIdAllNotesCount(
+    parentId: number,
+    params: CommonParameters<Count> = {},
+  ): Promise<Count> {
+    return this.request({
+      path: `/service/tickets/${parentId}/allNotes/count`,
       method: 'get',
       params,
     })
@@ -3520,6 +3617,17 @@ export class ServiceAPI extends ManageBaseAPI {
       path: `/service/tickets/${parentId}/convert`,
       method: 'post',
       data: conversion,
+    })
+  }
+
+  postServiceTicketsByParentIdDetachChildren(
+    parentId: number,
+    detach: TicketBundle,
+  ): Promise<SuccessResponse> {
+    return this.request({
+      path: `/service/tickets/${parentId}/detachChildren`,
+      method: 'post',
+      data: detach,
     })
   }
 
@@ -3772,6 +3880,35 @@ export class ServiceAPI extends ManageBaseAPI {
   ): Promise<Count> {
     return this.request({
       path: `/service/tickets/${parentId}/timeentries/count`,
+      method: 'get',
+      params,
+    })
+  }
+
+  getServiceTicketsAuthstatus(
+    params: CommonParameters<TicketContactAuthentication> = {},
+  ): Promise<Array<TicketContactAuthentication>> {
+    return this.request({
+      path: `/service/tickets/authstatus`,
+      method: 'get',
+      params,
+    })
+  }
+
+  getServiceTicketsAuthstatusById(
+    id: number,
+    params: CommonParameters<TicketContactAuthentication> = {},
+  ): Promise<TicketContactAuthentication> {
+    return this.request({
+      path: `/service/tickets/authstatus/${id}`,
+      method: 'get',
+      params,
+    })
+  }
+
+  getServiceTicketsAuthstatusCount(params: CommonParameters<Count> = {}): Promise<Count> {
+    return this.request({
+      path: `/service/tickets/authstatus/count`,
       method: 'get',
       params,
     })

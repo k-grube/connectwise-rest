@@ -9,7 +9,7 @@ This module provides bindings for ease of development against the ConnectWise RE
 
 Version 2.0 regenerates the Automate surface from the new swagger 2025.0.5 spec
 (some class renames, see [CHANGELOG.md](./CHANGELOG.md) for the rename map) and
-upgrades Manage to the 2025.16 spec.
+upgrades Manage to the 2026.11 spec.
 
 ## Table of Contents
 

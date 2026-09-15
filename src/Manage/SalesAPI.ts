@@ -16,8 +16,6 @@ export type ActivityType = schemas['ActivityType']
 export type Agreement = schemas['Agreement']
 /** {@link Commission} */
 export type Commission = schemas['Commission']
-/** {@link ConvertOrderToServiceTicket} */
-export type ConvertOrderToServiceTicket = schemas['ConvertOrderToServiceTicket']
 /** {@link Count} */
 export type Count = schemas['Count']
 /** {@link Forecast} */
@@ -1301,14 +1299,10 @@ export class SalesAPI extends ManageBaseAPI {
     })
   }
 
-  postSalesOrdersByIdConvertToServiceTicket(
-    id: number,
-    conversionSettings: ConvertOrderToServiceTicket,
-  ): Promise<Ticket> {
+  postSalesOrdersByIdConvertToServiceTicket(id: number): Promise<Ticket> {
     return this.request({
       path: `/sales/orders/${id}/convertToServiceTicket`,
       method: 'post',
-      data: conversionSettings,
     })
   }
 

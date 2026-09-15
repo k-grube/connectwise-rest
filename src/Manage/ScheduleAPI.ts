@@ -32,6 +32,8 @@ export type ScheduleEntry = schemas['ScheduleEntry']
 export type ScheduleEntryDetail = schemas['ScheduleEntryDetail']
 /** {@link ScheduleReminderTime} */
 export type ScheduleReminderTime = schemas['ScheduleReminderTime']
+/** {@link ScheduleReminderTimeInfo} */
+export type ScheduleReminderTimeInfo = schemas['ScheduleReminderTimeInfo']
 /** {@link ScheduleStatus} */
 export type ScheduleStatus = schemas['ScheduleStatus']
 /** {@link ScheduleStatusInfo} */
@@ -665,9 +667,40 @@ export class ScheduleAPI extends ManageBaseAPI {
     })
   }
 
+  getScheduleReminderTimesByIdInfo(
+    id: number,
+    params: CommonParameters<ScheduleReminderTimeInfo> = {},
+  ): Promise<ScheduleReminderTimeInfo> {
+    return this.request({
+      path: `/schedule/reminderTimes/${id}/info`,
+      method: 'get',
+      params,
+    })
+  }
+
   getScheduleReminderTimesCount(params: CommonParameters<Count> = {}): Promise<Count> {
     return this.request({
       path: `/schedule/reminderTimes/count`,
+      method: 'get',
+      params,
+    })
+  }
+
+  getScheduleReminderTimesInfo(
+    params: CommonParameters<ScheduleReminderTimeInfo> = {},
+  ): Promise<Array<ScheduleReminderTimeInfo>> {
+    return this.request({
+      path: `/schedule/reminderTimes/info`,
+      method: 'get',
+      params,
+    })
+  }
+
+  getScheduleReminderTimesInfoCount(
+    params: CommonParameters<ScheduleReminderTimeInfo> = {},
+  ): Promise<ScheduleReminderTimeInfo> {
+    return this.request({
+      path: `/schedule/reminderTimes/info/count`,
       method: 'get',
       params,
     })

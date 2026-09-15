@@ -158,6 +158,8 @@ export type MemberDeactivation = schemas['MemberDeactivation']
 export type MemberDelegation = schemas['MemberDelegation']
 /** {@link MemberForCalSync} */
 export type MemberForCalSync = schemas['MemberForCalSync']
+/** {@link MemberHash} */
+export type MemberHash = schemas['MemberHash']
 /** {@link MemberInfo} */
 export type MemberInfo = schemas['MemberInfo']
 /** {@link MemberLinkSsoUser} */
@@ -186,6 +188,8 @@ export type MyAccount = schemas['MyAccount']
 export type MyMember = schemas['MyMember']
 /** {@link MyMemberInfo} */
 export type MyMemberInfo = schemas['MyMemberInfo']
+/** {@link MyMemberRecentItem} */
+export type MyMemberRecentItem = schemas['MyMemberRecentItem']
 /** {@link MySecurity} */
 export type MySecurity = schemas['MySecurity']
 /** {@link MySecurityCustomizeItem} */
@@ -254,6 +258,8 @@ export type SsoUser = schemas['SsoUser']
 export type StandardNote = schemas['StandardNote']
 /** {@link StandardNoteInfo} */
 export type StandardNoteInfo = schemas['StandardNoteInfo']
+/** {@link StandardReportResult} */
+export type StandardReportResult = schemas['StandardReportResult']
 /** {@link SuccessResponse} */
 export type SuccessResponse = schemas['SuccessResponse']
 /** {@link Survey} */
@@ -284,6 +290,10 @@ export type Usage = schemas['Usage']
 export type UserDefinedField = schemas['UserDefinedField']
 /** {@link UserDefinedFieldInfo} */
 export type UserDefinedFieldInfo = schemas['UserDefinedFieldInfo']
+/** {@link UserDefinedFieldScreen} */
+export type UserDefinedFieldScreen = schemas['UserDefinedFieldScreen']
+/** {@link UserDefinedFieldScreenPod} */
+export type UserDefinedFieldScreenPod = schemas['UserDefinedFieldScreenPod']
 /** {@link UserEmail} */
 export type UserEmail = schemas['UserEmail']
 /** {@link Workflow} */
@@ -306,6 +316,10 @@ export type WorkflowNotifyTypeInfo = schemas['WorkflowNotifyTypeInfo']
 export type WorkflowTableType = schemas['WorkflowTableType']
 /** {@link WorkflowTableTypeInfo} */
 export type WorkflowTableTypeInfo = schemas['WorkflowTableTypeInfo']
+/** {@link WorkflowTestDraftRequest} */
+export type WorkflowTestDraftRequest = schemas['WorkflowTestDraftRequest']
+/** {@link WorkflowTestDraftResponse} */
+export type WorkflowTestDraftResponse = schemas['WorkflowTestDraftResponse']
 /** {@link WorkflowTrigger} */
 export type WorkflowTrigger = schemas['WorkflowTrigger']
 /** {@link WorkflowTriggerOption} */
@@ -989,6 +1003,21 @@ export class SystemAPI extends ManageBaseAPI {
       path: `/system/customFieldInfos`,
       method: 'get',
       params,
+    })
+  }
+
+  deleteSystemCustomFieldInfosById(id: number): Promise<NoContentResponse> {
+    return this.request({
+      path: `/system/customFieldInfos/${id}`,
+      method: 'delete',
+    })
+  }
+
+  deleteSystemCustomFieldInfosBulk(customFieldInfos: IdCollection): Promise<BulkResult> {
+    return this.request({
+      path: `/system/customFieldInfos/bulk`,
+      method: 'delete',
+      data: customFieldInfos,
     })
   }
 
@@ -2300,11 +2329,12 @@ export class SystemAPI extends ManageBaseAPI {
     })
   }
 
-  getSystemInfoMembersmemberIdentifierregextypes(
+  getSystemInfoMembersByMemberIdentifier(
+    memberIdentifier: string,
     params: CommonParameters<MemberInfo> = {},
   ): Promise<MemberInfo> {
     return this.request({
-      path: `/system/info/members/{memberIdentifier:regex(^(types. |(`,
+      path: `/system/info/members/${memberIdentifier}`,
       method: 'get',
       params,
     })
@@ -2313,6 +2343,17 @@ export class SystemAPI extends ManageBaseAPI {
   getSystemInfoMembersCount(params: CommonParameters<Count> = {}): Promise<Count> {
     return this.request({
       path: `/system/info/members/count`,
+      method: 'get',
+      params,
+    })
+  }
+
+  getSystemInfoMembersMemberhashByMemberIdentifier(
+    memberIdentifier: string,
+    params: CommonParameters<MemberHash> = {},
+  ): Promise<MemberHash> {
+    return this.request({
+      path: `/system/info/members/memberhash/${memberIdentifier}`,
       method: 'get',
       params,
     })
@@ -3253,11 +3294,12 @@ export class SystemAPI extends ManageBaseAPI {
     })
   }
 
-  getSystemMembersmemberIdentifierregextypes(
+  getSystemMembersByMemberIdentifier(
+    memberIdentifier: string,
     params: CommonParameters<Member> = {},
   ): Promise<Member> {
     return this.request({
-      path: `/system/members/{memberIdentifier:regex(^(types. |(`,
+      path: `/system/members/${memberIdentifier}`,
       method: 'get',
       params,
     })
@@ -4780,6 +4822,26 @@ export class SystemAPI extends ManageBaseAPI {
     })
   }
 
+  getSystemMyMembersRecentItems(
+    params: CommonParameters<MyMemberRecentItem> = {},
+  ): Promise<Array<MyMemberRecentItem>> {
+    return this.request({
+      path: `/system/myMembers/recentItems`,
+      method: 'get',
+      params,
+    })
+  }
+
+  postSystemMyMembersRecentItems(
+    MyMemberRecentItem: MyMemberRecentItem,
+  ): Promise<MyMemberRecentItem> {
+    return this.request({
+      path: `/system/myMembers/recentItems`,
+      method: 'post',
+      data: MyMemberRecentItem,
+    })
+  }
+
   getSystemMySecurity(params: CommonParameters<MySecurity> = {}): Promise<Array<MySecurity>> {
     return this.request({
       path: `/system/mySecurity`,
@@ -5949,6 +6011,28 @@ export class SystemAPI extends ManageBaseAPI {
     })
   }
 
+  postSystemStandardreportById(
+    id: number,
+    object: Record<string, unknown>,
+  ): Promise<StandardReportResult> {
+    return this.request({
+      path: `/system/standardreport/${id}`,
+      method: 'post',
+      data: object,
+    })
+  }
+
+  postSystemStandardreportByReportlink(
+    reportlink: string,
+    object: Record<string, unknown>,
+  ): Promise<StandardReportResult> {
+    return this.request({
+      path: `/system/standardreport/${reportlink}`,
+      method: 'post',
+      data: object,
+    })
+  }
+
   getSystemSurveys(params: CommonParameters<Survey> = {}): Promise<Array<Survey>> {
     return this.request({
       path: `/system/surveys`,
@@ -6505,6 +6589,26 @@ export class SystemAPI extends ManageBaseAPI {
   getSystemUserDefinedFieldsInfoCount(params: CommonParameters<Count> = {}): Promise<Count> {
     return this.request({
       path: `/system/userDefinedFields/info/count`,
+      method: 'get',
+      params,
+    })
+  }
+
+  getSystemUserDefinedFieldScreenPods(
+    params: CommonParameters<UserDefinedFieldScreenPod> = {},
+  ): Promise<Array<UserDefinedFieldScreenPod>> {
+    return this.request({
+      path: `/system/userDefinedFieldScreenPods`,
+      method: 'get',
+      params,
+    })
+  }
+
+  getSystemUserDefinedFieldScreens(
+    params: CommonParameters<UserDefinedFieldScreen> = {},
+  ): Promise<Array<UserDefinedFieldScreen>> {
+    return this.request({
+      path: `/system/userDefinedFieldScreens`,
       method: 'get',
       params,
     })
@@ -7123,6 +7227,29 @@ export class SystemAPI extends ManageBaseAPI {
     })
   }
 
+  getSystemWorkflowsTableTypesByIdTriggers(
+    id: number,
+    params: CommonParameters<WorkflowTrigger> = {},
+  ): Promise<Array<WorkflowTrigger>> {
+    return this.request({
+      path: `/system/workflows/tableTypes/${id}/triggers`,
+      method: 'get',
+      params,
+    })
+  }
+
+  getSystemWorkflowsTableTypesByIdTriggersByParentIdOptions(
+    id: number,
+    parentId: number,
+    params: CommonParameters<WorkflowTriggerOption> = {},
+  ): Promise<Array<WorkflowTriggerOption>> {
+    return this.request({
+      path: `/system/workflows/tableTypes/${id}/triggers/${parentId}/options`,
+      method: 'get',
+      params,
+    })
+  }
+
   getSystemWorkflowsTableTypesCount(params: CommonParameters<Count> = {}): Promise<Count> {
     return this.request({
       path: `/system/workflows/tableTypes/count`,
@@ -7146,6 +7273,16 @@ export class SystemAPI extends ManageBaseAPI {
       path: `/system/workflows/tableTypes/info/count`,
       method: 'get',
       params,
+    })
+  }
+
+  postSystemWorkflowsTestDraft(
+    WorkflowTestDraftRequest: WorkflowTestDraftRequest,
+  ): Promise<WorkflowTestDraftResponse> {
+    return this.request({
+      path: `/system/workflows/testDraft`,
+      method: 'post',
+      data: WorkflowTestDraftRequest,
     })
   }
 
