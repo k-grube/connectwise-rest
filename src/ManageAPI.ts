@@ -14,6 +14,7 @@ import { ServiceAPI } from './Manage/ServiceAPI'
 import { SystemAPI } from './Manage/SystemAPI'
 import { TimeAPI } from './Manage/TimeAPI'
 
+import type { components } from './ManageTypes'
 import type * as CompanyAPITypes from './Manage/CompanyAPI'
 import type * as ConfigurationsAPITypes from './Manage/ConfigurationsAPI'
 import type * as ExpenseAPITypes from './Manage/ExpenseAPI'
@@ -31,11 +32,7 @@ import type * as TimeAPITypes from './Manage/TimeAPI'
  * @public
  * Manage patch operation input object, usually passed in an array of operations
  */
-export type PatchOperation = {
-  op: 'add' | 'replace' | 'remove'
-  path: string
-  value: unknown
-}
+export type PatchOperation = components['schemas']['PatchOperation']
 
 /**
  * @public
@@ -67,16 +64,49 @@ export interface CWMOptions {
   debug?: boolean
 }
 
+type FieldPathPrimitive = bigint | boolean | null | number | string | symbol | undefined
+
+type FieldPathTerminal = Date | FieldPathPrimitive | RegExp
+
+type FieldPathValue<T> = T extends ReadonlyArray<infer U> ? U : T
+
+type FieldPathDepth = [never, 0, 1, 2, 3, 4, 5]
+
+type FieldPath<T, Depth extends number = 5> = [Depth] extends [never]
+  ? never
+  : T extends FieldPathTerminal
+    ? never
+    : T extends object
+      ? {
+          [K in keyof T & string]: NonNullable<T[K]> extends FieldPathTerminal
+            ? K
+            : NonNullable<FieldPathValue<T[K]>> extends object
+              ? K | `${K}/${FieldPath<NonNullable<FieldPathValue<T[K]>>, FieldPathDepth[Depth]>}`
+              : K
+        }[keyof T & string]
+      : never
+
+type FieldSelection<T> = ReadonlyArray<FieldPath<NonNullable<T>>>
+
+type OrderByField<T> = FieldPath<NonNullable<T>>
+
+type SortOrder = 'asc' | 'desc'
+
+type OrderByValue<T> = ReadonlyArray<{
+  field: OrderByField<T>
+  direction: SortOrder
+}>
+
 /**
  * @public
  * Manage common parameters
  */
-export type CommonParameters = {
+export type CommonParameters<T = any> = {
   conditions?: string
   childConditions?: string
   customFieldConditions?: string
-  orderBy?: string
-  fields?: string
+  orderBy?: OrderByValue<T> | string
+  fields?: FieldSelection<T> | string
   page?: number
   pageSize?: number
   pageId?: number

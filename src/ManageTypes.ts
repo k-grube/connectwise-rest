@@ -41977,9 +41977,13 @@ export interface components {
             };
         };
         PatchOperation: {
-            op?: string;
-            path?: string;
-            value?: Record<string, never>;
+            op: "add" | "replace";
+            path: string;
+            value: unknown;
+        } | {
+            op: "remove";
+            path: string;
+            value?: unknown;
         };
         PaymentMethodReference: {
             /** Format: int32 */

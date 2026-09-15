@@ -60,6 +60,7 @@
     "intentionallyNotExported": [
       "schemas",
       "requestBodies",
+      "components",
       "AutomateConfig",
       "ManageConfig",
       "PaginationOptions"

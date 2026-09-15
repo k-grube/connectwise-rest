@@ -160,7 +160,7 @@ export type Usage = schemas['Usage']
  * @public
  */
 export class ServiceAPI extends ManageBaseAPI {
-  getServiceBoards(params: CommonParameters = {}): Promise<Array<Board>> {
+  getServiceBoards(params: CommonParameters<Board> = {}): Promise<Array<Board>> {
     return this.request({
       path: `/service/boards`,
       method: 'get',
@@ -179,7 +179,7 @@ export class ServiceAPI extends ManageBaseAPI {
   getServiceBoardsByGrandparentIdItemsByParentIdAssociations(
     parentId: number,
     grandparentId: number,
-    params: CommonParameters = {},
+    params: CommonParameters<BoardItemAssociation> = {},
   ): Promise<Array<BoardItemAssociation>> {
     return this.request({
       path: `/service/boards/${grandparentId}/items/${parentId}/associations`,
@@ -192,7 +192,7 @@ export class ServiceAPI extends ManageBaseAPI {
     id: number,
     parentId: number,
     grandparentId: number,
-    params: CommonParameters = {},
+    params: CommonParameters<BoardItemAssociation> = {},
   ): Promise<BoardItemAssociation> {
     return this.request({
       path: `/service/boards/${grandparentId}/items/${parentId}/associations/${id}`,
@@ -230,7 +230,7 @@ export class ServiceAPI extends ManageBaseAPI {
   getServiceBoardsByGrandparentIdItemsByParentIdAssociationsCount(
     parentId: number,
     grandparentId: number,
-    params: CommonParameters = {},
+    params: CommonParameters<Count> = {},
   ): Promise<Count> {
     return this.request({
       path: `/service/boards/${grandparentId}/items/${parentId}/associations/count`,
@@ -242,7 +242,7 @@ export class ServiceAPI extends ManageBaseAPI {
   getServiceBoardsByGrandparentIdStatusesByParentIdNotifications(
     parentId: number,
     grandparentId: number,
-    params: CommonParameters = {},
+    params: CommonParameters<BoardStatusNotification> = {},
   ): Promise<Array<BoardStatusNotification>> {
     return this.request({
       path: `/service/boards/${grandparentId}/statuses/${parentId}/notifications`,
@@ -267,7 +267,7 @@ export class ServiceAPI extends ManageBaseAPI {
     id: number,
     parentId: number,
     grandparentId: number,
-    params: CommonParameters = {},
+    params: CommonParameters<BoardStatusNotification> = {},
   ): Promise<BoardStatusNotification> {
     return this.request({
       path: `/service/boards/${grandparentId}/statuses/${parentId}/notifications/${id}`,
@@ -316,7 +316,7 @@ export class ServiceAPI extends ManageBaseAPI {
   getServiceBoardsByGrandparentIdStatusesByParentIdNotificationsCount(
     parentId: number,
     grandparentId: number,
-    params: CommonParameters = {},
+    params: CommonParameters<Count> = {},
   ): Promise<Count> {
     return this.request({
       path: `/service/boards/${grandparentId}/statuses/${parentId}/notifications/count`,
@@ -325,7 +325,7 @@ export class ServiceAPI extends ManageBaseAPI {
     })
   }
 
-  getServiceBoardsById(id: number, params: CommonParameters = {}): Promise<Board> {
+  getServiceBoardsById(id: number, params: CommonParameters<Board> = {}): Promise<Board> {
     return this.request({
       path: `/service/boards/${id}`,
       method: 'get',
@@ -356,7 +356,10 @@ export class ServiceAPI extends ManageBaseAPI {
     })
   }
 
-  getServiceBoardsByIdUsages(id: number, params: CommonParameters = {}): Promise<Array<Usage>> {
+  getServiceBoardsByIdUsages(
+    id: number,
+    params: CommonParameters<Usage> = {},
+  ): Promise<Array<Usage>> {
     return this.request({
       path: `/service/boards/${id}/usages`,
       method: 'get',
@@ -364,7 +367,10 @@ export class ServiceAPI extends ManageBaseAPI {
     })
   }
 
-  getServiceBoardsByIdUsagesList(id: number, params: CommonParameters = {}): Promise<Array<Usage>> {
+  getServiceBoardsByIdUsagesList(
+    id: number,
+    params: CommonParameters<Usage> = {},
+  ): Promise<Array<Usage>> {
     return this.request({
       path: `/service/boards/${id}/usages/list`,
       method: 'get',
@@ -374,7 +380,7 @@ export class ServiceAPI extends ManageBaseAPI {
 
   getServiceBoardsByParentIdAutoAssignResources(
     parentId: number,
-    params: CommonParameters = {},
+    params: CommonParameters<BoardAutoAssignResource> = {},
   ): Promise<Array<BoardAutoAssignResource>> {
     return this.request({
       path: `/service/boards/${parentId}/autoAssignResources`,
@@ -397,7 +403,7 @@ export class ServiceAPI extends ManageBaseAPI {
   getServiceBoardsByParentIdAutoAssignResourcesById(
     id: number,
     parentId: number,
-    params: CommonParameters = {},
+    params: CommonParameters<BoardAutoAssignResource> = {},
   ): Promise<BoardAutoAssignResource> {
     return this.request({
       path: `/service/boards/${parentId}/autoAssignResources/${id}`,
@@ -442,7 +448,7 @@ export class ServiceAPI extends ManageBaseAPI {
 
   getServiceBoardsByParentIdAutoAssignResourcesCount(
     parentId: number,
-    params: CommonParameters = {},
+    params: CommonParameters<Count> = {},
   ): Promise<Count> {
     return this.request({
       path: `/service/boards/${parentId}/autoAssignResources/count`,
@@ -453,7 +459,7 @@ export class ServiceAPI extends ManageBaseAPI {
 
   getServiceBoardsByParentIdAutoTemplates(
     parentId: number,
-    params: CommonParameters = {},
+    params: CommonParameters<BoardAutoTemplate> = {},
   ): Promise<Array<BoardAutoTemplate>> {
     return this.request({
       path: `/service/boards/${parentId}/autoTemplates`,
@@ -476,7 +482,7 @@ export class ServiceAPI extends ManageBaseAPI {
   getServiceBoardsByParentIdAutoTemplatesById(
     id: number,
     parentId: number,
-    params: CommonParameters = {},
+    params: CommonParameters<BoardAutoTemplate> = {},
   ): Promise<BoardAutoTemplate> {
     return this.request({
       path: `/service/boards/${parentId}/autoTemplates/${id}`,
@@ -521,7 +527,7 @@ export class ServiceAPI extends ManageBaseAPI {
 
   getServiceBoardsByParentIdAutoTemplatesCount(
     parentId: number,
-    params: CommonParameters = {},
+    params: CommonParameters<Count> = {},
   ): Promise<Count> {
     return this.request({
       path: `/service/boards/${parentId}/autoTemplates/count`,
@@ -532,7 +538,7 @@ export class ServiceAPI extends ManageBaseAPI {
 
   getServiceBoardsByParentIdExcludedMembers(
     parentId: number,
-    params: CommonParameters = {},
+    params: CommonParameters<BoardExcludedMember> = {},
   ): Promise<Array<BoardExcludedMember>> {
     return this.request({
       path: `/service/boards/${parentId}/excludedMembers`,
@@ -555,7 +561,7 @@ export class ServiceAPI extends ManageBaseAPI {
   getServiceBoardsByParentIdExcludedMembersById(
     id: number,
     parentId: number,
-    params: CommonParameters = {},
+    params: CommonParameters<BoardExcludedMember> = {},
   ): Promise<BoardExcludedMember> {
     return this.request({
       path: `/service/boards/${parentId}/excludedMembers/${id}`,
@@ -576,7 +582,7 @@ export class ServiceAPI extends ManageBaseAPI {
 
   getServiceBoardsByParentIdExcludedMembersCount(
     parentId: number,
-    params: CommonParameters = {},
+    params: CommonParameters<Count> = {},
   ): Promise<Count> {
     return this.request({
       path: `/service/boards/${parentId}/excludedMembers/count`,
@@ -587,7 +593,7 @@ export class ServiceAPI extends ManageBaseAPI {
 
   getServiceBoardsByParentIdItems(
     parentId: number,
-    params: CommonParameters = {},
+    params: CommonParameters<BoardItem> = {},
   ): Promise<Array<BoardItem>> {
     return this.request({
       path: `/service/boards/${parentId}/items`,
@@ -607,7 +613,7 @@ export class ServiceAPI extends ManageBaseAPI {
   getServiceBoardsByParentIdItemsById(
     id: number,
     parentId: number,
-    params: CommonParameters = {},
+    params: CommonParameters<BoardItem> = {},
   ): Promise<BoardItem> {
     return this.request({
       path: `/service/boards/${parentId}/items/${id}`,
@@ -650,7 +656,7 @@ export class ServiceAPI extends ManageBaseAPI {
   getServiceBoardsByParentIdItemsByIdUsages(
     id: number,
     parentId: number,
-    params: CommonParameters = {},
+    params: CommonParameters<Usage> = {},
   ): Promise<Array<Usage>> {
     return this.request({
       path: `/service/boards/${parentId}/items/${id}/usages`,
@@ -662,7 +668,7 @@ export class ServiceAPI extends ManageBaseAPI {
   getServiceBoardsByParentIdItemsByIdUsagesList(
     id: number,
     parentId: number,
-    params: CommonParameters = {},
+    params: CommonParameters<Usage> = {},
   ): Promise<Array<Usage>> {
     return this.request({
       path: `/service/boards/${parentId}/items/${id}/usages/list`,
@@ -673,7 +679,7 @@ export class ServiceAPI extends ManageBaseAPI {
 
   getServiceBoardsByParentIdItemsCount(
     parentId: number,
-    params: CommonParameters = {},
+    params: CommonParameters<Count> = {},
   ): Promise<Count> {
     return this.request({
       path: `/service/boards/${parentId}/items/count`,
@@ -684,7 +690,7 @@ export class ServiceAPI extends ManageBaseAPI {
 
   getServiceBoardsByParentIdNotifications(
     parentId: number,
-    params: CommonParameters = {},
+    params: CommonParameters<BoardNotification> = {},
   ): Promise<Array<BoardNotification>> {
     return this.request({
       path: `/service/boards/${parentId}/notifications`,
@@ -707,7 +713,7 @@ export class ServiceAPI extends ManageBaseAPI {
   getServiceBoardsByParentIdNotificationsById(
     id: number,
     parentId: number,
-    params: CommonParameters = {},
+    params: CommonParameters<BoardNotification> = {},
   ): Promise<BoardNotification> {
     return this.request({
       path: `/service/boards/${parentId}/notifications/${id}`,
@@ -752,7 +758,7 @@ export class ServiceAPI extends ManageBaseAPI {
 
   getServiceBoardsByParentIdNotificationsCount(
     parentId: number,
-    params: CommonParameters = {},
+    params: CommonParameters<Count> = {},
   ): Promise<Count> {
     return this.request({
       path: `/service/boards/${parentId}/notifications/count`,
@@ -763,7 +769,7 @@ export class ServiceAPI extends ManageBaseAPI {
 
   getServiceBoardsByParentIdSkillMappings(
     parentId: number,
-    params: CommonParameters = {},
+    params: CommonParameters<BoardSkillMapping> = {},
   ): Promise<Array<BoardSkillMapping>> {
     return this.request({
       path: `/service/boards/${parentId}/skillMappings/`,
@@ -786,7 +792,7 @@ export class ServiceAPI extends ManageBaseAPI {
   getServiceBoardsByParentIdSkillMappingsById(
     id: number,
     parentId: number,
-    params: CommonParameters = {},
+    params: CommonParameters<BoardSkillMapping> = {},
   ): Promise<BoardSkillMapping> {
     return this.request({
       path: `/service/boards/${parentId}/skillMappings/${id}`,
@@ -831,7 +837,7 @@ export class ServiceAPI extends ManageBaseAPI {
 
   getServiceBoardsByParentIdSkillMappingsCount(
     parentId: number,
-    params: CommonParameters = {},
+    params: CommonParameters<Count> = {},
   ): Promise<Count> {
     return this.request({
       path: `/service/boards/${parentId}/skillMappings/count`,
@@ -842,7 +848,7 @@ export class ServiceAPI extends ManageBaseAPI {
 
   getServiceBoardsByParentIdStatuses(
     parentId: number,
-    params: CommonParameters = {},
+    params: CommonParameters<BoardStatus> = {},
   ): Promise<Array<BoardStatus>> {
     return this.request({
       path: `/service/boards/${parentId}/statuses`,
@@ -865,7 +871,7 @@ export class ServiceAPI extends ManageBaseAPI {
   getServiceBoardsByParentIdStatusesById(
     id: number,
     parentId: number,
-    params: CommonParameters = {},
+    params: CommonParameters<BoardStatus> = {},
   ): Promise<BoardStatus> {
     return this.request({
       path: `/service/boards/${parentId}/statuses/${id}`,
@@ -911,7 +917,7 @@ export class ServiceAPI extends ManageBaseAPI {
   getServiceBoardsByParentIdStatusesByIdInfo(
     parentId: number,
     id: number,
-    params: CommonParameters = {},
+    params: CommonParameters<BoardStatusInfo> = {},
   ): Promise<BoardStatusInfo> {
     return this.request({
       path: `/service/boards/${parentId}/statuses/${id}/info`,
@@ -923,7 +929,7 @@ export class ServiceAPI extends ManageBaseAPI {
   getServiceBoardsByParentIdStatusesByIdUsages(
     id: number,
     parentId: number,
-    params: CommonParameters = {},
+    params: CommonParameters<Usage> = {},
   ): Promise<Array<Usage>> {
     return this.request({
       path: `/service/boards/${parentId}/statuses/${id}/usages`,
@@ -935,7 +941,7 @@ export class ServiceAPI extends ManageBaseAPI {
   getServiceBoardsByParentIdStatusesByIdUsagesList(
     id: number,
     parentId: number,
-    params: CommonParameters = {},
+    params: CommonParameters<Usage> = {},
   ): Promise<Array<Usage>> {
     return this.request({
       path: `/service/boards/${parentId}/statuses/${id}/usages/list`,
@@ -946,7 +952,7 @@ export class ServiceAPI extends ManageBaseAPI {
 
   getServiceBoardsByParentIdStatusesCount(
     parentId: number,
-    params: CommonParameters = {},
+    params: CommonParameters<Count> = {},
   ): Promise<Count> {
     return this.request({
       path: `/service/boards/${parentId}/statuses/count`,
@@ -957,7 +963,7 @@ export class ServiceAPI extends ManageBaseAPI {
 
   getServiceBoardsByParentIdStatusesInfo(
     parentId: number,
-    params: CommonParameters = {},
+    params: CommonParameters<BoardStatusInfo> = {},
   ): Promise<Array<BoardStatusInfo>> {
     return this.request({
       path: `/service/boards/${parentId}/statuses/info`,
@@ -968,7 +974,7 @@ export class ServiceAPI extends ManageBaseAPI {
 
   getServiceBoardsByParentIdStatusesInfoCount(
     parentId: number,
-    params: CommonParameters = {},
+    params: CommonParameters<Count> = {},
   ): Promise<Count> {
     return this.request({
       path: `/service/boards/${parentId}/statuses/info/count`,
@@ -979,7 +985,7 @@ export class ServiceAPI extends ManageBaseAPI {
 
   getServiceBoardsByParentIdSubtypes(
     parentId: number,
-    params: CommonParameters = {},
+    params: CommonParameters<BoardSubType> = {},
   ): Promise<Array<BoardSubType>> {
     return this.request({
       path: `/service/boards/${parentId}/subtypes`,
@@ -1002,7 +1008,7 @@ export class ServiceAPI extends ManageBaseAPI {
   getServiceBoardsByParentIdSubtypesById(
     id: number,
     parentId: number,
-    params: CommonParameters = {},
+    params: CommonParameters<BoardSubType> = {},
   ): Promise<BoardSubType> {
     return this.request({
       path: `/service/boards/${parentId}/subtypes/${id}`,
@@ -1048,7 +1054,7 @@ export class ServiceAPI extends ManageBaseAPI {
   getServiceBoardsByParentIdSubtypesByIdInfo(
     parentId: number,
     id: number,
-    params: CommonParameters = {},
+    params: CommonParameters<BoardSubTypeInfo> = {},
   ): Promise<BoardSubTypeInfo> {
     return this.request({
       path: `/service/boards/${parentId}/subtypes/${id}/info`,
@@ -1060,7 +1066,7 @@ export class ServiceAPI extends ManageBaseAPI {
   getServiceBoardsByParentIdSubtypesByIdUsages(
     id: number,
     parentId: number,
-    params: CommonParameters = {},
+    params: CommonParameters<Usage> = {},
   ): Promise<Array<Usage>> {
     return this.request({
       path: `/service/boards/${parentId}/subtypes/${id}/usages`,
@@ -1072,7 +1078,7 @@ export class ServiceAPI extends ManageBaseAPI {
   getServiceBoardsByParentIdSubtypesByIdUsagesList(
     id: number,
     parentId: number,
-    params: CommonParameters = {},
+    params: CommonParameters<Usage> = {},
   ): Promise<Array<Usage>> {
     return this.request({
       path: `/service/boards/${parentId}/subtypes/${id}/usages/list`,
@@ -1083,7 +1089,7 @@ export class ServiceAPI extends ManageBaseAPI {
 
   getServiceBoardsByParentIdSubtypesCount(
     parentId: number,
-    params: CommonParameters = {},
+    params: CommonParameters<Count> = {},
   ): Promise<Count> {
     return this.request({
       path: `/service/boards/${parentId}/subtypes/count`,
@@ -1094,7 +1100,7 @@ export class ServiceAPI extends ManageBaseAPI {
 
   getServiceBoardsByParentIdSubtypesInfo(
     parentId: number,
-    params: CommonParameters = {},
+    params: CommonParameters<BoardSubTypeInfo> = {},
   ): Promise<Array<BoardSubTypeInfo>> {
     return this.request({
       path: `/service/boards/${parentId}/subtypes/info`,
@@ -1105,7 +1111,7 @@ export class ServiceAPI extends ManageBaseAPI {
 
   getServiceBoardsByParentIdSubtypesInfoCount(
     parentId: number,
-    params: CommonParameters = {},
+    params: CommonParameters<Count> = {},
   ): Promise<Count> {
     return this.request({
       path: `/service/boards/${parentId}/subtypes/info/count`,
@@ -1116,7 +1122,7 @@ export class ServiceAPI extends ManageBaseAPI {
 
   getServiceBoardsByParentIdTeams(
     parentId: number,
-    params: CommonParameters = {},
+    params: CommonParameters<BoardTeam> = {},
   ): Promise<Array<BoardTeam>> {
     return this.request({
       path: `/service/boards/${parentId}/teams`,
@@ -1136,7 +1142,7 @@ export class ServiceAPI extends ManageBaseAPI {
   getServiceBoardsByParentIdTeamsById(
     id: number,
     parentId: number,
-    params: CommonParameters = {},
+    params: CommonParameters<BoardTeam> = {},
   ): Promise<BoardTeam> {
     return this.request({
       path: `/service/boards/${parentId}/teams/${id}`,
@@ -1179,7 +1185,7 @@ export class ServiceAPI extends ManageBaseAPI {
   getServiceBoardsByParentIdTeamsByIdInfo(
     id: number,
     parentId: number,
-    params: CommonParameters = {},
+    params: CommonParameters<BoardTeamInfo> = {},
   ): Promise<BoardTeamInfo> {
     return this.request({
       path: `/service/boards/${parentId}/teams/${id}/info`,
@@ -1191,7 +1197,7 @@ export class ServiceAPI extends ManageBaseAPI {
   getServiceBoardsByParentIdTeamsByIdUsagesList(
     id: number,
     parentId: number,
-    params: CommonParameters = {},
+    params: CommonParameters<Usage> = {},
   ): Promise<Array<Usage>> {
     return this.request({
       path: `/service/boards/${parentId}/teams/${id}/usages/list`,
@@ -1202,7 +1208,7 @@ export class ServiceAPI extends ManageBaseAPI {
 
   getServiceBoardsByParentIdTeamsCount(
     parentId: number,
-    params: CommonParameters = {},
+    params: CommonParameters<Count> = {},
   ): Promise<Count> {
     return this.request({
       path: `/service/boards/${parentId}/teams/count`,
@@ -1213,7 +1219,7 @@ export class ServiceAPI extends ManageBaseAPI {
 
   getServiceBoardsByParentIdTeamsInfo(
     parentId: number,
-    params: CommonParameters = {},
+    params: CommonParameters<BoardTeamInfo> = {},
   ): Promise<Array<BoardTeamInfo>> {
     return this.request({
       path: `/service/boards/${parentId}/teams/info`,
@@ -1224,7 +1230,7 @@ export class ServiceAPI extends ManageBaseAPI {
 
   getServiceBoardsByParentIdTeamsInfoCount(
     parentId: number,
-    params: CommonParameters = {},
+    params: CommonParameters<Count> = {},
   ): Promise<Count> {
     return this.request({
       path: `/service/boards/${parentId}/teams/info/count`,
@@ -1235,7 +1241,7 @@ export class ServiceAPI extends ManageBaseAPI {
 
   getServiceBoardsByParentIdTypes(
     parentId: number,
-    params: CommonParameters = {},
+    params: CommonParameters<BoardType> = {},
   ): Promise<Array<BoardType>> {
     return this.request({
       path: `/service/boards/${parentId}/types`,
@@ -1255,7 +1261,7 @@ export class ServiceAPI extends ManageBaseAPI {
   getServiceBoardsByParentIdTypesById(
     id: number,
     parentId: number,
-    params: CommonParameters = {},
+    params: CommonParameters<BoardType> = {},
   ): Promise<BoardType> {
     return this.request({
       path: `/service/boards/${parentId}/types/${id}`,
@@ -1298,7 +1304,7 @@ export class ServiceAPI extends ManageBaseAPI {
   getServiceBoardsByParentIdTypesByIdUsages(
     id: number,
     parentId: number,
-    params: CommonParameters = {},
+    params: CommonParameters<Usage> = {},
   ): Promise<Array<Usage>> {
     return this.request({
       path: `/service/boards/${parentId}/types/${id}/usages`,
@@ -1310,7 +1316,7 @@ export class ServiceAPI extends ManageBaseAPI {
   getServiceBoardsByParentIdTypesByIdUsagesList(
     id: number,
     parentId: number,
-    params: CommonParameters = {},
+    params: CommonParameters<Usage> = {},
   ): Promise<Array<Usage>> {
     return this.request({
       path: `/service/boards/${parentId}/types/${id}/usages/list`,
@@ -1321,7 +1327,7 @@ export class ServiceAPI extends ManageBaseAPI {
 
   getServiceBoardsByParentIdTypesCount(
     parentId: number,
-    params: CommonParameters = {},
+    params: CommonParameters<Count> = {},
   ): Promise<Count> {
     return this.request({
       path: `/service/boards/${parentId}/types/count`,
@@ -1332,7 +1338,7 @@ export class ServiceAPI extends ManageBaseAPI {
 
   getServiceBoardsByParentIdTypeSubTypeItemAssociations(
     parentId: number,
-    params: CommonParameters = {},
+    params: CommonParameters<BoardTypeSubTypeItemAssociation> = {},
   ): Promise<Array<BoardTypeSubTypeItemAssociation>> {
     return this.request({
       path: `/service/boards/${parentId}/typeSubTypeItemAssociations`,
@@ -1344,7 +1350,7 @@ export class ServiceAPI extends ManageBaseAPI {
   getServiceBoardsByParentIdTypeSubTypeItemAssociationsById(
     id: number,
     parentId: number,
-    params: CommonParameters = {},
+    params: CommonParameters<BoardTypeSubTypeItemAssociation> = {},
   ): Promise<BoardTypeSubTypeItemAssociation> {
     return this.request({
       path: `/service/boards/${parentId}/typeSubTypeItemAssociations/${id}`,
@@ -1355,7 +1361,7 @@ export class ServiceAPI extends ManageBaseAPI {
 
   getServiceBoardsByParentIdTypeSubTypeItemAssociationsCount(
     parentId: number,
-    params: CommonParameters = {},
+    params: CommonParameters<Count> = {},
   ): Promise<Count> {
     return this.request({
       path: `/service/boards/${parentId}/typeSubTypeItemAssociations/count`,
@@ -1372,7 +1378,7 @@ export class ServiceAPI extends ManageBaseAPI {
     })
   }
 
-  getServiceBoardsCount(params: CommonParameters = {}): Promise<Count> {
+  getServiceBoardsCount(params: CommonParameters<Count> = {}): Promise<Count> {
     return this.request({
       path: `/service/boards/count`,
       method: 'get',
@@ -1380,7 +1386,7 @@ export class ServiceAPI extends ManageBaseAPI {
     })
   }
 
-  getServiceCodes(params: CommonParameters = {}): Promise<Array<Code>> {
+  getServiceCodes(params: CommonParameters<Code> = {}): Promise<Array<Code>> {
     return this.request({
       path: `/service/codes`,
       method: 'get',
@@ -1396,7 +1402,7 @@ export class ServiceAPI extends ManageBaseAPI {
     })
   }
 
-  getServiceCodesById(id: number, params: CommonParameters = {}): Promise<Code> {
+  getServiceCodesById(id: number, params: CommonParameters<Code> = {}): Promise<Code> {
     return this.request({
       path: `/service/codes/${id}`,
       method: 'get',
@@ -1427,7 +1433,7 @@ export class ServiceAPI extends ManageBaseAPI {
     })
   }
 
-  getServiceCodesCount(params: CommonParameters = {}): Promise<Count> {
+  getServiceCodesCount(params: CommonParameters<Count> = {}): Promise<Count> {
     return this.request({
       path: `/service/codes/count`,
       method: 'get',
@@ -1435,7 +1441,9 @@ export class ServiceAPI extends ManageBaseAPI {
     })
   }
 
-  getServiceEmailTemplates(params: CommonParameters = {}): Promise<Array<ServiceEmailTemplate>> {
+  getServiceEmailTemplates(
+    params: CommonParameters<ServiceEmailTemplate> = {},
+  ): Promise<Array<ServiceEmailTemplate>> {
     return this.request({
       path: `/service/emailTemplates`,
       method: 'get',
@@ -1455,7 +1463,7 @@ export class ServiceAPI extends ManageBaseAPI {
 
   getServiceEmailTemplatesById(
     id: number,
-    params: CommonParameters = {},
+    params: CommonParameters<ServiceEmailTemplate> = {},
   ): Promise<ServiceEmailTemplate> {
     return this.request({
       path: `/service/emailTemplates/${id}`,
@@ -1495,7 +1503,7 @@ export class ServiceAPI extends ManageBaseAPI {
 
   getServiceEmailTemplatesByIdUsages(
     id: number,
-    params: CommonParameters = {},
+    params: CommonParameters<Usage> = {},
   ): Promise<Array<Usage>> {
     return this.request({
       path: `/service/emailTemplates/${id}/usages`,
@@ -1506,7 +1514,7 @@ export class ServiceAPI extends ManageBaseAPI {
 
   getServiceEmailTemplatesByIdUsagesList(
     id: number,
-    params: CommonParameters = {},
+    params: CommonParameters<Usage> = {},
   ): Promise<Array<Usage>> {
     return this.request({
       path: `/service/emailTemplates/${id}/usages/list`,
@@ -1515,7 +1523,7 @@ export class ServiceAPI extends ManageBaseAPI {
     })
   }
 
-  getServiceEmailTemplatesCount(params: CommonParameters = {}): Promise<Count> {
+  getServiceEmailTemplatesCount(params: CommonParameters<Count> = {}): Promise<Count> {
     return this.request({
       path: `/service/emailTemplates/count`,
       method: 'get',
@@ -1523,7 +1531,7 @@ export class ServiceAPI extends ManageBaseAPI {
     })
   }
 
-  getServiceImpacts(params: CommonParameters = {}): Promise<Array<Impact>> {
+  getServiceImpacts(params: CommonParameters<Impact> = {}): Promise<Array<Impact>> {
     return this.request({
       path: `/service/impacts`,
       method: 'get',
@@ -1531,7 +1539,7 @@ export class ServiceAPI extends ManageBaseAPI {
     })
   }
 
-  getServiceImpactsById(id: number, params: CommonParameters = {}): Promise<Impact> {
+  getServiceImpactsById(id: number, params: CommonParameters<Impact> = {}): Promise<Impact> {
     return this.request({
       path: `/service/impacts/${id}`,
       method: 'get',
@@ -1555,7 +1563,7 @@ export class ServiceAPI extends ManageBaseAPI {
     })
   }
 
-  getServiceImpactsCount(params: CommonParameters = {}): Promise<Count> {
+  getServiceImpactsCount(params: CommonParameters<Count> = {}): Promise<Count> {
     return this.request({
       path: `/service/impacts/count`,
       method: 'get',
@@ -1563,7 +1571,7 @@ export class ServiceAPI extends ManageBaseAPI {
     })
   }
 
-  getServiceInfoBoards(params: CommonParameters = {}): Promise<Array<BoardInfo>> {
+  getServiceInfoBoards(params: CommonParameters<BoardInfo> = {}): Promise<Array<BoardInfo>> {
     return this.request({
       path: `/service/info/boards`,
       method: 'get',
@@ -1571,7 +1579,10 @@ export class ServiceAPI extends ManageBaseAPI {
     })
   }
 
-  getServiceInfoBoardsById(id: number, params: CommonParameters = {}): Promise<BoardInfo> {
+  getServiceInfoBoardsById(
+    id: number,
+    params: CommonParameters<BoardInfo> = {},
+  ): Promise<BoardInfo> {
     return this.request({
       path: `/service/info/boards/${id}`,
       method: 'get',
@@ -1579,7 +1590,7 @@ export class ServiceAPI extends ManageBaseAPI {
     })
   }
 
-  getServiceInfoBoardsActive(params: CommonParameters = {}): Promise<Array<BoardInfo>> {
+  getServiceInfoBoardsActive(params: CommonParameters<BoardInfo> = {}): Promise<Array<BoardInfo>> {
     return this.request({
       path: `/service/info/boards/active`,
       method: 'get',
@@ -1587,7 +1598,7 @@ export class ServiceAPI extends ManageBaseAPI {
     })
   }
 
-  getServiceInfoBoardsCount(params: CommonParameters = {}): Promise<Count> {
+  getServiceInfoBoardsCount(params: CommonParameters<Count> = {}): Promise<Count> {
     return this.request({
       path: `/service/info/boards/count`,
       method: 'get',
@@ -1595,7 +1606,9 @@ export class ServiceAPI extends ManageBaseAPI {
     })
   }
 
-  getServiceInfoBoardtypes(params: CommonParameters = {}): Promise<Array<BoardTypeInfo>> {
+  getServiceInfoBoardtypes(
+    params: CommonParameters<BoardTypeInfo> = {},
+  ): Promise<Array<BoardTypeInfo>> {
     return this.request({
       path: `/service/info/boardtypes`,
       method: 'get',
@@ -1603,7 +1616,10 @@ export class ServiceAPI extends ManageBaseAPI {
     })
   }
 
-  getServiceInfoBoardtypesById(id: number, params: CommonParameters = {}): Promise<BoardTypeInfo> {
+  getServiceInfoBoardtypesById(
+    id: number,
+    params: CommonParameters<BoardTypeInfo> = {},
+  ): Promise<BoardTypeInfo> {
     return this.request({
       path: `/service/info/boardtypes/${id}`,
       method: 'get',
@@ -1611,7 +1627,7 @@ export class ServiceAPI extends ManageBaseAPI {
     })
   }
 
-  getServiceInfoBoardtypesCount(params: CommonParameters = {}): Promise<Count> {
+  getServiceInfoBoardtypesCount(params: CommonParameters<Count> = {}): Promise<Count> {
     return this.request({
       path: `/service/info/boardtypes/count`,
       method: 'get',
@@ -1620,7 +1636,7 @@ export class ServiceAPI extends ManageBaseAPI {
   }
 
   getServiceKnowledgeBaseArticles(
-    params: CommonParameters = {},
+    params: CommonParameters<KnowledgeBaseArticle> = {},
   ): Promise<Array<KnowledgeBaseArticle>> {
     return this.request({
       path: `/service/knowledgeBaseArticles`,
@@ -1641,7 +1657,7 @@ export class ServiceAPI extends ManageBaseAPI {
 
   getServiceKnowledgeBaseArticlesById(
     id: number,
-    params: CommonParameters = {},
+    params: CommonParameters<KnowledgeBaseArticle> = {},
   ): Promise<KnowledgeBaseArticle> {
     return this.request({
       path: `/service/knowledgeBaseArticles/${id}`,
@@ -1679,7 +1695,7 @@ export class ServiceAPI extends ManageBaseAPI {
     })
   }
 
-  getServiceKnowledgeBaseArticlesCount(params: CommonParameters = {}): Promise<Count> {
+  getServiceKnowledgeBaseArticlesCount(params: CommonParameters<Count> = {}): Promise<Count> {
     return this.request({
       path: `/service/knowledgeBaseArticles/count`,
       method: 'get',
@@ -1688,7 +1704,7 @@ export class ServiceAPI extends ManageBaseAPI {
   }
 
   getServiceKnowledgeBaseCategories(
-    params: CommonParameters = {},
+    params: CommonParameters<KnowledgeBaseCategory> = {},
   ): Promise<Array<KnowledgeBaseCategory>> {
     return this.request({
       path: `/service/knowledgeBaseCategories`,
@@ -1709,7 +1725,7 @@ export class ServiceAPI extends ManageBaseAPI {
 
   getServiceKnowledgeBaseCategoriesById(
     id: number,
-    params: CommonParameters = {},
+    params: CommonParameters<KnowledgeBaseCategory> = {},
   ): Promise<KnowledgeBaseCategory> {
     return this.request({
       path: `/service/knowledgeBaseCategories/${id}`,
@@ -1747,7 +1763,7 @@ export class ServiceAPI extends ManageBaseAPI {
     })
   }
 
-  getServiceKnowledgeBaseCategoriesCount(params: CommonParameters = {}): Promise<Count> {
+  getServiceKnowledgeBaseCategoriesCount(params: CommonParameters<Count> = {}): Promise<Count> {
     return this.request({
       path: `/service/knowledgeBaseCategories/count`,
       method: 'get',
@@ -1755,7 +1771,9 @@ export class ServiceAPI extends ManageBaseAPI {
     })
   }
 
-  getServiceKnowledgebasesettings(params: CommonParameters = {}): Promise<KnowledgeBaseSettings> {
+  getServiceKnowledgebasesettings(
+    params: CommonParameters<KnowledgeBaseSettings> = {},
+  ): Promise<KnowledgeBaseSettings> {
     return this.request({
       path: `/service/knowledgebasesettings`,
       method: 'get',
@@ -1775,7 +1793,7 @@ export class ServiceAPI extends ManageBaseAPI {
 
   getServiceKnowledgebasesettingsById(
     id: number,
-    params: CommonParameters = {},
+    params: CommonParameters<KnowledgeBaseSettings> = {},
   ): Promise<KnowledgeBaseSettings> {
     return this.request({
       path: `/service/knowledgebasesettings/${id}`,
@@ -1807,7 +1825,7 @@ export class ServiceAPI extends ManageBaseAPI {
   }
 
   getServiceKnowledgeBaseSubCategories(
-    params: CommonParameters = {},
+    params: CommonParameters<KnowledgeBaseSubCategory> = {},
   ): Promise<Array<KnowledgeBaseSubCategory>> {
     return this.request({
       path: `/service/knowledgeBaseSubCategories`,
@@ -1828,7 +1846,7 @@ export class ServiceAPI extends ManageBaseAPI {
 
   getServiceKnowledgeBaseSubCategoriesById(
     id: number,
-    params: CommonParameters = {},
+    params: CommonParameters<KnowledgeBaseSubCategory> = {},
   ): Promise<KnowledgeBaseSubCategory> {
     return this.request({
       path: `/service/knowledgeBaseSubCategories/${id}`,
@@ -1868,7 +1886,7 @@ export class ServiceAPI extends ManageBaseAPI {
 
   getServiceKnowledgeBaseSubCategoriesByIdUsages(
     id: number,
-    params: CommonParameters = {},
+    params: CommonParameters<Usage> = {},
   ): Promise<Array<Usage>> {
     return this.request({
       path: `/service/knowledgeBaseSubCategories/${id}/usages`,
@@ -1879,7 +1897,7 @@ export class ServiceAPI extends ManageBaseAPI {
 
   getServiceKnowledgeBaseSubCategoriesByIdUsagesList(
     id: number,
-    params: CommonParameters = {},
+    params: CommonParameters<Usage> = {},
   ): Promise<Array<Usage>> {
     return this.request({
       path: `/service/knowledgeBaseSubCategories/${id}/usages/list`,
@@ -1888,7 +1906,7 @@ export class ServiceAPI extends ManageBaseAPI {
     })
   }
 
-  getServiceKnowledgeBaseSubCategoriesCount(params: CommonParameters = {}): Promise<Count> {
+  getServiceKnowledgeBaseSubCategoriesCount(params: CommonParameters<Count> = {}): Promise<Count> {
     return this.request({
       path: `/service/knowledgeBaseSubCategories/count`,
       method: 'get',
@@ -1896,7 +1914,9 @@ export class ServiceAPI extends ManageBaseAPI {
     })
   }
 
-  getServiceLocations(params: CommonParameters = {}): Promise<Array<ServiceLocation>> {
+  getServiceLocations(
+    params: CommonParameters<ServiceLocation> = {},
+  ): Promise<Array<ServiceLocation>> {
     return this.request({
       path: `/service/locations`,
       method: 'get',
@@ -1912,7 +1932,10 @@ export class ServiceAPI extends ManageBaseAPI {
     })
   }
 
-  getServiceLocationsById(id: number, params: CommonParameters = {}): Promise<ServiceLocation> {
+  getServiceLocationsById(
+    id: number,
+    params: CommonParameters<ServiceLocation> = {},
+  ): Promise<ServiceLocation> {
     return this.request({
       path: `/service/locations/${id}`,
       method: 'get',
@@ -1948,7 +1971,7 @@ export class ServiceAPI extends ManageBaseAPI {
 
   getServiceLocationsByIdInfo(
     id: number,
-    params: CommonParameters = {},
+    params: CommonParameters<ServiceLocationInfo> = {},
   ): Promise<ServiceLocationInfo> {
     return this.request({
       path: `/service/locations/${id}/info`,
@@ -1957,7 +1980,10 @@ export class ServiceAPI extends ManageBaseAPI {
     })
   }
 
-  getServiceLocationsByIdUsages(id: number, params: CommonParameters = {}): Promise<Array<Usage>> {
+  getServiceLocationsByIdUsages(
+    id: number,
+    params: CommonParameters<Usage> = {},
+  ): Promise<Array<Usage>> {
     return this.request({
       path: `/service/locations/${id}/usages`,
       method: 'get',
@@ -1967,7 +1993,7 @@ export class ServiceAPI extends ManageBaseAPI {
 
   getServiceLocationsByIdUsagesList(
     id: number,
-    params: CommonParameters = {},
+    params: CommonParameters<Usage> = {},
   ): Promise<Array<Usage>> {
     return this.request({
       path: `/service/locations/${id}/usages/list`,
@@ -1976,7 +2002,7 @@ export class ServiceAPI extends ManageBaseAPI {
     })
   }
 
-  getServiceLocationsCount(params: CommonParameters = {}): Promise<Count> {
+  getServiceLocationsCount(params: CommonParameters<Count> = {}): Promise<Count> {
     return this.request({
       path: `/service/locations/count`,
       method: 'get',
@@ -1984,7 +2010,9 @@ export class ServiceAPI extends ManageBaseAPI {
     })
   }
 
-  getServiceLocationsInfo(params: CommonParameters = {}): Promise<Array<ServiceLocationInfo>> {
+  getServiceLocationsInfo(
+    params: CommonParameters<ServiceLocationInfo> = {},
+  ): Promise<Array<ServiceLocationInfo>> {
     return this.request({
       path: `/service/locations/info`,
       method: 'get',
@@ -1992,7 +2020,7 @@ export class ServiceAPI extends ManageBaseAPI {
     })
   }
 
-  getServiceLocationsInfoCount(params: CommonParameters = {}): Promise<Count> {
+  getServiceLocationsInfoCount(params: CommonParameters<Count> = {}): Promise<Count> {
     return this.request({
       path: `/service/locations/info/count`,
       method: 'get',
@@ -2000,7 +2028,7 @@ export class ServiceAPI extends ManageBaseAPI {
     })
   }
 
-  getServicePriorities(params: CommonParameters = {}): Promise<Array<Priority>> {
+  getServicePriorities(params: CommonParameters<Priority> = {}): Promise<Array<Priority>> {
     return this.request({
       path: `/service/priorities`,
       method: 'get',
@@ -2016,7 +2044,7 @@ export class ServiceAPI extends ManageBaseAPI {
     })
   }
 
-  getServicePrioritiesById(id: number, params: CommonParameters = {}): Promise<Priority> {
+  getServicePrioritiesById(id: number, params: CommonParameters<Priority> = {}): Promise<Priority> {
     return this.request({
       path: `/service/priorities/${id}`,
       method: 'get',
@@ -2052,7 +2080,7 @@ export class ServiceAPI extends ManageBaseAPI {
 
   getServicePrioritiesByIdImage(
     id: number,
-    params: CommonParameters = {},
+    params: CommonParameters<OctetStreamResponse> = {},
   ): Promise<OctetStreamResponse> {
     return this.request({
       path: `/service/priorities/${id}/image`,
@@ -2061,7 +2089,10 @@ export class ServiceAPI extends ManageBaseAPI {
     })
   }
 
-  getServicePrioritiesByIdUsages(id: number, params: CommonParameters = {}): Promise<Array<Usage>> {
+  getServicePrioritiesByIdUsages(
+    id: number,
+    params: CommonParameters<Usage> = {},
+  ): Promise<Array<Usage>> {
     return this.request({
       path: `/service/priorities/${id}/usages`,
       method: 'get',
@@ -2071,7 +2102,7 @@ export class ServiceAPI extends ManageBaseAPI {
 
   getServicePrioritiesByIdUsagesList(
     id: number,
-    params: CommonParameters = {},
+    params: CommonParameters<Usage> = {},
   ): Promise<Array<Usage>> {
     return this.request({
       path: `/service/priorities/${id}/usages/list`,
@@ -2080,7 +2111,7 @@ export class ServiceAPI extends ManageBaseAPI {
     })
   }
 
-  getServicePrioritiesCount(params: CommonParameters = {}): Promise<Count> {
+  getServicePrioritiesCount(params: CommonParameters<Count> = {}): Promise<Count> {
     return this.request({
       path: `/service/priorities/count`,
       method: 'get',
@@ -2088,7 +2119,10 @@ export class ServiceAPI extends ManageBaseAPI {
     })
   }
 
-  getServicePriorityByIdInfo(id: number, params: CommonParameters = {}): Promise<PriorityInfo> {
+  getServicePriorityByIdInfo(
+    id: number,
+    params: CommonParameters<PriorityInfo> = {},
+  ): Promise<PriorityInfo> {
     return this.request({
       path: `/service/priority/${id}/info`,
       method: 'get',
@@ -2096,7 +2130,9 @@ export class ServiceAPI extends ManageBaseAPI {
     })
   }
 
-  getServicePriorityInfo(params: CommonParameters = {}): Promise<Array<PriorityInfo>> {
+  getServicePriorityInfo(
+    params: CommonParameters<PriorityInfo> = {},
+  ): Promise<Array<PriorityInfo>> {
     return this.request({
       path: `/service/priority/info`,
       method: 'get',
@@ -2106,7 +2142,7 @@ export class ServiceAPI extends ManageBaseAPI {
 
   getServiceSchedulingMembersByIdInfo(
     id: number,
-    params: CommonParameters = {},
+    params: CommonParameters<SchedulingMemberInfo> = {},
   ): Promise<SchedulingMemberInfo> {
     return this.request({
       path: `/service/scheduling/members/${id}/info`,
@@ -2116,7 +2152,7 @@ export class ServiceAPI extends ManageBaseAPI {
   }
 
   getServiceSchedulingMembersInfo(
-    params: CommonParameters = {},
+    params: CommonParameters<SchedulingMemberInfo> = {},
   ): Promise<Array<SchedulingMemberInfo>> {
     return this.request({
       path: `/service/scheduling/members/info`,
@@ -2125,7 +2161,7 @@ export class ServiceAPI extends ManageBaseAPI {
     })
   }
 
-  getServiceSchedulingMembersInfoCount(params: CommonParameters = {}): Promise<Count> {
+  getServiceSchedulingMembersInfoCount(params: CommonParameters<Count> = {}): Promise<Count> {
     return this.request({
       path: `/service/scheduling/members/info/count`,
       method: 'get',
@@ -2133,7 +2169,9 @@ export class ServiceAPI extends ManageBaseAPI {
     })
   }
 
-  getServiceServiceSignoff(params: CommonParameters = {}): Promise<Array<ServiceSignoff>> {
+  getServiceServiceSignoff(
+    params: CommonParameters<ServiceSignoff> = {},
+  ): Promise<Array<ServiceSignoff>> {
     return this.request({
       path: `/service/serviceSignoff`,
       method: 'get',
@@ -2149,7 +2187,10 @@ export class ServiceAPI extends ManageBaseAPI {
     })
   }
 
-  getServiceServiceSignoffById(id: number, params: CommonParameters = {}): Promise<ServiceSignoff> {
+  getServiceServiceSignoffById(
+    id: number,
+    params: CommonParameters<ServiceSignoff> = {},
+  ): Promise<ServiceSignoff> {
     return this.request({
       path: `/service/serviceSignoff/${id}`,
       method: 'get',
@@ -2188,7 +2229,7 @@ export class ServiceAPI extends ManageBaseAPI {
 
   getServiceServiceSignoffByIdInfo(
     id: number,
-    params: CommonParameters = {},
+    params: CommonParameters<ServiceSignoffInfo> = {},
   ): Promise<ServiceSignoffInfo> {
     return this.request({
       path: `/service/serviceSignoff/${id}/info`,
@@ -2199,7 +2240,7 @@ export class ServiceAPI extends ManageBaseAPI {
 
   getServiceServiceSignoffByIdUsages(
     id: number,
-    params: CommonParameters = {},
+    params: CommonParameters<Usage> = {},
   ): Promise<Array<Usage>> {
     return this.request({
       path: `/service/serviceSignoff/${id}/usages`,
@@ -2210,7 +2251,7 @@ export class ServiceAPI extends ManageBaseAPI {
 
   getServiceServiceSignoffByIdUsagesList(
     id: number,
-    params: CommonParameters = {},
+    params: CommonParameters<Usage> = {},
   ): Promise<Array<Usage>> {
     return this.request({
       path: `/service/serviceSignoff/${id}/usages/list`,
@@ -2221,7 +2262,7 @@ export class ServiceAPI extends ManageBaseAPI {
 
   getServiceServiceSignoffByParentIdSignoffcustomfields(
     parentId: number,
-    params: CommonParameters = {},
+    params: CommonParameters<ServiceSignoffCustomField> = {},
   ): Promise<Array<ServiceSignoffCustomField>> {
     return this.request({
       path: `/service/serviceSignoff/${parentId}/signoffcustomfields`,
@@ -2244,7 +2285,7 @@ export class ServiceAPI extends ManageBaseAPI {
   getServiceServiceSignoffByParentIdSignoffcustomfieldsById(
     id: number,
     parentId: number,
-    params: CommonParameters = {},
+    params: CommonParameters<ServiceSignoffCustomField> = {},
   ): Promise<ServiceSignoffCustomField> {
     return this.request({
       path: `/service/serviceSignoff/${parentId}/signoffcustomfields/${id}`,
@@ -2289,7 +2330,7 @@ export class ServiceAPI extends ManageBaseAPI {
 
   getServiceServiceSignoffByParentIdSignoffcustomfieldsCount(
     parentId: number,
-    params: CommonParameters = {},
+    params: CommonParameters<Count> = {},
   ): Promise<Count> {
     return this.request({
       path: `/service/serviceSignoff/${parentId}/signoffcustomfields/count`,
@@ -2298,7 +2339,7 @@ export class ServiceAPI extends ManageBaseAPI {
     })
   }
 
-  getServiceServiceSignoffCount(params: CommonParameters = {}): Promise<Count> {
+  getServiceServiceSignoffCount(params: CommonParameters<Count> = {}): Promise<Count> {
     return this.request({
       path: `/service/serviceSignoff/count`,
       method: 'get',
@@ -2306,7 +2347,9 @@ export class ServiceAPI extends ManageBaseAPI {
     })
   }
 
-  getServiceServiceSignoffInfo(params: CommonParameters = {}): Promise<Array<ServiceSignoffInfo>> {
+  getServiceServiceSignoffInfo(
+    params: CommonParameters<ServiceSignoffInfo> = {},
+  ): Promise<Array<ServiceSignoffInfo>> {
     return this.request({
       path: `/service/serviceSignoff/info`,
       method: 'get',
@@ -2314,7 +2357,7 @@ export class ServiceAPI extends ManageBaseAPI {
     })
   }
 
-  getServiceServiceSignoffInfoCount(params: CommonParameters = {}): Promise<Count> {
+  getServiceServiceSignoffInfoCount(params: CommonParameters<Count> = {}): Promise<Count> {
     return this.request({
       path: `/service/serviceSignoff/info/count`,
       method: 'get',
@@ -2322,7 +2365,7 @@ export class ServiceAPI extends ManageBaseAPI {
     })
   }
 
-  getServiceSeverities(params: CommonParameters = {}): Promise<Array<Severity>> {
+  getServiceSeverities(params: CommonParameters<Severity> = {}): Promise<Array<Severity>> {
     return this.request({
       path: `/service/severities`,
       method: 'get',
@@ -2330,7 +2373,7 @@ export class ServiceAPI extends ManageBaseAPI {
     })
   }
 
-  getServiceSeveritiesById(id: number, params: CommonParameters = {}): Promise<Severity> {
+  getServiceSeveritiesById(id: number, params: CommonParameters<Severity> = {}): Promise<Severity> {
     return this.request({
       path: `/service/severities/${id}`,
       method: 'get',
@@ -2357,7 +2400,7 @@ export class ServiceAPI extends ManageBaseAPI {
     })
   }
 
-  getServiceSeveritiesCount(params: CommonParameters = {}): Promise<Count> {
+  getServiceSeveritiesCount(params: CommonParameters<Count> = {}): Promise<Count> {
     return this.request({
       path: `/service/severities/count`,
       method: 'get',
@@ -2365,7 +2408,7 @@ export class ServiceAPI extends ManageBaseAPI {
     })
   }
 
-  getServiceSLAs(params: CommonParameters = {}): Promise<Array<SLA>> {
+  getServiceSLAs(params: CommonParameters<SLA> = {}): Promise<Array<SLA>> {
     return this.request({
       path: `/service/SLAs`,
       method: 'get',
@@ -2381,7 +2424,7 @@ export class ServiceAPI extends ManageBaseAPI {
     })
   }
 
-  getServiceSLAsById(id: number, params: CommonParameters = {}): Promise<SLA> {
+  getServiceSLAsById(id: number, params: CommonParameters<SLA> = {}): Promise<SLA> {
     return this.request({
       path: `/service/SLAs/${id}`,
       method: 'get',
@@ -2412,7 +2455,7 @@ export class ServiceAPI extends ManageBaseAPI {
     })
   }
 
-  getServiceSlasByIdInfo(id: number, params: CommonParameters = {}): Promise<SLAInfo> {
+  getServiceSlasByIdInfo(id: number, params: CommonParameters<SLAInfo> = {}): Promise<SLAInfo> {
     return this.request({
       path: `/service/slas/${id}/info`,
       method: 'get',
@@ -2420,7 +2463,10 @@ export class ServiceAPI extends ManageBaseAPI {
     })
   }
 
-  getServiceSLAsByIdUsages(id: number, params: CommonParameters = {}): Promise<Array<Usage>> {
+  getServiceSLAsByIdUsages(
+    id: number,
+    params: CommonParameters<Usage> = {},
+  ): Promise<Array<Usage>> {
     return this.request({
       path: `/service/SLAs/${id}/usages`,
       method: 'get',
@@ -2428,7 +2474,10 @@ export class ServiceAPI extends ManageBaseAPI {
     })
   }
 
-  getServiceSLAsByIdUsagesList(id: number, params: CommonParameters = {}): Promise<Array<Usage>> {
+  getServiceSLAsByIdUsagesList(
+    id: number,
+    params: CommonParameters<Usage> = {},
+  ): Promise<Array<Usage>> {
     return this.request({
       path: `/service/SLAs/${id}/usages/list`,
       method: 'get',
@@ -2438,7 +2487,7 @@ export class ServiceAPI extends ManageBaseAPI {
 
   getServiceSLAsByParentIdPriorities(
     parentId: number,
-    params: CommonParameters = {},
+    params: CommonParameters<SLAPriority> = {},
   ): Promise<Array<SLAPriority>> {
     return this.request({
       path: `/service/SLAs/${parentId}/priorities`,
@@ -2461,7 +2510,7 @@ export class ServiceAPI extends ManageBaseAPI {
   getServiceSLAsByParentIdPrioritiesById(
     id: number,
     parentId: number,
-    params: CommonParameters = {},
+    params: CommonParameters<SLAPriority> = {},
   ): Promise<SLAPriority> {
     return this.request({
       path: `/service/SLAs/${parentId}/priorities/${id}`,
@@ -2506,7 +2555,7 @@ export class ServiceAPI extends ManageBaseAPI {
 
   getServiceSLAsByParentIdPrioritiesCount(
     parentId: number,
-    params: CommonParameters = {},
+    params: CommonParameters<Count> = {},
   ): Promise<Count> {
     return this.request({
       path: `/service/SLAs/${parentId}/priorities/count`,
@@ -2515,7 +2564,7 @@ export class ServiceAPI extends ManageBaseAPI {
     })
   }
 
-  getServiceSLAsCount(params: CommonParameters = {}): Promise<Count> {
+  getServiceSLAsCount(params: CommonParameters<Count> = {}): Promise<Count> {
     return this.request({
       path: `/service/SLAs/count`,
       method: 'get',
@@ -2523,7 +2572,7 @@ export class ServiceAPI extends ManageBaseAPI {
     })
   }
 
-  getServiceSlasInfo(params: CommonParameters = {}): Promise<Array<SLAInfo>> {
+  getServiceSlasInfo(params: CommonParameters<SLAInfo> = {}): Promise<Array<SLAInfo>> {
     return this.request({
       path: `/service/slas/info`,
       method: 'get',
@@ -2531,7 +2580,7 @@ export class ServiceAPI extends ManageBaseAPI {
     })
   }
 
-  getServiceSLAsInfoCount(params: CommonParameters = {}): Promise<Count> {
+  getServiceSLAsInfoCount(params: CommonParameters<Count> = {}): Promise<Count> {
     return this.request({
       path: `/service/SLAs/info/count`,
       method: 'get',
@@ -2539,7 +2588,7 @@ export class ServiceAPI extends ManageBaseAPI {
     })
   }
 
-  getServiceSources(params: CommonParameters = {}): Promise<Array<Source>> {
+  getServiceSources(params: CommonParameters<Source> = {}): Promise<Array<Source>> {
     return this.request({
       path: `/service/sources`,
       method: 'get',
@@ -2555,7 +2604,7 @@ export class ServiceAPI extends ManageBaseAPI {
     })
   }
 
-  getServiceSourcesById(id: number, params: CommonParameters = {}): Promise<Source> {
+  getServiceSourcesById(id: number, params: CommonParameters<Source> = {}): Promise<Source> {
     return this.request({
       path: `/service/sources/${id}`,
       method: 'get',
@@ -2586,7 +2635,10 @@ export class ServiceAPI extends ManageBaseAPI {
     })
   }
 
-  getServiceSourcesByIdInfo(id: number, params: CommonParameters = {}): Promise<SourceInfo> {
+  getServiceSourcesByIdInfo(
+    id: number,
+    params: CommonParameters<SourceInfo> = {},
+  ): Promise<SourceInfo> {
     return this.request({
       path: `/service/sources/${id}/info`,
       method: 'get',
@@ -2594,7 +2646,10 @@ export class ServiceAPI extends ManageBaseAPI {
     })
   }
 
-  getServiceSourcesByIdUsages(id: number, params: CommonParameters = {}): Promise<Array<Usage>> {
+  getServiceSourcesByIdUsages(
+    id: number,
+    params: CommonParameters<Usage> = {},
+  ): Promise<Array<Usage>> {
     return this.request({
       path: `/service/sources/${id}/usages`,
       method: 'get',
@@ -2604,7 +2659,7 @@ export class ServiceAPI extends ManageBaseAPI {
 
   getServiceSourcesByIdUsagesList(
     id: number,
-    params: CommonParameters = {},
+    params: CommonParameters<Usage> = {},
   ): Promise<Array<Usage>> {
     return this.request({
       path: `/service/sources/${id}/usages/list`,
@@ -2613,7 +2668,7 @@ export class ServiceAPI extends ManageBaseAPI {
     })
   }
 
-  getServiceSourcesCount(params: CommonParameters = {}): Promise<Count> {
+  getServiceSourcesCount(params: CommonParameters<Count> = {}): Promise<Count> {
     return this.request({
       path: `/service/sources/count`,
       method: 'get',
@@ -2621,7 +2676,7 @@ export class ServiceAPI extends ManageBaseAPI {
     })
   }
 
-  getServiceSourcesInfo(params: CommonParameters = {}): Promise<Array<SourceInfo>> {
+  getServiceSourcesInfo(params: CommonParameters<SourceInfo> = {}): Promise<Array<SourceInfo>> {
     return this.request({
       path: `/service/sources/info`,
       method: 'get',
@@ -2629,7 +2684,7 @@ export class ServiceAPI extends ManageBaseAPI {
     })
   }
 
-  getServiceSourcesInfoCount(params: CommonParameters = {}): Promise<Count> {
+  getServiceSourcesInfoCount(params: CommonParameters<Count> = {}): Promise<Count> {
     return this.request({
       path: `/service/sources/info/count`,
       method: 'get',
@@ -2637,7 +2692,7 @@ export class ServiceAPI extends ManageBaseAPI {
     })
   }
 
-  getServiceSurveys(params: CommonParameters = {}): Promise<Array<ServiceSurvey>> {
+  getServiceSurveys(params: CommonParameters<ServiceSurvey> = {}): Promise<Array<ServiceSurvey>> {
     return this.request({
       path: `/service/surveys`,
       method: 'get',
@@ -2656,7 +2711,7 @@ export class ServiceAPI extends ManageBaseAPI {
   getServiceSurveysByGrandparentIdQuestionsByParentIdOptions(
     parentId: number,
     grandparentId: number,
-    params: CommonParameters = {},
+    params: CommonParameters<SurveyOption> = {},
   ): Promise<Array<SurveyOption>> {
     return this.request({
       path: `/service/surveys/${grandparentId}/questions/${parentId}/options`,
@@ -2681,7 +2736,7 @@ export class ServiceAPI extends ManageBaseAPI {
     id: number,
     parentId: number,
     grandparentId: number,
-    params: CommonParameters = {},
+    params: CommonParameters<SurveyOption> = {},
   ): Promise<SurveyOption> {
     return this.request({
       path: `/service/surveys/${grandparentId}/questions/${parentId}/options/${id}`,
@@ -2730,7 +2785,7 @@ export class ServiceAPI extends ManageBaseAPI {
   getServiceSurveysByGrandparentIdQuestionsByParentIdOptionsCount(
     parentId: number,
     grandparentId: number,
-    params: CommonParameters = {},
+    params: CommonParameters<Count> = {},
   ): Promise<Count> {
     return this.request({
       path: `/service/surveys/${grandparentId}/questions/${parentId}/options/count`,
@@ -2739,7 +2794,10 @@ export class ServiceAPI extends ManageBaseAPI {
     })
   }
 
-  getServiceSurveysById(id: number, params: CommonParameters = {}): Promise<ServiceSurvey> {
+  getServiceSurveysById(
+    id: number,
+    params: CommonParameters<ServiceSurvey> = {},
+  ): Promise<ServiceSurvey> {
     return this.request({
       path: `/service/surveys/${id}`,
       method: 'get',
@@ -2780,7 +2838,10 @@ export class ServiceAPI extends ManageBaseAPI {
     })
   }
 
-  getServiceSurveysByIdUsages(id: number, params: CommonParameters = {}): Promise<Array<Usage>> {
+  getServiceSurveysByIdUsages(
+    id: number,
+    params: CommonParameters<Usage> = {},
+  ): Promise<Array<Usage>> {
     return this.request({
       path: `/service/surveys/${id}/usages`,
       method: 'get',
@@ -2790,7 +2851,7 @@ export class ServiceAPI extends ManageBaseAPI {
 
   getServiceSurveysByIdUsagesList(
     id: number,
-    params: CommonParameters = {},
+    params: CommonParameters<Usage> = {},
   ): Promise<Array<Usage>> {
     return this.request({
       path: `/service/surveys/${id}/usages/list`,
@@ -2801,7 +2862,7 @@ export class ServiceAPI extends ManageBaseAPI {
 
   getServiceSurveysByParentIdQuestions(
     parentId: number,
-    params: CommonParameters = {},
+    params: CommonParameters<ServiceSurveyQuestion> = {},
   ): Promise<Array<ServiceSurveyQuestion>> {
     return this.request({
       path: `/service/surveys/${parentId}/questions`,
@@ -2824,7 +2885,7 @@ export class ServiceAPI extends ManageBaseAPI {
   getServiceSurveysByParentIdQuestionsById(
     id: number,
     parentId: number,
-    params: CommonParameters = {},
+    params: CommonParameters<ServiceSurveyQuestion> = {},
   ): Promise<ServiceSurveyQuestion> {
     return this.request({
       path: `/service/surveys/${parentId}/questions/${id}`,
@@ -2879,7 +2940,7 @@ export class ServiceAPI extends ManageBaseAPI {
 
   getServiceSurveysByParentIdQuestionsCount(
     parentId: number,
-    params: CommonParameters = {},
+    params: CommonParameters<Count> = {},
   ): Promise<Count> {
     return this.request({
       path: `/service/surveys/${parentId}/questions/count`,
@@ -2890,7 +2951,7 @@ export class ServiceAPI extends ManageBaseAPI {
 
   getServiceSurveysByParentIdResults(
     parentId: number,
-    params: CommonParameters = {},
+    params: CommonParameters<SurveyResult> = {},
   ): Promise<Array<SurveyResult>> {
     return this.request({
       path: `/service/surveys/${parentId}/results`,
@@ -2913,7 +2974,7 @@ export class ServiceAPI extends ManageBaseAPI {
   getServiceSurveysByParentIdResultsById(
     id: number,
     parentId: number,
-    params: CommonParameters = {},
+    params: CommonParameters<SurveyResult> = {},
   ): Promise<SurveyResult> {
     return this.request({
       path: `/service/surveys/${parentId}/results/${id}`,
@@ -2958,7 +3019,7 @@ export class ServiceAPI extends ManageBaseAPI {
 
   getServiceSurveysByParentIdResultsCount(
     parentId: number,
-    params: CommonParameters = {},
+    params: CommonParameters<Count> = {},
   ): Promise<Count> {
     return this.request({
       path: `/service/surveys/${parentId}/results/count`,
@@ -2967,7 +3028,7 @@ export class ServiceAPI extends ManageBaseAPI {
     })
   }
 
-  getServiceSurveysCount(params: CommonParameters = {}): Promise<Count> {
+  getServiceSurveysCount(params: CommonParameters<Count> = {}): Promise<Count> {
     return this.request({
       path: `/service/surveys/count`,
       method: 'get',
@@ -2983,7 +3044,7 @@ export class ServiceAPI extends ManageBaseAPI {
     })
   }
 
-  getServiceTeams(params: CommonParameters = {}): Promise<Array<ServiceTeam>> {
+  getServiceTeams(params: CommonParameters<ServiceTeam> = {}): Promise<Array<ServiceTeam>> {
     return this.request({
       path: `/service/teams`,
       method: 'get',
@@ -2991,7 +3052,10 @@ export class ServiceAPI extends ManageBaseAPI {
     })
   }
 
-  getServiceTeamsById(id: number, params: CommonParameters = {}): Promise<ServiceTeam> {
+  getServiceTeamsById(
+    id: number,
+    params: CommonParameters<ServiceTeam> = {},
+  ): Promise<ServiceTeam> {
     return this.request({
       path: `/service/teams/${id}`,
       method: 'get',
@@ -2999,7 +3063,7 @@ export class ServiceAPI extends ManageBaseAPI {
     })
   }
 
-  getServiceTeamsCount(params: CommonParameters = {}): Promise<Count> {
+  getServiceTeamsCount(params: CommonParameters<Count> = {}): Promise<Count> {
     return this.request({
       path: `/service/teams/count`,
       method: 'get',
@@ -3007,7 +3071,9 @@ export class ServiceAPI extends ManageBaseAPI {
     })
   }
 
-  getServiceTemplates(params: CommonParameters = {}): Promise<Array<ServiceTemplate>> {
+  getServiceTemplates(
+    params: CommonParameters<ServiceTemplate> = {},
+  ): Promise<Array<ServiceTemplate>> {
     return this.request({
       path: `/service/templates`,
       method: 'get',
@@ -3023,7 +3089,10 @@ export class ServiceAPI extends ManageBaseAPI {
     })
   }
 
-  getServiceTemplatesById(id: number, params: CommonParameters = {}): Promise<ServiceTemplate> {
+  getServiceTemplatesById(
+    id: number,
+    params: CommonParameters<ServiceTemplate> = {},
+  ): Promise<ServiceTemplate> {
     return this.request({
       path: `/service/templates/${id}`,
       method: 'get',
@@ -3070,7 +3139,7 @@ export class ServiceAPI extends ManageBaseAPI {
 
   getServiceTemplatesByIdInfo(
     id: number,
-    params: CommonParameters = {},
+    params: CommonParameters<ServiceTemplateInfo> = {},
   ): Promise<ServiceTemplateInfo> {
     return this.request({
       path: `/service/templates/${id}/info`,
@@ -3081,7 +3150,7 @@ export class ServiceAPI extends ManageBaseAPI {
 
   getServiceTemplatesByParentIdTasks(
     parentId: number,
-    params: CommonParameters = {},
+    params: CommonParameters<ServiceTemplateTask> = {},
   ): Promise<Array<ServiceTemplateTask>> {
     return this.request({
       path: `/service/templates/${parentId}/tasks`,
@@ -3104,7 +3173,7 @@ export class ServiceAPI extends ManageBaseAPI {
   getServiceTemplatesByParentIdTasksById(
     id: number,
     parentId: number,
-    params: CommonParameters = {},
+    params: CommonParameters<ServiceTemplateTask> = {},
   ): Promise<ServiceTemplateTask> {
     return this.request({
       path: `/service/templates/${parentId}/tasks/${id}`,
@@ -3149,7 +3218,7 @@ export class ServiceAPI extends ManageBaseAPI {
 
   getServiceTemplatesByParentIdTasksCount(
     parentId: number,
-    params: CommonParameters = {},
+    params: CommonParameters<Count> = {},
   ): Promise<Count> {
     return this.request({
       path: `/service/templates/${parentId}/tasks/count`,
@@ -3158,7 +3227,7 @@ export class ServiceAPI extends ManageBaseAPI {
     })
   }
 
-  getServiceTemplatesCount(params: CommonParameters = {}): Promise<Count> {
+  getServiceTemplatesCount(params: CommonParameters<Count> = {}): Promise<Count> {
     return this.request({
       path: `/service/templates/count`,
       method: 'get',
@@ -3166,7 +3235,9 @@ export class ServiceAPI extends ManageBaseAPI {
     })
   }
 
-  getServiceTemplatesInfo(params: CommonParameters = {}): Promise<Array<ServiceTemplateInfo>> {
+  getServiceTemplatesInfo(
+    params: CommonParameters<ServiceTemplateInfo> = {},
+  ): Promise<Array<ServiceTemplateInfo>> {
     return this.request({
       path: `/service/templates/info`,
       method: 'get',
@@ -3174,7 +3245,7 @@ export class ServiceAPI extends ManageBaseAPI {
     })
   }
 
-  getServiceTemplatesInfoCount(params: CommonParameters = {}): Promise<Count> {
+  getServiceTemplatesInfoCount(params: CommonParameters<Count> = {}): Promise<Count> {
     return this.request({
       path: `/service/templates/info/count`,
       method: 'get',
@@ -3182,7 +3253,9 @@ export class ServiceAPI extends ManageBaseAPI {
     })
   }
 
-  getServiceTicketLinks(params: CommonParameters = {}): Promise<Array<ServiceTicketLink>> {
+  getServiceTicketLinks(
+    params: CommonParameters<ServiceTicketLink> = {},
+  ): Promise<Array<ServiceTicketLink>> {
     return this.request({
       path: `/service/ticketLinks`,
       method: 'get',
@@ -3198,7 +3271,10 @@ export class ServiceAPI extends ManageBaseAPI {
     })
   }
 
-  getServiceTicketLinksById(id: number, params: CommonParameters = {}): Promise<ServiceTicketLink> {
+  getServiceTicketLinksById(
+    id: number,
+    params: CommonParameters<ServiceTicketLink> = {},
+  ): Promise<ServiceTicketLink> {
     return this.request({
       path: `/service/ticketLinks/${id}`,
       method: 'get',
@@ -3237,7 +3313,7 @@ export class ServiceAPI extends ManageBaseAPI {
 
   getServiceTicketLinksByIdInfo(
     id: number,
-    params: CommonParameters = {},
+    params: CommonParameters<ServiceTicketLinkInfo> = {},
   ): Promise<ServiceTicketLinkInfo> {
     return this.request({
       path: `/service/ticketLinks/${id}/info`,
@@ -3246,7 +3322,7 @@ export class ServiceAPI extends ManageBaseAPI {
     })
   }
 
-  getServiceTicketLinksCount(params: CommonParameters = {}): Promise<Count> {
+  getServiceTicketLinksCount(params: CommonParameters<Count> = {}): Promise<Count> {
     return this.request({
       path: `/service/ticketLinks/count`,
       method: 'get',
@@ -3254,7 +3330,9 @@ export class ServiceAPI extends ManageBaseAPI {
     })
   }
 
-  getServiceTicketLinksInfo(params: CommonParameters = {}): Promise<Array<ServiceTicketLinkInfo>> {
+  getServiceTicketLinksInfo(
+    params: CommonParameters<ServiceTicketLinkInfo> = {},
+  ): Promise<Array<ServiceTicketLinkInfo>> {
     return this.request({
       path: `/service/ticketLinks/info`,
       method: 'get',
@@ -3262,7 +3340,7 @@ export class ServiceAPI extends ManageBaseAPI {
     })
   }
 
-  getServiceTicketLinksInfoCount(params: CommonParameters = {}): Promise<Count> {
+  getServiceTicketLinksInfoCount(params: CommonParameters<Count> = {}): Promise<Count> {
     return this.request({
       path: `/service/ticketLinks/info/count`,
       method: 'get',
@@ -3270,7 +3348,7 @@ export class ServiceAPI extends ManageBaseAPI {
     })
   }
 
-  getServiceTickets(params: CommonParameters = {}): Promise<Array<Ticket>> {
+  getServiceTickets(params: CommonParameters<Ticket> = {}): Promise<Array<Ticket>> {
     return this.request({
       path: `/service/tickets`,
       method: 'get',
@@ -3286,7 +3364,7 @@ export class ServiceAPI extends ManageBaseAPI {
     })
   }
 
-  getServiceTicketsById(id: number, params: CommonParameters = {}): Promise<Ticket> {
+  getServiceTicketsById(id: number, params: CommonParameters<Ticket> = {}): Promise<Ticket> {
     return this.request({
       path: `/service/tickets/${id}`,
       method: 'get',
@@ -3324,7 +3402,10 @@ export class ServiceAPI extends ManageBaseAPI {
     })
   }
 
-  getServiceTicketsByIdInfo(id: number, params: CommonParameters = {}): Promise<TicketInfo> {
+  getServiceTicketsByIdInfo(
+    id: number,
+    params: CommonParameters<TicketInfo> = {},
+  ): Promise<TicketInfo> {
     return this.request({
       path: `/service/tickets/${id}/info`,
       method: 'get',
@@ -3334,7 +3415,7 @@ export class ServiceAPI extends ManageBaseAPI {
 
   getServiceTicketsByParentIdActivities(
     parentId: number,
-    params: CommonParameters = {},
+    params: CommonParameters<ActivityReference> = {},
   ): Promise<Array<ActivityReference>> {
     return this.request({
       path: `/service/tickets/${parentId}/activities`,
@@ -3345,7 +3426,7 @@ export class ServiceAPI extends ManageBaseAPI {
 
   getServiceTicketsByParentIdActivitiesCount(
     parentId: number,
-    params: CommonParameters = {},
+    params: CommonParameters<Count> = {},
   ): Promise<Count> {
     return this.request({
       path: `/service/tickets/${parentId}/activities/count`,
@@ -3356,7 +3437,7 @@ export class ServiceAPI extends ManageBaseAPI {
 
   getServiceTicketsByParentIdAllNotes(
     parentId: number,
-    params: CommonParameters = {},
+    params: CommonParameters<ServiceTicketNote> = {},
   ): Promise<Array<ServiceTicketNote>> {
     return this.request({
       path: `/service/tickets/${parentId}/allNotes`,
@@ -3378,7 +3459,7 @@ export class ServiceAPI extends ManageBaseAPI {
 
   getServiceTicketsByParentIdConfigurations(
     parentId: number,
-    params: CommonParameters = {},
+    params: CommonParameters<ConfigurationReference> = {},
   ): Promise<Array<ConfigurationReference>> {
     return this.request({
       path: `/service/tickets/${parentId}/configurations`,
@@ -3401,7 +3482,7 @@ export class ServiceAPI extends ManageBaseAPI {
   getServiceTicketsByParentIdConfigurationsById(
     id: number,
     parentId: number,
-    params: CommonParameters = {},
+    params: CommonParameters<ConfigurationReference> = {},
   ): Promise<ConfigurationReference> {
     return this.request({
       path: `/service/tickets/${parentId}/configurations/${id}`,
@@ -3422,7 +3503,7 @@ export class ServiceAPI extends ManageBaseAPI {
 
   getServiceTicketsByParentIdConfigurationsCount(
     parentId: number,
-    params: CommonParameters = {},
+    params: CommonParameters<Count> = {},
   ): Promise<Count> {
     return this.request({
       path: `/service/tickets/${parentId}/configurations/count`,
@@ -3444,7 +3525,7 @@ export class ServiceAPI extends ManageBaseAPI {
 
   getServiceTicketsByParentIdDocuments(
     parentId: number,
-    params: CommonParameters = {},
+    params: CommonParameters<DocumentReference> = {},
   ): Promise<Array<DocumentReference>> {
     return this.request({
       path: `/service/tickets/${parentId}/documents`,
@@ -3455,7 +3536,7 @@ export class ServiceAPI extends ManageBaseAPI {
 
   getServiceTicketsByParentIdDocumentsCount(
     parentId: number,
-    params: CommonParameters = {},
+    params: CommonParameters<Count> = {},
   ): Promise<Count> {
     return this.request({
       path: `/service/tickets/${parentId}/documents/count`,
@@ -3477,7 +3558,7 @@ export class ServiceAPI extends ManageBaseAPI {
 
   getServiceTicketsByParentIdNotes(
     parentId: number,
-    params: CommonParameters = {},
+    params: CommonParameters<ServiceNote> = {},
   ): Promise<Array<ServiceNote>> {
     return this.request({
       path: `/service/tickets/${parentId}/notes`,
@@ -3500,7 +3581,7 @@ export class ServiceAPI extends ManageBaseAPI {
   getServiceTicketsByParentIdNotesById(
     id: number,
     parentId: number,
-    params: CommonParameters = {},
+    params: CommonParameters<ServiceNote> = {},
   ): Promise<ServiceNote> {
     return this.request({
       path: `/service/tickets/${parentId}/notes/${id}`,
@@ -3545,7 +3626,7 @@ export class ServiceAPI extends ManageBaseAPI {
 
   getServiceTicketsByParentIdNotesCount(
     parentId: number,
-    params: CommonParameters = {},
+    params: CommonParameters<Count> = {},
   ): Promise<Count> {
     return this.request({
       path: `/service/tickets/${parentId}/notes/count`,
@@ -3556,7 +3637,7 @@ export class ServiceAPI extends ManageBaseAPI {
 
   getServiceTicketsByParentIdProducts(
     parentId: number,
-    params: CommonParameters = {},
+    params: CommonParameters<ProductReference> = {},
   ): Promise<Array<ProductReference>> {
     return this.request({
       path: `/service/tickets/${parentId}/products`,
@@ -3567,7 +3648,7 @@ export class ServiceAPI extends ManageBaseAPI {
 
   getServiceTicketsByParentIdProductsCount(
     parentId: number,
-    params: CommonParameters = {},
+    params: CommonParameters<Count> = {},
   ): Promise<Count> {
     return this.request({
       path: `/service/tickets/${parentId}/products/count`,
@@ -3578,7 +3659,7 @@ export class ServiceAPI extends ManageBaseAPI {
 
   getServiceTicketsByParentIdScheduleentries(
     parentId: number,
-    params: CommonParameters = {},
+    params: CommonParameters<ScheduleEntryReference> = {},
   ): Promise<Array<ScheduleEntryReference>> {
     return this.request({
       path: `/service/tickets/${parentId}/scheduleentries`,
@@ -3589,7 +3670,7 @@ export class ServiceAPI extends ManageBaseAPI {
 
   getServiceTicketsByParentIdScheduleentriesCount(
     parentId: number,
-    params: CommonParameters = {},
+    params: CommonParameters<Count> = {},
   ): Promise<Count> {
     return this.request({
       path: `/service/tickets/${parentId}/scheduleentries/count`,
@@ -3600,7 +3681,7 @@ export class ServiceAPI extends ManageBaseAPI {
 
   getServiceTicketsByParentIdTasks(
     parentId: number,
-    params: CommonParameters = {},
+    params: CommonParameters<ServiceTask> = {},
   ): Promise<Array<ServiceTask>> {
     return this.request({
       path: `/service/tickets/${parentId}/tasks`,
@@ -3620,7 +3701,7 @@ export class ServiceAPI extends ManageBaseAPI {
   getServiceTicketsByParentIdTasksById(
     id: number,
     parentId: number,
-    params: CommonParameters = {},
+    params: CommonParameters<ServiceTask> = {},
   ): Promise<ServiceTask> {
     return this.request({
       path: `/service/tickets/${parentId}/tasks/${id}`,
@@ -3665,7 +3746,7 @@ export class ServiceAPI extends ManageBaseAPI {
 
   getServiceTicketsByParentIdTasksCount(
     parentId: number,
-    params: CommonParameters = {},
+    params: CommonParameters<Count> = {},
   ): Promise<Count> {
     return this.request({
       path: `/service/tickets/${parentId}/tasks/count`,
@@ -3676,7 +3757,7 @@ export class ServiceAPI extends ManageBaseAPI {
 
   getServiceTicketsByParentIdTimeentries(
     parentId: number,
-    params: CommonParameters = {},
+    params: CommonParameters<TimeEntryReference> = {},
   ): Promise<Array<TimeEntryReference>> {
     return this.request({
       path: `/service/tickets/${parentId}/timeentries`,
@@ -3687,7 +3768,7 @@ export class ServiceAPI extends ManageBaseAPI {
 
   getServiceTicketsByParentIdTimeentriesCount(
     parentId: number,
-    params: CommonParameters = {},
+    params: CommonParameters<Count> = {},
   ): Promise<Count> {
     return this.request({
       path: `/service/tickets/${parentId}/timeentries/count`,
@@ -3696,7 +3777,7 @@ export class ServiceAPI extends ManageBaseAPI {
     })
   }
 
-  getServiceTicketsCalculateSla(params: CommonParameters = {}): Promise<Array<Ticket>> {
+  getServiceTicketsCalculateSla(params: CommonParameters<Ticket> = {}): Promise<Array<Ticket>> {
     return this.request({
       path: `/service/tickets/calculateSla`,
       method: 'get',
@@ -3704,7 +3785,9 @@ export class ServiceAPI extends ManageBaseAPI {
     })
   }
 
-  getServiceTicketsChangelogs(params: CommonParameters = {}): Promise<Array<TicketChangeLog>> {
+  getServiceTicketsChangelogs(
+    params: CommonParameters<TicketChangeLog> = {},
+  ): Promise<Array<TicketChangeLog>> {
     return this.request({
       path: `/service/tickets/changelogs`,
       method: 'get',
@@ -3719,7 +3802,7 @@ export class ServiceAPI extends ManageBaseAPI {
     })
   }
 
-  getServiceTicketsCount(params: CommonParameters = {}): Promise<Count> {
+  getServiceTicketsCount(params: CommonParameters<Count> = {}): Promise<Count> {
     return this.request({
       path: `/service/tickets/count`,
       method: 'get',
@@ -3727,7 +3810,7 @@ export class ServiceAPI extends ManageBaseAPI {
     })
   }
 
-  getServiceTicketsInfo(params: CommonParameters = {}): Promise<Array<TicketInfo>> {
+  getServiceTicketsInfo(params: CommonParameters<TicketInfo> = {}): Promise<Array<TicketInfo>> {
     return this.request({
       path: `/service/tickets/info`,
       method: 'get',
@@ -3735,7 +3818,7 @@ export class ServiceAPI extends ManageBaseAPI {
     })
   }
 
-  getServiceTicketsInfoCount(params: CommonParameters = {}): Promise<Count> {
+  getServiceTicketsInfoCount(params: CommonParameters<Count> = {}): Promise<Count> {
     return this.request({
       path: `/service/tickets/info/count`,
       method: 'get',
@@ -3751,7 +3834,7 @@ export class ServiceAPI extends ManageBaseAPI {
     })
   }
 
-  getServiceTicketSyncs(params: CommonParameters = {}): Promise<Array<TicketSync>> {
+  getServiceTicketSyncs(params: CommonParameters<TicketSync> = {}): Promise<Array<TicketSync>> {
     return this.request({
       path: `/service/ticketSyncs`,
       method: 'get',
@@ -3767,7 +3850,10 @@ export class ServiceAPI extends ManageBaseAPI {
     })
   }
 
-  getServiceTicketSyncsById(id: number, params: CommonParameters = {}): Promise<TicketSync> {
+  getServiceTicketSyncsById(
+    id: number,
+    params: CommonParameters<TicketSync> = {},
+  ): Promise<TicketSync> {
     return this.request({
       path: `/service/ticketSyncs/${id}`,
       method: 'get',
@@ -3801,7 +3887,7 @@ export class ServiceAPI extends ManageBaseAPI {
     })
   }
 
-  getServiceTicketSyncsCount(params: CommonParameters = {}): Promise<Count> {
+  getServiceTicketSyncsCount(params: CommonParameters<Count> = {}): Promise<Count> {
     return this.request({
       path: `/service/ticketSyncs/count`,
       method: 'get',

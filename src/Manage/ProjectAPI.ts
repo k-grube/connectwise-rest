@@ -98,7 +98,7 @@ export type Usage = schemas['Usage']
 export class ProjectAPI extends ManageBaseAPI {
   getProjectByParentIdBillingRates(
     parentId: number,
-    params: CommonParameters = {},
+    params: CommonParameters<ProjectBillingRate> = {},
   ): Promise<Array<ProjectBillingRate>> {
     return this.request({
       path: `/project/${parentId}/billingRates`,
@@ -121,7 +121,7 @@ export class ProjectAPI extends ManageBaseAPI {
   getProjectByParentIdBillingRatesById(
     id: number,
     parentId: number,
-    params: CommonParameters = {},
+    params: CommonParameters<ProjectBillingRate> = {},
   ): Promise<ProjectBillingRate> {
     return this.request({
       path: `/project/${parentId}/billingRates/${id}`,
@@ -154,7 +154,7 @@ export class ProjectAPI extends ManageBaseAPI {
 
   getProjectByParentIdBillingRatesCount(
     parentId: number,
-    params: CommonParameters = {},
+    params: CommonParameters<Count> = {},
   ): Promise<Count> {
     return this.request({
       path: `/project/${parentId}/billingRates/count`,
@@ -178,7 +178,7 @@ export class ProjectAPI extends ManageBaseAPI {
   getProjectBoardsByGrandparentIdTeamsByParentIdMembers(
     parentId: number,
     grandparentId: number,
-    params: CommonParameters = {},
+    params: CommonParameters<ProjectBoardTeamMember> = {},
   ): Promise<Array<ProjectBoardTeamMember>> {
     return this.request({
       path: `/project/boards/${grandparentId}/teams/${parentId}/members`,
@@ -203,7 +203,7 @@ export class ProjectAPI extends ManageBaseAPI {
     id: number,
     parentId: number,
     grandparentId: number,
-    params: CommonParameters = {},
+    params: CommonParameters<ProjectBoardTeamMember> = {},
   ): Promise<ProjectBoardTeamMember> {
     return this.request({
       path: `/project/boards/${grandparentId}/teams/${parentId}/members/${id}`,
@@ -251,7 +251,7 @@ export class ProjectAPI extends ManageBaseAPI {
 
   getProjectBoardsByParentIdKanbanSettings(
     parentId: number,
-    params: CommonParameters = {},
+    params: CommonParameters<ProjectBoardKanbanSetting> = {},
   ): Promise<Array<ProjectBoardKanbanSetting>> {
     return this.request({
       path: `/project/boards/${parentId}/kanbanSettings`,
@@ -274,7 +274,7 @@ export class ProjectAPI extends ManageBaseAPI {
   getProjectBoardsByParentIdKanbanSettingsById(
     id: number,
     parentId: number,
-    params: CommonParameters = {},
+    params: CommonParameters<ProjectBoardKanbanSetting> = {},
   ): Promise<ProjectBoardKanbanSetting> {
     return this.request({
       path: `/project/boards/${parentId}/kanbanSettings/${id}`,
@@ -319,7 +319,7 @@ export class ProjectAPI extends ManageBaseAPI {
 
   getProjectBoardsByParentIdTeams(
     parentId: number,
-    params: CommonParameters = {},
+    params: CommonParameters<ProjectBoardTeam> = {},
   ): Promise<Array<ProjectBoardTeam>> {
     return this.request({
       path: `/project/boards/${parentId}/teams`,
@@ -342,7 +342,7 @@ export class ProjectAPI extends ManageBaseAPI {
   getProjectBoardsByParentIdTeamsById(
     id: number,
     parentId: number,
-    params: CommonParameters = {},
+    params: CommonParameters<ProjectBoardTeam> = {},
   ): Promise<ProjectBoardTeam> {
     return this.request({
       path: `/project/boards/${parentId}/teams/${id}`,
@@ -385,7 +385,7 @@ export class ProjectAPI extends ManageBaseAPI {
   getProjectBoardsByParentIdTeamsByIdInfo(
     id: number,
     parentId: number,
-    params: CommonParameters = {},
+    params: CommonParameters<ProjectBoardTeamInfo> = {},
   ): Promise<ProjectBoardTeamInfo> {
     return this.request({
       path: `/project/boards/${parentId}/teams/${id}/info`,
@@ -397,7 +397,7 @@ export class ProjectAPI extends ManageBaseAPI {
   getProjectBoardsByParentIdTeamsByIdInfoCount(
     id: number,
     parentId: number,
-    params: CommonParameters = {},
+    params: CommonParameters<Count> = {},
   ): Promise<Count> {
     return this.request({
       path: `/project/boards/${parentId}/teams/${id}/info/count`,
@@ -408,7 +408,7 @@ export class ProjectAPI extends ManageBaseAPI {
 
   getProjectBoardsByParentIdTeamsCount(
     parentId: number,
-    params: CommonParameters = {},
+    params: CommonParameters<Count> = {},
   ): Promise<Count> {
     return this.request({
       path: `/project/boards/${parentId}/teams/count`,
@@ -419,7 +419,7 @@ export class ProjectAPI extends ManageBaseAPI {
 
   getProjectBoardsByParentIdTeamsInfo(
     parentId: number,
-    params: CommonParameters = {},
+    params: CommonParameters<ProjectBoardTeamInfo> = {},
   ): Promise<Array<ProjectBoardTeamInfo>> {
     return this.request({
       path: `/project/boards/${parentId}/teams/info`,
@@ -428,7 +428,7 @@ export class ProjectAPI extends ManageBaseAPI {
     })
   }
 
-  getProjectPhaseStatuses(params: CommonParameters = {}): Promise<Array<PhaseStatus>> {
+  getProjectPhaseStatuses(params: CommonParameters<PhaseStatus> = {}): Promise<Array<PhaseStatus>> {
     return this.request({
       path: `/project/phaseStatuses`,
       method: 'get',
@@ -444,7 +444,10 @@ export class ProjectAPI extends ManageBaseAPI {
     })
   }
 
-  getProjectPhaseStatusesById(id: number, params: CommonParameters = {}): Promise<PhaseStatus> {
+  getProjectPhaseStatusesById(
+    id: number,
+    params: CommonParameters<PhaseStatus> = {},
+  ): Promise<PhaseStatus> {
     return this.request({
       path: `/project/phaseStatuses/${id}`,
       method: 'get',
@@ -480,7 +483,7 @@ export class ProjectAPI extends ManageBaseAPI {
 
   getProjectPhaseStatusesByIdInfo(
     id: number,
-    params: CommonParameters = {},
+    params: CommonParameters<PhaseStatusInfo> = {},
   ): Promise<PhaseStatusInfo> {
     return this.request({
       path: `/project/phaseStatuses/${id}/info`,
@@ -491,7 +494,7 @@ export class ProjectAPI extends ManageBaseAPI {
 
   getProjectPhaseStatusesByIdUsages(
     id: number,
-    params: CommonParameters = {},
+    params: CommonParameters<Usage> = {},
   ): Promise<Array<Usage>> {
     return this.request({
       path: `/project/phaseStatuses/${id}/usages`,
@@ -502,7 +505,7 @@ export class ProjectAPI extends ManageBaseAPI {
 
   getProjectPhaseStatusesByIdUsagesList(
     id: number,
-    params: CommonParameters = {},
+    params: CommonParameters<Usage> = {},
   ): Promise<Array<Usage>> {
     return this.request({
       path: `/project/phaseStatuses/${id}/usages/list`,
@@ -511,7 +514,7 @@ export class ProjectAPI extends ManageBaseAPI {
     })
   }
 
-  getProjectPhaseStatusesCount(params: CommonParameters = {}): Promise<Count> {
+  getProjectPhaseStatusesCount(params: CommonParameters<Count> = {}): Promise<Count> {
     return this.request({
       path: `/project/phaseStatuses/count`,
       method: 'get',
@@ -519,7 +522,9 @@ export class ProjectAPI extends ManageBaseAPI {
     })
   }
 
-  getProjectPhaseStatusesInfo(params: CommonParameters = {}): Promise<Array<PhaseStatusInfo>> {
+  getProjectPhaseStatusesInfo(
+    params: CommonParameters<PhaseStatusInfo> = {},
+  ): Promise<Array<PhaseStatusInfo>> {
     return this.request({
       path: `/project/phaseStatuses/info`,
       method: 'get',
@@ -527,7 +532,7 @@ export class ProjectAPI extends ManageBaseAPI {
     })
   }
 
-  getProjectProjects(params: CommonParameters = {}): Promise<Array<Project>> {
+  getProjectProjects(params: CommonParameters<Project> = {}): Promise<Array<Project>> {
     return this.request({
       path: `/project/projects`,
       method: 'get',
@@ -543,7 +548,7 @@ export class ProjectAPI extends ManageBaseAPI {
     })
   }
 
-  getProjectProjectsById(id: number, params: CommonParameters = {}): Promise<Project> {
+  getProjectProjectsById(id: number, params: CommonParameters<Project> = {}): Promise<Project> {
     return this.request({
       path: `/project/projects/${id}`,
       method: 'get',
@@ -576,7 +581,7 @@ export class ProjectAPI extends ManageBaseAPI {
 
   getProjectProjectsByIdProjectRecap(
     id: number,
-    params: CommonParameters = {},
+    params: CommonParameters<ProjectRecap> = {},
   ): Promise<ProjectRecap> {
     return this.request({
       path: `/project/projects/${id}/projectRecap`,
@@ -587,7 +592,7 @@ export class ProjectAPI extends ManageBaseAPI {
 
   getProjectProjectsByIdProjectWorkplan(
     id: number,
-    params: CommonParameters = {},
+    params: CommonParameters<ProjectWorkplan> = {},
   ): Promise<ProjectWorkplan> {
     return this.request({
       path: `/project/projects/${id}/projectWorkplan`,
@@ -619,7 +624,7 @@ export class ProjectAPI extends ManageBaseAPI {
 
   getProjectProjectsByParentIdContacts(
     parentId: number,
-    params: CommonParameters = {},
+    params: CommonParameters<ProjectContact> = {},
   ): Promise<Array<ProjectContact>> {
     return this.request({
       path: `/project/projects/${parentId}/contacts`,
@@ -642,7 +647,7 @@ export class ProjectAPI extends ManageBaseAPI {
   getProjectProjectsByParentIdContactsById(
     id: number,
     parentId: number,
-    params: CommonParameters = {},
+    params: CommonParameters<ProjectContact> = {},
   ): Promise<ProjectContact> {
     return this.request({
       path: `/project/projects/${parentId}/contacts/${id}`,
@@ -663,7 +668,7 @@ export class ProjectAPI extends ManageBaseAPI {
 
   getProjectProjectsByParentIdNotes(
     parentId: number,
-    params: CommonParameters = {},
+    params: CommonParameters<ProjectNote> = {},
   ): Promise<Array<ProjectNote>> {
     return this.request({
       path: `/project/projects/${parentId}/notes`,
@@ -683,7 +688,7 @@ export class ProjectAPI extends ManageBaseAPI {
   getProjectProjectsByParentIdNotesById(
     id: number,
     parentId: number,
-    params: CommonParameters = {},
+    params: CommonParameters<ProjectNote> = {},
   ): Promise<ProjectNote> {
     return this.request({
       path: `/project/projects/${parentId}/notes/${id}`,
@@ -728,7 +733,7 @@ export class ProjectAPI extends ManageBaseAPI {
 
   getProjectProjectsByParentIdNotesCount(
     parentId: number,
-    params: CommonParameters = {},
+    params: CommonParameters<Count> = {},
   ): Promise<Count> {
     return this.request({
       path: `/project/projects/${parentId}/notes/count`,
@@ -739,7 +744,7 @@ export class ProjectAPI extends ManageBaseAPI {
 
   getProjectProjectsByParentIdPhases(
     parentId: number,
-    params: CommonParameters = {},
+    params: CommonParameters<ProjectPhase> = {},
   ): Promise<Array<ProjectPhase>> {
     return this.request({
       path: `/project/projects/${parentId}/phases`,
@@ -762,7 +767,7 @@ export class ProjectAPI extends ManageBaseAPI {
   getProjectProjectsByParentIdPhasesById(
     id: number,
     parentId: number,
-    params: CommonParameters = {},
+    params: CommonParameters<ProjectPhase> = {},
   ): Promise<ProjectPhase> {
     return this.request({
       path: `/project/projects/${parentId}/phases/${id}`,
@@ -807,7 +812,7 @@ export class ProjectAPI extends ManageBaseAPI {
 
   getProjectProjectsByParentIdPhasesCount(
     parentId: number,
-    params: CommonParameters = {},
+    params: CommonParameters<Count> = {},
   ): Promise<Count> {
     return this.request({
       path: `/project/projects/${parentId}/phases/count`,
@@ -818,7 +823,7 @@ export class ProjectAPI extends ManageBaseAPI {
 
   getProjectProjectsByParentIdTeamMembers(
     parentId: number,
-    params: CommonParameters = {},
+    params: CommonParameters<ProjectTeamMember> = {},
   ): Promise<Array<ProjectTeamMember>> {
     return this.request({
       path: `/project/projects/${parentId}/teamMembers`,
@@ -841,7 +846,7 @@ export class ProjectAPI extends ManageBaseAPI {
   getProjectProjectsByParentIdTeamMembersById(
     id: number,
     parentId: number,
-    params: CommonParameters = {},
+    params: CommonParameters<ProjectTeamMember> = {},
   ): Promise<ProjectTeamMember> {
     return this.request({
       path: `/project/projects/${parentId}/teamMembers/${id}`,
@@ -886,7 +891,7 @@ export class ProjectAPI extends ManageBaseAPI {
 
   getProjectProjectsByParentIdTeamMembersCount(
     parentId: number,
-    params: CommonParameters = {},
+    params: CommonParameters<Count> = {},
   ): Promise<Count> {
     return this.request({
       path: `/project/projects/${parentId}/teamMembers/count`,
@@ -895,7 +900,7 @@ export class ProjectAPI extends ManageBaseAPI {
     })
   }
 
-  getProjectProjectsCount(params: CommonParameters = {}): Promise<Count> {
+  getProjectProjectsCount(params: CommonParameters<Count> = {}): Promise<Count> {
     return this.request({
       path: `/project/projects/count`,
       method: 'get',
@@ -903,7 +908,9 @@ export class ProjectAPI extends ManageBaseAPI {
     })
   }
 
-  getProjectProjectTemplates(params: CommonParameters = {}): Promise<Array<ProjectTemplate>> {
+  getProjectProjectTemplates(
+    params: CommonParameters<ProjectTemplate> = {},
+  ): Promise<Array<ProjectTemplate>> {
     return this.request({
       path: `/project/projectTemplates/`,
       method: 'get',
@@ -922,7 +929,7 @@ export class ProjectAPI extends ManageBaseAPI {
   getProjectProjectTemplatesByGrandParentIdProjectTemplateTicketsByParentIdTasks(
     grandParentId: number,
     parentId: number,
-    params: CommonParameters = {},
+    params: CommonParameters<ProjectTemplateTask> = {},
   ): Promise<Array<ProjectTemplateTask>> {
     return this.request({
       path: `/project/projectTemplates/${grandParentId}/projectTemplateTickets/${parentId}/tasks`,
@@ -947,7 +954,7 @@ export class ProjectAPI extends ManageBaseAPI {
     id: number,
     grandParentId: number,
     parentId: number,
-    params: CommonParameters = {},
+    params: CommonParameters<ProjectTemplateTask> = {},
   ): Promise<ProjectTemplateTask> {
     return this.request({
       path: `/project/projectTemplates/${grandParentId}/projectTemplateTickets/${parentId}/tasks/${id}`,
@@ -996,7 +1003,7 @@ export class ProjectAPI extends ManageBaseAPI {
   getProjectProjectTemplatesByGrandParentIdProjectTemplateTicketsByParentIdTasksCount(
     grandParentId: number,
     parentId: number,
-    params: CommonParameters = {},
+    params: CommonParameters<Count> = {},
   ): Promise<Count> {
     return this.request({
       path: `/project/projectTemplates/${grandParentId}/projectTemplateTickets/${parentId}/tasks/count`,
@@ -1007,7 +1014,7 @@ export class ProjectAPI extends ManageBaseAPI {
 
   getProjectProjectTemplatesById(
     id: number,
-    params: CommonParameters = {},
+    params: CommonParameters<ProjectTemplate> = {},
   ): Promise<ProjectTemplate> {
     return this.request({
       path: `/project/projectTemplates/${id}`,
@@ -1047,7 +1054,7 @@ export class ProjectAPI extends ManageBaseAPI {
 
   getProjectProjectTemplatesByIdWorkplan(
     id: number,
-    params: CommonParameters = {},
+    params: CommonParameters<ProjectTemplateWorkPlan> = {},
   ): Promise<Array<ProjectTemplateWorkPlan>> {
     return this.request({
       path: `/project/projectTemplates/${id}/workplan`,
@@ -1058,7 +1065,7 @@ export class ProjectAPI extends ManageBaseAPI {
 
   getProjectProjectTemplatesByParentIdProjectTemplatePhases(
     parentId: number,
-    params: CommonParameters = {},
+    params: CommonParameters<ProjectTemplatePhase> = {},
   ): Promise<Array<ProjectTemplatePhase>> {
     return this.request({
       path: `/project/projectTemplates/${parentId}/projectTemplatePhases`,
@@ -1081,7 +1088,7 @@ export class ProjectAPI extends ManageBaseAPI {
   getProjectProjectTemplatesByParentIdProjectTemplatePhasesById(
     id: number,
     parentId: number,
-    params: CommonParameters = {},
+    params: CommonParameters<ProjectTemplatePhase> = {},
   ): Promise<ProjectTemplatePhase> {
     return this.request({
       path: `/project/projectTemplates/${parentId}/projectTemplatePhases/${id}`,
@@ -1126,7 +1133,7 @@ export class ProjectAPI extends ManageBaseAPI {
 
   getProjectProjectTemplatesByParentIdProjectTemplateTickets(
     parentId: number,
-    params: CommonParameters = {},
+    params: CommonParameters<ProjectTemplateTicket> = {},
   ): Promise<Array<ProjectTemplateTicket>> {
     return this.request({
       path: `/project/projectTemplates/${parentId}/projectTemplateTickets`,
@@ -1149,7 +1156,7 @@ export class ProjectAPI extends ManageBaseAPI {
   getProjectProjectTemplatesByParentIdProjectTemplateTicketsById(
     id: number,
     parentId: number,
-    params: CommonParameters = {},
+    params: CommonParameters<ProjectTemplateTicket> = {},
   ): Promise<ProjectTemplateTicket> {
     return this.request({
       path: `/project/projectTemplates/${parentId}/projectTemplateTickets/${id}`,
@@ -1194,7 +1201,7 @@ export class ProjectAPI extends ManageBaseAPI {
 
   getProjectProjectTemplatesByParentIdProjectTemplateTicketsCount(
     parentId: number,
-    params: CommonParameters = {},
+    params: CommonParameters<Count> = {},
   ): Promise<Count> {
     return this.request({
       path: `/project/projectTemplates/${parentId}/projectTemplateTickets/count`,
@@ -1203,7 +1210,7 @@ export class ProjectAPI extends ManageBaseAPI {
     })
   }
 
-  getProjectProjectTemplatesCount(params: CommonParameters = {}): Promise<Count> {
+  getProjectProjectTemplatesCount(params: CommonParameters<Count> = {}): Promise<Count> {
     return this.request({
       path: `/project/projectTemplates/count`,
       method: 'get',
@@ -1223,7 +1230,7 @@ export class ProjectAPI extends ManageBaseAPI {
   }
 
   getProjectProjectTemplatesProjectTemplatePhases(
-    params: CommonParameters = {},
+    params: CommonParameters<ProjectTemplatePhase> = {},
   ): Promise<Array<ProjectTemplatePhase>> {
     return this.request({
       path: `/project/projectTemplates/projectTemplatePhases`,
@@ -1233,7 +1240,7 @@ export class ProjectAPI extends ManageBaseAPI {
   }
 
   getProjectProjectTemplatesProjectTemplateTickets(
-    params: CommonParameters = {},
+    params: CommonParameters<ProjectTemplateTicket> = {},
   ): Promise<Array<ProjectTemplateTicket>> {
     return this.request({
       path: `/project/projectTemplates/projectTemplateTickets`,
@@ -1243,7 +1250,7 @@ export class ProjectAPI extends ManageBaseAPI {
   }
 
   getProjectProjectTemplatesProjectTemplateTicketsTasks(
-    params: CommonParameters = {},
+    params: CommonParameters<ProjectTemplateTask> = {},
   ): Promise<Array<ProjectTemplateTask>> {
     return this.request({
       path: `/project/projectTemplates/projectTemplateTickets/tasks`,
@@ -1252,7 +1259,7 @@ export class ProjectAPI extends ManageBaseAPI {
     })
   }
 
-  getProjectProjectTypes(params: CommonParameters = {}): Promise<Array<ProjectType>> {
+  getProjectProjectTypes(params: CommonParameters<ProjectType> = {}): Promise<Array<ProjectType>> {
     return this.request({
       path: `/project/projectTypes`,
       method: 'get',
@@ -1268,7 +1275,10 @@ export class ProjectAPI extends ManageBaseAPI {
     })
   }
 
-  getProjectProjectTypesById(id: number, params: CommonParameters = {}): Promise<ProjectType> {
+  getProjectProjectTypesById(
+    id: number,
+    params: CommonParameters<ProjectType> = {},
+  ): Promise<ProjectType> {
     return this.request({
       path: `/project/projectTypes/${id}`,
       method: 'get',
@@ -1304,7 +1314,7 @@ export class ProjectAPI extends ManageBaseAPI {
 
   getProjectProjectTypesByIdInfo(
     id: number,
-    params: CommonParameters = {},
+    params: CommonParameters<ProjectTypeInfo> = {},
   ): Promise<ProjectTypeInfo> {
     return this.request({
       path: `/project/projectTypes/${id}/info`,
@@ -1315,7 +1325,7 @@ export class ProjectAPI extends ManageBaseAPI {
 
   getProjectProjectTypesByIdUsages(
     id: number,
-    params: CommonParameters = {},
+    params: CommonParameters<Usage> = {},
   ): Promise<Array<Usage>> {
     return this.request({
       path: `/project/projectTypes/${id}/usages`,
@@ -1326,7 +1336,7 @@ export class ProjectAPI extends ManageBaseAPI {
 
   getProjectProjectTypesByIdUsagesList(
     id: number,
-    params: CommonParameters = {},
+    params: CommonParameters<Usage> = {},
   ): Promise<Array<Usage>> {
     return this.request({
       path: `/project/projectTypes/${id}/usages/list`,
@@ -1335,7 +1345,7 @@ export class ProjectAPI extends ManageBaseAPI {
     })
   }
 
-  getProjectProjectTypesCount(params: CommonParameters = {}): Promise<Count> {
+  getProjectProjectTypesCount(params: CommonParameters<Count> = {}): Promise<Count> {
     return this.request({
       path: `/project/projectTypes/count`,
       method: 'get',
@@ -1343,7 +1353,9 @@ export class ProjectAPI extends ManageBaseAPI {
     })
   }
 
-  getProjectProjectTypesInfo(params: CommonParameters = {}): Promise<Array<ProjectTypeInfo>> {
+  getProjectProjectTypesInfo(
+    params: CommonParameters<ProjectTypeInfo> = {},
+  ): Promise<Array<ProjectTypeInfo>> {
     return this.request({
       path: `/project/projectTypes/info`,
       method: 'get',
@@ -1351,7 +1363,7 @@ export class ProjectAPI extends ManageBaseAPI {
     })
   }
 
-  getProjectProjectTypesInfoCount(params: CommonParameters = {}): Promise<Count> {
+  getProjectProjectTypesInfoCount(params: CommonParameters<Count> = {}): Promise<Count> {
     return this.request({
       path: `/project/projectTypes/info/count`,
       method: 'get',
@@ -1359,7 +1371,9 @@ export class ProjectAPI extends ManageBaseAPI {
     })
   }
 
-  getProjectSecurityRoles(params: CommonParameters = {}): Promise<Array<ProjectSecurityRole>> {
+  getProjectSecurityRoles(
+    params: CommonParameters<ProjectSecurityRole> = {},
+  ): Promise<Array<ProjectSecurityRole>> {
     return this.request({
       path: `/project/securityRoles`,
       method: 'get',
@@ -1377,7 +1391,7 @@ export class ProjectAPI extends ManageBaseAPI {
 
   getProjectSecurityRolesById(
     id: number,
-    params: CommonParameters = {},
+    params: CommonParameters<ProjectSecurityRole> = {},
   ): Promise<ProjectSecurityRole> {
     return this.request({
       path: `/project/securityRoles/${id}`,
@@ -1417,7 +1431,7 @@ export class ProjectAPI extends ManageBaseAPI {
 
   getProjectSecurityRolesByIdInfo(
     id: number,
-    params: CommonParameters = {},
+    params: CommonParameters<ProjectSecurityRoleInfo> = {},
   ): Promise<ProjectSecurityRoleInfo> {
     return this.request({
       path: `/project/securityRoles/${id}/info`,
@@ -1428,7 +1442,7 @@ export class ProjectAPI extends ManageBaseAPI {
 
   getProjectSecurityRolesByParentIdSettings(
     parentId: number,
-    params: CommonParameters = {},
+    params: CommonParameters<ProjectSecurityRoleSetting> = {},
   ): Promise<Array<ProjectSecurityRoleSetting>> {
     return this.request({
       path: `/project/securityRoles/${parentId}/settings`,
@@ -1440,7 +1454,7 @@ export class ProjectAPI extends ManageBaseAPI {
   getProjectSecurityRolesByParentIdSettingsById(
     id: number,
     parentId: number,
-    params: CommonParameters = {},
+    params: CommonParameters<ProjectSecurityRoleSetting> = {},
   ): Promise<ProjectSecurityRoleSetting> {
     return this.request({
       path: `/project/securityRoles/${parentId}/settings/${id}`,
@@ -1475,7 +1489,7 @@ export class ProjectAPI extends ManageBaseAPI {
 
   getProjectSecurityRolesByParentIdSettingsCount(
     parentId: number,
-    params: CommonParameters = {},
+    params: CommonParameters<Count> = {},
   ): Promise<Count> {
     return this.request({
       path: `/project/securityRoles/${parentId}/settings/count`,
@@ -1484,7 +1498,7 @@ export class ProjectAPI extends ManageBaseAPI {
     })
   }
 
-  getProjectSecurityRolesCount(params: CommonParameters = {}): Promise<Count> {
+  getProjectSecurityRolesCount(params: CommonParameters<Count> = {}): Promise<Count> {
     return this.request({
       path: `/project/securityRoles/count`,
       method: 'get',
@@ -1493,7 +1507,7 @@ export class ProjectAPI extends ManageBaseAPI {
   }
 
   getProjectSecurityRolesInfo(
-    params: CommonParameters = {},
+    params: CommonParameters<ProjectSecurityRoleInfo> = {},
   ): Promise<Array<ProjectSecurityRoleInfo>> {
     return this.request({
       path: `/project/securityRoles/info`,
@@ -1502,7 +1516,7 @@ export class ProjectAPI extends ManageBaseAPI {
     })
   }
 
-  getProjectStatuses(params: CommonParameters = {}): Promise<Array<ProjectStatus>> {
+  getProjectStatuses(params: CommonParameters<ProjectStatus> = {}): Promise<Array<ProjectStatus>> {
     return this.request({
       path: `/project/statuses`,
       method: 'get',
@@ -1518,7 +1532,10 @@ export class ProjectAPI extends ManageBaseAPI {
     })
   }
 
-  getProjectStatusesById(id: number, params: CommonParameters = {}): Promise<ProjectStatus> {
+  getProjectStatusesById(
+    id: number,
+    params: CommonParameters<ProjectStatus> = {},
+  ): Promise<ProjectStatus> {
     return this.request({
       path: `/project/statuses/${id}`,
       method: 'get',
@@ -1554,7 +1571,7 @@ export class ProjectAPI extends ManageBaseAPI {
 
   getProjectStatusesByIdInfo(
     id: number,
-    params: CommonParameters = {},
+    params: CommonParameters<ProjectStatusInfo> = {},
   ): Promise<ProjectStatusInfo> {
     return this.request({
       path: `/project/statuses/${id}/info`,
@@ -1563,7 +1580,10 @@ export class ProjectAPI extends ManageBaseAPI {
     })
   }
 
-  getProjectStatusesByIdUsages(id: number, params: CommonParameters = {}): Promise<Array<Usage>> {
+  getProjectStatusesByIdUsages(
+    id: number,
+    params: CommonParameters<Usage> = {},
+  ): Promise<Array<Usage>> {
     return this.request({
       path: `/project/statuses/${id}/usages`,
       method: 'get',
@@ -1573,7 +1593,7 @@ export class ProjectAPI extends ManageBaseAPI {
 
   getProjectStatusesByIdUsagesList(
     id: number,
-    params: CommonParameters = {},
+    params: CommonParameters<Usage> = {},
   ): Promise<Array<Usage>> {
     return this.request({
       path: `/project/statuses/${id}/usages/list`,
@@ -1582,7 +1602,7 @@ export class ProjectAPI extends ManageBaseAPI {
     })
   }
 
-  getProjectStatusesCount(params: CommonParameters = {}): Promise<Count> {
+  getProjectStatusesCount(params: CommonParameters<Count> = {}): Promise<Count> {
     return this.request({
       path: `/project/statuses/count`,
       method: 'get',
@@ -1590,7 +1610,9 @@ export class ProjectAPI extends ManageBaseAPI {
     })
   }
 
-  getProjectStatusesInfo(params: CommonParameters = {}): Promise<Array<ProjectStatusInfo>> {
+  getProjectStatusesInfo(
+    params: CommonParameters<ProjectStatusInfo> = {},
+  ): Promise<Array<ProjectStatusInfo>> {
     return this.request({
       path: `/project/statuses/info`,
       method: 'get',
@@ -1598,7 +1620,7 @@ export class ProjectAPI extends ManageBaseAPI {
     })
   }
 
-  getProjectStatusesInfoCount(params: CommonParameters = {}): Promise<Count> {
+  getProjectStatusesInfoCount(params: CommonParameters<Count> = {}): Promise<Count> {
     return this.request({
       path: `/project/statuses/info/count`,
       method: 'get',
@@ -1606,7 +1628,9 @@ export class ProjectAPI extends ManageBaseAPI {
     })
   }
 
-  getProjectStatusIndicators(params: CommonParameters = {}): Promise<Array<StatusIndicator>> {
+  getProjectStatusIndicators(
+    params: CommonParameters<StatusIndicator> = {},
+  ): Promise<Array<StatusIndicator>> {
     return this.request({
       path: `/project/statusIndicators`,
       method: 'get',
@@ -1616,7 +1640,7 @@ export class ProjectAPI extends ManageBaseAPI {
 
   getProjectStatusIndicatorsById(
     id: number,
-    params: CommonParameters = {},
+    params: CommonParameters<StatusIndicator> = {},
   ): Promise<StatusIndicator> {
     return this.request({
       path: `/project/statusIndicators/${id}`,
@@ -1625,7 +1649,7 @@ export class ProjectAPI extends ManageBaseAPI {
     })
   }
 
-  getProjectStatusIndicatorsCount(params: CommonParameters = {}): Promise<Count> {
+  getProjectStatusIndicatorsCount(params: CommonParameters<Count> = {}): Promise<Count> {
     return this.request({
       path: `/project/statusIndicators/count`,
       method: 'get',
@@ -1641,7 +1665,7 @@ export class ProjectAPI extends ManageBaseAPI {
     })
   }
 
-  getProjectTickets(params: CommonParameters = {}): Promise<Array<ProjectTicket>> {
+  getProjectTickets(params: CommonParameters<ProjectTicket> = {}): Promise<Array<ProjectTicket>> {
     return this.request({
       path: `/project/tickets`,
       method: 'get',
@@ -1657,7 +1681,10 @@ export class ProjectAPI extends ManageBaseAPI {
     })
   }
 
-  getProjectTicketsById(id: number, params: CommonParameters = {}): Promise<ProjectTicket> {
+  getProjectTicketsById(
+    id: number,
+    params: CommonParameters<ProjectTicket> = {},
+  ): Promise<ProjectTicket> {
     return this.request({
       path: `/project/tickets/${id}`,
       method: 'get',
@@ -1693,7 +1720,7 @@ export class ProjectAPI extends ManageBaseAPI {
 
   getProjectTicketsByParentIdActivities(
     parentId: number,
-    params: CommonParameters = {},
+    params: CommonParameters<ActivityReference> = {},
   ): Promise<Array<ActivityReference>> {
     return this.request({
       path: `/project/tickets/${parentId}/activities`,
@@ -1704,7 +1731,7 @@ export class ProjectAPI extends ManageBaseAPI {
 
   getProjectTicketsByParentIdActivitiesCount(
     parentId: number,
-    params: CommonParameters = {},
+    params: CommonParameters<Count> = {},
   ): Promise<Count> {
     return this.request({
       path: `/project/tickets/${parentId}/activities/count`,
@@ -1715,7 +1742,7 @@ export class ProjectAPI extends ManageBaseAPI {
 
   getProjectTicketsByParentIdAllNotes(
     parentId: number,
-    params: CommonParameters = {},
+    params: CommonParameters<ProjectTicketNote> = {},
   ): Promise<Array<ProjectTicketNote>> {
     return this.request({
       path: `/project/tickets/${parentId}/allNotes`,
@@ -1726,7 +1753,7 @@ export class ProjectAPI extends ManageBaseAPI {
 
   getProjectTicketsByParentIdConfigurations(
     parentId: number,
-    params: CommonParameters = {},
+    params: CommonParameters<ConfigurationReference> = {},
   ): Promise<Array<ConfigurationReference>> {
     return this.request({
       path: `/project/tickets/${parentId}/configurations`,
@@ -1749,7 +1776,7 @@ export class ProjectAPI extends ManageBaseAPI {
   getProjectTicketsByParentIdConfigurationsById(
     id: number,
     parentId: number,
-    params: CommonParameters = {},
+    params: CommonParameters<ConfigurationReference> = {},
   ): Promise<ConfigurationReference> {
     return this.request({
       path: `/project/tickets/${parentId}/configurations/${id}`,
@@ -1770,7 +1797,7 @@ export class ProjectAPI extends ManageBaseAPI {
 
   getProjectTicketsByParentIdConfigurationsCount(
     parentId: number,
-    params: CommonParameters = {},
+    params: CommonParameters<Count> = {},
   ): Promise<Count> {
     return this.request({
       path: `/project/tickets/${parentId}/configurations/count`,
@@ -1792,7 +1819,7 @@ export class ProjectAPI extends ManageBaseAPI {
 
   getProjectTicketsByParentIdDocuments(
     parentId: number,
-    params: CommonParameters = {},
+    params: CommonParameters<DocumentReference> = {},
   ): Promise<Array<DocumentReference>> {
     return this.request({
       path: `/project/tickets/${parentId}/documents`,
@@ -1803,7 +1830,7 @@ export class ProjectAPI extends ManageBaseAPI {
 
   getProjectTicketsByParentIdDocumentsCount(
     parentId: number,
-    params: CommonParameters = {},
+    params: CommonParameters<Count> = {},
   ): Promise<Count> {
     return this.request({
       path: `/project/tickets/${parentId}/documents/count`,
@@ -1814,7 +1841,7 @@ export class ProjectAPI extends ManageBaseAPI {
 
   getProjectTicketsByParentIdNotes(
     parentId: number,
-    params: CommonParameters = {},
+    params: CommonParameters<TicketNote> = {},
   ): Promise<Array<TicketNote>> {
     return this.request({
       path: `/project/tickets/${parentId}/notes`,
@@ -1834,7 +1861,7 @@ export class ProjectAPI extends ManageBaseAPI {
   getProjectTicketsByParentIdNotesById(
     id: number,
     parentId: number,
-    params: CommonParameters = {},
+    params: CommonParameters<TicketNote> = {},
   ): Promise<TicketNote> {
     return this.request({
       path: `/project/tickets/${parentId}/notes/${id}`,
@@ -1879,7 +1906,7 @@ export class ProjectAPI extends ManageBaseAPI {
 
   getProjectTicketsByParentIdNotesCount(
     parentId: number,
-    params: CommonParameters = {},
+    params: CommonParameters<Count> = {},
   ): Promise<Count> {
     return this.request({
       path: `/project/tickets/${parentId}/notes/count`,
@@ -1890,7 +1917,7 @@ export class ProjectAPI extends ManageBaseAPI {
 
   getProjectTicketsByParentIdProducts(
     parentId: number,
-    params: CommonParameters = {},
+    params: CommonParameters<ProductReference> = {},
   ): Promise<Array<ProductReference>> {
     return this.request({
       path: `/project/tickets/${parentId}/products`,
@@ -1901,7 +1928,7 @@ export class ProjectAPI extends ManageBaseAPI {
 
   getProjectTicketsByParentIdProductsCount(
     parentId: number,
-    params: CommonParameters = {},
+    params: CommonParameters<Count> = {},
   ): Promise<Count> {
     return this.request({
       path: `/project/tickets/${parentId}/products/count`,
@@ -1912,7 +1939,7 @@ export class ProjectAPI extends ManageBaseAPI {
 
   getProjectTicketsByParentIdScheduleentries(
     parentId: number,
-    params: CommonParameters = {},
+    params: CommonParameters<ScheduleEntryReference> = {},
   ): Promise<Array<ScheduleEntryReference>> {
     return this.request({
       path: `/project/tickets/${parentId}/scheduleentries`,
@@ -1923,7 +1950,7 @@ export class ProjectAPI extends ManageBaseAPI {
 
   getProjectTicketsByParentIdScheduleentriesCount(
     parentId: number,
-    params: CommonParameters = {},
+    params: CommonParameters<Count> = {},
   ): Promise<Count> {
     return this.request({
       path: `/project/tickets/${parentId}/scheduleentries/count`,
@@ -1934,7 +1961,7 @@ export class ProjectAPI extends ManageBaseAPI {
 
   getProjectTicketsByParentIdTasks(
     parentId: number,
-    params: CommonParameters = {},
+    params: CommonParameters<TicketTask> = {},
   ): Promise<Array<TicketTask>> {
     return this.request({
       path: `/project/tickets/${parentId}/tasks`,
@@ -1954,7 +1981,7 @@ export class ProjectAPI extends ManageBaseAPI {
   getProjectTicketsByParentIdTasksById(
     id: number,
     parentId: number,
-    params: CommonParameters = {},
+    params: CommonParameters<TicketTask> = {},
   ): Promise<TicketTask> {
     return this.request({
       path: `/project/tickets/${parentId}/tasks/${id}`,
@@ -1999,7 +2026,7 @@ export class ProjectAPI extends ManageBaseAPI {
 
   getProjectTicketsByParentIdTasksCount(
     parentId: number,
-    params: CommonParameters = {},
+    params: CommonParameters<Count> = {},
   ): Promise<Count> {
     return this.request({
       path: `/project/tickets/${parentId}/tasks/count`,
@@ -2010,7 +2037,7 @@ export class ProjectAPI extends ManageBaseAPI {
 
   getProjectTicketsByParentIdTimeentries(
     parentId: number,
-    params: CommonParameters = {},
+    params: CommonParameters<TimeEntryReference> = {},
   ): Promise<Array<TimeEntryReference>> {
     return this.request({
       path: `/project/tickets/${parentId}/timeentries`,
@@ -2021,7 +2048,7 @@ export class ProjectAPI extends ManageBaseAPI {
 
   getProjectTicketsByParentIdTimeentriesCount(
     parentId: number,
-    params: CommonParameters = {},
+    params: CommonParameters<Count> = {},
   ): Promise<Count> {
     return this.request({
       path: `/project/tickets/${parentId}/timeentries/count`,
@@ -2030,7 +2057,7 @@ export class ProjectAPI extends ManageBaseAPI {
     })
   }
 
-  getProjectTicketsCount(params: CommonParameters = {}): Promise<Count> {
+  getProjectTicketsCount(params: CommonParameters<Count> = {}): Promise<Count> {
     return this.request({
       path: `/project/tickets/count`,
       method: 'get',

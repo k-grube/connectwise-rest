@@ -66,7 +66,7 @@ export type WorkTypeInfo = schemas['WorkTypeInfo']
  * @public
  */
 export class TimeAPI extends ManageBaseAPI {
-  getTimeAccruals(params: CommonParameters = {}): Promise<Array<TimeAccrual>> {
+  getTimeAccruals(params: CommonParameters<TimeAccrual> = {}): Promise<Array<TimeAccrual>> {
     return this.request({
       path: `/time/accruals`,
       method: 'get',
@@ -82,7 +82,10 @@ export class TimeAPI extends ManageBaseAPI {
     })
   }
 
-  getTimeAccrualsById(id: number, params: CommonParameters = {}): Promise<TimeAccrual> {
+  getTimeAccrualsById(
+    id: number,
+    params: CommonParameters<TimeAccrual> = {},
+  ): Promise<TimeAccrual> {
     return this.request({
       path: `/time/accruals/${id}`,
       method: 'get',
@@ -115,7 +118,7 @@ export class TimeAPI extends ManageBaseAPI {
 
   getTimeAccrualsByParentIdDetails(
     parentId: number,
-    params: CommonParameters = {},
+    params: CommonParameters<TimeAccrualDetail> = {},
   ): Promise<Array<TimeAccrualDetail>> {
     return this.request({
       path: `/time/accruals/${parentId}/details`,
@@ -138,7 +141,7 @@ export class TimeAPI extends ManageBaseAPI {
   getTimeAccrualsByParentIdDetailsById(
     id: number,
     parentId: number,
-    params: CommonParameters = {},
+    params: CommonParameters<TimeAccrualDetail> = {},
   ): Promise<TimeAccrualDetail> {
     return this.request({
       path: `/time/accruals/${parentId}/details/${id}`,
@@ -183,7 +186,7 @@ export class TimeAPI extends ManageBaseAPI {
 
   getTimeAccrualsByParentIdDetailsCount(
     parentId: number,
-    params: CommonParameters = {},
+    params: CommonParameters<Count> = {},
   ): Promise<Count> {
     return this.request({
       path: `/time/accruals/${parentId}/details/count`,
@@ -192,7 +195,7 @@ export class TimeAPI extends ManageBaseAPI {
     })
   }
 
-  getTimeAccrualsCount(params: CommonParameters = {}): Promise<Count> {
+  getTimeAccrualsCount(params: CommonParameters<Count> = {}): Promise<Count> {
     return this.request({
       path: `/time/accruals/count`,
       method: 'get',
@@ -200,7 +203,9 @@ export class TimeAPI extends ManageBaseAPI {
     })
   }
 
-  getTimeActivitystopwatches(params: CommonParameters = {}): Promise<Array<ActivityStopwatch>> {
+  getTimeActivitystopwatches(
+    params: CommonParameters<ActivityStopwatch> = {},
+  ): Promise<Array<ActivityStopwatch>> {
     return this.request({
       path: `/time/activitystopwatches`,
       method: 'get',
@@ -218,7 +223,7 @@ export class TimeAPI extends ManageBaseAPI {
 
   getTimeActivitystopwatchesById(
     id: number,
-    params: CommonParameters = {},
+    params: CommonParameters<ActivityStopwatch> = {},
   ): Promise<ActivityStopwatch> {
     return this.request({
       path: `/time/activitystopwatches/${id}`,
@@ -256,7 +261,7 @@ export class TimeAPI extends ManageBaseAPI {
     })
   }
 
-  getTimeActivitystopwatchesCount(params: CommonParameters = {}): Promise<Count> {
+  getTimeActivitystopwatchesCount(params: CommonParameters<Count> = {}): Promise<Count> {
     return this.request({
       path: `/time/activitystopwatches/count`,
       method: 'get',
@@ -264,7 +269,9 @@ export class TimeAPI extends ManageBaseAPI {
     })
   }
 
-  getTimeChangelogs(params: CommonParameters = {}): Promise<Array<TimeEntryChangeLog>> {
+  getTimeChangelogs(
+    params: CommonParameters<TimeEntryChangeLog> = {},
+  ): Promise<Array<TimeEntryChangeLog>> {
     return this.request({
       path: `/time/changelogs`,
       method: 'get',
@@ -279,7 +286,7 @@ export class TimeAPI extends ManageBaseAPI {
     })
   }
 
-  getTimeChargeCodes(params: CommonParameters = {}): Promise<Array<ChargeCode>> {
+  getTimeChargeCodes(params: CommonParameters<ChargeCode> = {}): Promise<Array<ChargeCode>> {
     return this.request({
       path: `/time/chargeCodes`,
       method: 'get',
@@ -295,7 +302,10 @@ export class TimeAPI extends ManageBaseAPI {
     })
   }
 
-  getTimeChargeCodesById(id: number, params: CommonParameters = {}): Promise<ChargeCode> {
+  getTimeChargeCodesById(
+    id: number,
+    params: CommonParameters<ChargeCode> = {},
+  ): Promise<ChargeCode> {
     return this.request({
       path: `/time/chargeCodes/${id}`,
       method: 'get',
@@ -329,7 +339,10 @@ export class TimeAPI extends ManageBaseAPI {
     })
   }
 
-  getTimeChargeCodesByIdInfo(id: number, params: CommonParameters = {}): Promise<ChargeCodeInfo> {
+  getTimeChargeCodesByIdInfo(
+    id: number,
+    params: CommonParameters<ChargeCodeInfo> = {},
+  ): Promise<ChargeCodeInfo> {
     return this.request({
       path: `/time/chargeCodes/${id}/info`,
       method: 'get',
@@ -337,7 +350,10 @@ export class TimeAPI extends ManageBaseAPI {
     })
   }
 
-  getTimeChargeCodesByIdUsages(id: number, params: CommonParameters = {}): Promise<Array<Usage>> {
+  getTimeChargeCodesByIdUsages(
+    id: number,
+    params: CommonParameters<Usage> = {},
+  ): Promise<Array<Usage>> {
     return this.request({
       path: `/time/chargeCodes/${id}/usages`,
       method: 'get',
@@ -347,7 +363,7 @@ export class TimeAPI extends ManageBaseAPI {
 
   getTimeChargeCodesByIdUsagesList(
     id: number,
-    params: CommonParameters = {},
+    params: CommonParameters<Usage> = {},
   ): Promise<Array<Usage>> {
     return this.request({
       path: `/time/chargeCodes/${id}/usages/list`,
@@ -358,7 +374,7 @@ export class TimeAPI extends ManageBaseAPI {
 
   getTimeChargeCodesByParentIdExpenseTypes(
     parentId: number,
-    params: CommonParameters = {},
+    params: CommonParameters<ChargeCodeExpenseType> = {},
   ): Promise<Array<ChargeCodeExpenseType>> {
     return this.request({
       path: `/time/chargeCodes/${parentId}/expenseTypes`,
@@ -381,7 +397,7 @@ export class TimeAPI extends ManageBaseAPI {
   getTimeChargeCodesByParentIdExpenseTypesById(
     id: number,
     parentId: number,
-    params: CommonParameters = {},
+    params: CommonParameters<ChargeCodeExpenseType> = {},
   ): Promise<ChargeCodeExpenseType> {
     return this.request({
       path: `/time/chargeCodes/${parentId}/expenseTypes/${id}`,
@@ -426,7 +442,7 @@ export class TimeAPI extends ManageBaseAPI {
 
   getTimeChargeCodesByParentIdExpenseTypesCount(
     parentId: number,
-    params: CommonParameters = {},
+    params: CommonParameters<Count> = {},
   ): Promise<Count> {
     return this.request({
       path: `/time/chargeCodes/${parentId}/expenseTypes/count`,
@@ -435,7 +451,7 @@ export class TimeAPI extends ManageBaseAPI {
     })
   }
 
-  getTimeChargeCodesCount(params: CommonParameters = {}): Promise<Count> {
+  getTimeChargeCodesCount(params: CommonParameters<Count> = {}): Promise<Count> {
     return this.request({
       path: `/time/chargeCodes/count`,
       method: 'get',
@@ -443,7 +459,9 @@ export class TimeAPI extends ManageBaseAPI {
     })
   }
 
-  getTimeChargeCodesInfo(params: CommonParameters = {}): Promise<Array<ChargeCodeInfo>> {
+  getTimeChargeCodesInfo(
+    params: CommonParameters<ChargeCodeInfo> = {},
+  ): Promise<Array<ChargeCodeInfo>> {
     return this.request({
       path: `/time/chargeCodes/info`,
       method: 'get',
@@ -451,7 +469,7 @@ export class TimeAPI extends ManageBaseAPI {
     })
   }
 
-  getTimeChargeCodesInfoCount(params: CommonParameters = {}): Promise<Count> {
+  getTimeChargeCodesInfoCount(params: CommonParameters<Count> = {}): Promise<Count> {
     return this.request({
       path: `/time/chargeCodes/info/count`,
       method: 'get',
@@ -459,7 +477,7 @@ export class TimeAPI extends ManageBaseAPI {
     })
   }
 
-  getTimeEntries(params: CommonParameters = {}): Promise<Array<TimeEntry>> {
+  getTimeEntries(params: CommonParameters<TimeEntry> = {}): Promise<Array<TimeEntry>> {
     return this.request({
       path: `/time/entries`,
       method: 'get',
@@ -475,7 +493,7 @@ export class TimeAPI extends ManageBaseAPI {
     })
   }
 
-  getTimeEntriesById(id: number, params: CommonParameters = {}): Promise<TimeEntry> {
+  getTimeEntriesById(id: number, params: CommonParameters<TimeEntry> = {}): Promise<TimeEntry> {
     return this.request({
       path: `/time/entries/${id}`,
       method: 'get',
@@ -537,7 +555,7 @@ export class TimeAPI extends ManageBaseAPI {
 
   getTimeEntriesByParentIdAudits(
     parentId: number,
-    params: CommonParameters = {},
+    params: CommonParameters<TimeEntryAudit> = {},
   ): Promise<Array<TimeEntryAudit>> {
     return this.request({
       path: `/time/entries/${parentId}/audits`,
@@ -549,7 +567,7 @@ export class TimeAPI extends ManageBaseAPI {
   getTimeEntriesByParentIdAuditsById(
     id: number,
     parentId: number,
-    params: CommonParameters = {},
+    params: CommonParameters<TimeEntryAudit> = {},
   ): Promise<TimeEntryAudit> {
     return this.request({
       path: `/time/entries/${parentId}/audits/${id}`,
@@ -560,7 +578,7 @@ export class TimeAPI extends ManageBaseAPI {
 
   getTimeEntriesByParentIdAuditsCount(
     parentId: number,
-    params: CommonParameters = {},
+    params: CommonParameters<Count> = {},
   ): Promise<Count> {
     return this.request({
       path: `/time/entries/${parentId}/audits/count`,
@@ -569,7 +587,7 @@ export class TimeAPI extends ManageBaseAPI {
     })
   }
 
-  getTimeEntriesCount(params: CommonParameters = {}): Promise<Count> {
+  getTimeEntriesCount(params: CommonParameters<Count> = {}): Promise<Count> {
     return this.request({
       path: `/time/entries/count`,
       method: 'get',
@@ -586,7 +604,7 @@ export class TimeAPI extends ManageBaseAPI {
   }
 
   getTimeInfoChargeCodeExpenseTypes(
-    params: CommonParameters = {},
+    params: CommonParameters<ChargeCodeExpenseType> = {},
   ): Promise<Array<ChargeCodeExpenseType>> {
     return this.request({
       path: `/time/info/chargeCodeExpenseTypes`,
@@ -595,7 +613,7 @@ export class TimeAPI extends ManageBaseAPI {
     })
   }
 
-  getTimeInfoChargeCodeExpenseTypesCount(params: CommonParameters = {}): Promise<Count> {
+  getTimeInfoChargeCodeExpenseTypesCount(params: CommonParameters<Count> = {}): Promise<Count> {
     return this.request({
       path: `/time/info/chargeCodeExpenseTypes/count`,
       method: 'get',
@@ -603,7 +621,9 @@ export class TimeAPI extends ManageBaseAPI {
     })
   }
 
-  getTimeSchedulestopwatches(params: CommonParameters = {}): Promise<Array<ScheduleStopwatch>> {
+  getTimeSchedulestopwatches(
+    params: CommonParameters<ScheduleStopwatch> = {},
+  ): Promise<Array<ScheduleStopwatch>> {
     return this.request({
       path: `/time/schedulestopwatches`,
       method: 'get',
@@ -621,7 +641,7 @@ export class TimeAPI extends ManageBaseAPI {
 
   getTimeSchedulestopwatchesById(
     id: number,
-    params: CommonParameters = {},
+    params: CommonParameters<ScheduleStopwatch> = {},
   ): Promise<ScheduleStopwatch> {
     return this.request({
       path: `/time/schedulestopwatches/${id}`,
@@ -659,7 +679,7 @@ export class TimeAPI extends ManageBaseAPI {
     })
   }
 
-  getTimeSchedulestopwatchesCount(params: CommonParameters = {}): Promise<Count> {
+  getTimeSchedulestopwatchesCount(params: CommonParameters<Count> = {}): Promise<Count> {
     return this.request({
       path: `/time/schedulestopwatches/count`,
       method: 'get',
@@ -667,7 +687,7 @@ export class TimeAPI extends ManageBaseAPI {
     })
   }
 
-  getTimeSheets(params: CommonParameters = {}): Promise<Array<TimeSheet>> {
+  getTimeSheets(params: CommonParameters<TimeSheet> = {}): Promise<Array<TimeSheet>> {
     return this.request({
       path: `/time/sheets`,
       method: 'get',
@@ -675,7 +695,7 @@ export class TimeAPI extends ManageBaseAPI {
     })
   }
 
-  getTimeSheetsById(id: number, params: CommonParameters = {}): Promise<TimeSheet> {
+  getTimeSheetsById(id: number, params: CommonParameters<TimeSheet> = {}): Promise<TimeSheet> {
     return this.request({
       path: `/time/sheets/${id}`,
       method: 'get',
@@ -721,7 +741,7 @@ export class TimeAPI extends ManageBaseAPI {
 
   getTimeSheetsByParentIdAudits(
     parentId: number,
-    params: CommonParameters = {},
+    params: CommonParameters<TimeSheetAudit> = {},
   ): Promise<Array<TimeSheetAudit>> {
     return this.request({
       path: `/time/sheets/${parentId}/audits`,
@@ -733,7 +753,7 @@ export class TimeAPI extends ManageBaseAPI {
   getTimeSheetsByParentIdAuditsById(
     id: number,
     parentId: number,
-    params: CommonParameters = {},
+    params: CommonParameters<TimeSheetAudit> = {},
   ): Promise<TimeSheetAudit> {
     return this.request({
       path: `/time/sheets/${parentId}/audits/${id}`,
@@ -744,7 +764,7 @@ export class TimeAPI extends ManageBaseAPI {
 
   getTimeSheetsByParentIdAuditsCount(
     parentId: number,
-    params: CommonParameters = {},
+    params: CommonParameters<Count> = {},
   ): Promise<Count> {
     return this.request({
       path: `/time/sheets/${parentId}/audits/count`,
@@ -753,7 +773,7 @@ export class TimeAPI extends ManageBaseAPI {
     })
   }
 
-  getTimeSheetsCount(params: CommonParameters = {}): Promise<Count> {
+  getTimeSheetsCount(params: CommonParameters<Count> = {}): Promise<Count> {
     return this.request({
       path: `/time/sheets/count`,
       method: 'get',
@@ -761,7 +781,9 @@ export class TimeAPI extends ManageBaseAPI {
     })
   }
 
-  getTimeTicketstopwatches(params: CommonParameters = {}): Promise<Array<TicketStopwatch>> {
+  getTimeTicketstopwatches(
+    params: CommonParameters<TicketStopwatch> = {},
+  ): Promise<Array<TicketStopwatch>> {
     return this.request({
       path: `/time/ticketstopwatches`,
       method: 'get',
@@ -779,7 +801,7 @@ export class TimeAPI extends ManageBaseAPI {
 
   getTimeTicketstopwatchesById(
     id: number,
-    params: CommonParameters = {},
+    params: CommonParameters<TicketStopwatch> = {},
   ): Promise<TicketStopwatch> {
     return this.request({
       path: `/time/ticketstopwatches/${id}`,
@@ -817,7 +839,7 @@ export class TimeAPI extends ManageBaseAPI {
     })
   }
 
-  getTimeTicketstopwatchesCount(params: CommonParameters = {}): Promise<Count> {
+  getTimeTicketstopwatchesCount(params: CommonParameters<Count> = {}): Promise<Count> {
     return this.request({
       path: `/time/ticketstopwatches/count`,
       method: 'get',
@@ -825,7 +847,9 @@ export class TimeAPI extends ManageBaseAPI {
     })
   }
 
-  getTimeTimePeriodSetups(params: CommonParameters = {}): Promise<Array<TimePeriodSetup>> {
+  getTimeTimePeriodSetups(
+    params: CommonParameters<TimePeriodSetup> = {},
+  ): Promise<Array<TimePeriodSetup>> {
     return this.request({
       path: `/time/timePeriodSetups`,
       method: 'get',
@@ -841,7 +865,10 @@ export class TimeAPI extends ManageBaseAPI {
     })
   }
 
-  getTimeTimePeriodSetupsById(id: number, params: CommonParameters = {}): Promise<TimePeriodSetup> {
+  getTimeTimePeriodSetupsById(
+    id: number,
+    params: CommonParameters<TimePeriodSetup> = {},
+  ): Promise<TimePeriodSetup> {
     return this.request({
       path: `/time/timePeriodSetups/${id}`,
       method: 'get',
@@ -880,7 +907,7 @@ export class TimeAPI extends ManageBaseAPI {
 
   getTimeTimePeriodSetupsByParentIdPeriods(
     parentId: number,
-    params: CommonParameters = {},
+    params: CommonParameters<TimePeriod> = {},
   ): Promise<Array<TimePeriod>> {
     return this.request({
       path: `/time/timePeriodSetups/${parentId}/periods`,
@@ -892,7 +919,7 @@ export class TimeAPI extends ManageBaseAPI {
   getTimeTimePeriodSetupsByParentIdPeriodsById(
     id: number,
     parentId: number,
-    params: CommonParameters = {},
+    params: CommonParameters<TimePeriod> = {},
   ): Promise<TimePeriod> {
     return this.request({
       path: `/time/timePeriodSetups/${parentId}/periods/${id}`,
@@ -903,7 +930,7 @@ export class TimeAPI extends ManageBaseAPI {
 
   getTimeTimePeriodSetupsByParentIdPeriodsCount(
     parentId: number,
-    params: CommonParameters = {},
+    params: CommonParameters<Count> = {},
   ): Promise<Count> {
     return this.request({
       path: `/time/timePeriodSetups/${parentId}/periods/count`,
@@ -912,7 +939,7 @@ export class TimeAPI extends ManageBaseAPI {
     })
   }
 
-  getTimeTimePeriodSetupsCount(params: CommonParameters = {}): Promise<Count> {
+  getTimeTimePeriodSetupsCount(params: CommonParameters<Count> = {}): Promise<Count> {
     return this.request({
       path: `/time/timePeriodSetups/count`,
       method: 'get',
@@ -920,7 +947,9 @@ export class TimeAPI extends ManageBaseAPI {
     })
   }
 
-  getTimeTimePeriodSetupsDefault(params: CommonParameters = {}): Promise<TimePeriodSetupDefaults> {
+  getTimeTimePeriodSetupsDefault(
+    params: CommonParameters<TimePeriodSetupDefaults> = {},
+  ): Promise<TimePeriodSetupDefaults> {
     return this.request({
       path: `/time/timePeriodSetups/default`,
       method: 'get',
@@ -928,7 +957,7 @@ export class TimeAPI extends ManageBaseAPI {
     })
   }
 
-  getTimeWorkRoles(params: CommonParameters = {}): Promise<Array<WorkRole>> {
+  getTimeWorkRoles(params: CommonParameters<WorkRole> = {}): Promise<Array<WorkRole>> {
     return this.request({
       path: `/time/workRoles`,
       method: 'get',
@@ -944,7 +973,7 @@ export class TimeAPI extends ManageBaseAPI {
     })
   }
 
-  getTimeWorkRolesById(id: number, params: CommonParameters = {}): Promise<WorkRole> {
+  getTimeWorkRolesById(id: number, params: CommonParameters<WorkRole> = {}): Promise<WorkRole> {
     return this.request({
       path: `/time/workRoles/${id}`,
       method: 'get',
@@ -975,7 +1004,10 @@ export class TimeAPI extends ManageBaseAPI {
     })
   }
 
-  getTimeWorkRolesByIdInfo(id: number, params: CommonParameters = {}): Promise<WorkRoleInfo> {
+  getTimeWorkRolesByIdInfo(
+    id: number,
+    params: CommonParameters<WorkRoleInfo> = {},
+  ): Promise<WorkRoleInfo> {
     return this.request({
       path: `/time/workRoles/${id}/info`,
       method: 'get',
@@ -983,7 +1015,10 @@ export class TimeAPI extends ManageBaseAPI {
     })
   }
 
-  getTimeWorkRolesByIdUsages(id: number, params: CommonParameters = {}): Promise<Array<Usage>> {
+  getTimeWorkRolesByIdUsages(
+    id: number,
+    params: CommonParameters<Usage> = {},
+  ): Promise<Array<Usage>> {
     return this.request({
       path: `/time/workRoles/${id}/usages`,
       method: 'get',
@@ -991,7 +1026,10 @@ export class TimeAPI extends ManageBaseAPI {
     })
   }
 
-  getTimeWorkRolesByIdUsagesList(id: number, params: CommonParameters = {}): Promise<Array<Usage>> {
+  getTimeWorkRolesByIdUsagesList(
+    id: number,
+    params: CommonParameters<Usage> = {},
+  ): Promise<Array<Usage>> {
     return this.request({
       path: `/time/workRoles/${id}/usages/list`,
       method: 'get',
@@ -1001,7 +1039,7 @@ export class TimeAPI extends ManageBaseAPI {
 
   getTimeWorkRolesByParentIdLocations(
     parentId: number,
-    params: CommonParameters = {},
+    params: CommonParameters<WorkRoleLocation> = {},
   ): Promise<Array<WorkRoleLocation>> {
     return this.request({
       path: `/time/workRoles/${parentId}/locations`,
@@ -1024,7 +1062,7 @@ export class TimeAPI extends ManageBaseAPI {
   getTimeWorkRolesByParentIdLocationsById(
     id: number,
     parentId: number,
-    params: CommonParameters = {},
+    params: CommonParameters<WorkRoleLocation> = {},
   ): Promise<WorkRoleLocation> {
     return this.request({
       path: `/time/workRoles/${parentId}/locations/${id}`,
@@ -1069,7 +1107,7 @@ export class TimeAPI extends ManageBaseAPI {
 
   getTimeWorkRolesByParentIdLocationsCount(
     parentId: number,
-    params: CommonParameters = {},
+    params: CommonParameters<Count> = {},
   ): Promise<Count> {
     return this.request({
       path: `/time/workRoles/${parentId}/locations/count`,
@@ -1078,7 +1116,7 @@ export class TimeAPI extends ManageBaseAPI {
     })
   }
 
-  getTimeWorkRolesCount(params: CommonParameters = {}): Promise<Count> {
+  getTimeWorkRolesCount(params: CommonParameters<Count> = {}): Promise<Count> {
     return this.request({
       path: `/time/workRoles/count`,
       method: 'get',
@@ -1086,7 +1124,7 @@ export class TimeAPI extends ManageBaseAPI {
     })
   }
 
-  getTimeWorkRolesInfo(params: CommonParameters = {}): Promise<Array<WorkRoleInfo>> {
+  getTimeWorkRolesInfo(params: CommonParameters<WorkRoleInfo> = {}): Promise<Array<WorkRoleInfo>> {
     return this.request({
       path: `/time/workRoles/info`,
       method: 'get',
@@ -1094,7 +1132,7 @@ export class TimeAPI extends ManageBaseAPI {
     })
   }
 
-  getTimeWorkRolesInfoCount(params: CommonParameters = {}): Promise<Count> {
+  getTimeWorkRolesInfoCount(params: CommonParameters<Count> = {}): Promise<Count> {
     return this.request({
       path: `/time/workRoles/info/count`,
       method: 'get',
@@ -1102,7 +1140,7 @@ export class TimeAPI extends ManageBaseAPI {
     })
   }
 
-  getTimeWorkTypes(params: CommonParameters = {}): Promise<Array<WorkType>> {
+  getTimeWorkTypes(params: CommonParameters<WorkType> = {}): Promise<Array<WorkType>> {
     return this.request({
       path: `/time/workTypes`,
       method: 'get',
@@ -1118,7 +1156,7 @@ export class TimeAPI extends ManageBaseAPI {
     })
   }
 
-  getTimeWorkTypesById(id: number, params: CommonParameters = {}): Promise<WorkType> {
+  getTimeWorkTypesById(id: number, params: CommonParameters<WorkType> = {}): Promise<WorkType> {
     return this.request({
       path: `/time/workTypes/${id}`,
       method: 'get',
@@ -1149,7 +1187,10 @@ export class TimeAPI extends ManageBaseAPI {
     })
   }
 
-  getTimeWorkTypesByIdInfo(id: number, params: CommonParameters = {}): Promise<WorkTypeInfo> {
+  getTimeWorkTypesByIdInfo(
+    id: number,
+    params: CommonParameters<WorkTypeInfo> = {},
+  ): Promise<WorkTypeInfo> {
     return this.request({
       path: `/time/workTypes/${id}/info`,
       method: 'get',
@@ -1157,7 +1198,10 @@ export class TimeAPI extends ManageBaseAPI {
     })
   }
 
-  getTimeWorkTypesByIdUsages(id: number, params: CommonParameters = {}): Promise<Array<Usage>> {
+  getTimeWorkTypesByIdUsages(
+    id: number,
+    params: CommonParameters<Usage> = {},
+  ): Promise<Array<Usage>> {
     return this.request({
       path: `/time/workTypes/${id}/usages`,
       method: 'get',
@@ -1165,7 +1209,10 @@ export class TimeAPI extends ManageBaseAPI {
     })
   }
 
-  getTimeWorkTypesByIdUsagesList(id: number, params: CommonParameters = {}): Promise<Array<Usage>> {
+  getTimeWorkTypesByIdUsagesList(
+    id: number,
+    params: CommonParameters<Usage> = {},
+  ): Promise<Array<Usage>> {
     return this.request({
       path: `/time/workTypes/${id}/usages/list`,
       method: 'get',
@@ -1173,7 +1220,7 @@ export class TimeAPI extends ManageBaseAPI {
     })
   }
 
-  getTimeWorkTypesCount(params: CommonParameters = {}): Promise<Count> {
+  getTimeWorkTypesCount(params: CommonParameters<Count> = {}): Promise<Count> {
     return this.request({
       path: `/time/workTypes/count`,
       method: 'get',
@@ -1181,7 +1228,7 @@ export class TimeAPI extends ManageBaseAPI {
     })
   }
 
-  getTimeWorkTypesInfo(params: CommonParameters = {}): Promise<Array<WorkTypeInfo>> {
+  getTimeWorkTypesInfo(params: CommonParameters<WorkTypeInfo> = {}): Promise<Array<WorkTypeInfo>> {
     return this.request({
       path: `/time/workTypes/info`,
       method: 'get',
@@ -1189,7 +1236,7 @@ export class TimeAPI extends ManageBaseAPI {
     })
   }
 
-  getTimeWorkTypesInfoCount(params: CommonParameters = {}): Promise<Count> {
+  getTimeWorkTypesInfoCount(params: CommonParameters<Count> = {}): Promise<Count> {
     return this.request({
       path: `/time/workTypes/info/count`,
       method: 'get',

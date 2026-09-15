@@ -3,6 +3,80 @@ const { getAutomateJson } = require('./automate-json')
 
 const automateSchema = getAutomateJson()
 
+const getRefName = (ref = '') => ref.split('/').pop()
+
+const getSchemaTypeFromRef = (ref = '') =>
+  ref.includes('requestBodies') ? 'requestBody' : 'schemas'
+
+const registerRefType = (types, ref) => {
+  const typeName = getRefName(ref)
+  types[typeName] = {
+    schemaType: getSchemaTypeFromRef(ref),
+  }
+  return typeName
+}
+
+const toResponseTypeInfo = (typeName, paramsType = typeName) => ({
+  returnType: typeMapSanitize(typeName),
+  paramsType: typeMapSanitize(paramsType),
+})
+
+const getResponseTypeInfo = ({ responses, types }) => {
+  if (responses[204]) {
+    return toResponseTypeInfo('NoContentResponse')
+  }
+
+  const { description, content } = responses[Object.keys(responses).pop()]
+
+  if (responses.default) {
+    return toResponseTypeInfo('any')
+  }
+
+  if (!content) {
+    const typeName = description.split(' ').pop()
+    return toResponseTypeInfo(typeName)
+  }
+
+  const { schema } = content[Object.keys(content).pop()]
+
+  if (schema.items) {
+    if (schema.items.$ref) {
+      const itemType = registerRefType(types, schema.items.$ref)
+      return toResponseTypeInfo(`Array<${itemType}>`, itemType)
+    }
+
+    if (schema.items.additionalProperties?.$ref) {
+      const itemType = registerRefType(types, schema.items.additionalProperties.$ref)
+      return toResponseTypeInfo(`Array<${itemType}>`, itemType)
+    }
+
+    if (schema.items.type) {
+      return toResponseTypeInfo(`Array<${schema.items.type}>`, schema.items.type)
+    }
+
+    if (schema.type) {
+      return toResponseTypeInfo(schema.type)
+    }
+  }
+
+  if (schema.$ref) {
+    const ref = schema.$ref
+
+    if (ref.includes('LabTech.Database.ResultSetWithCount')) {
+      const schemaName = getRefName(ref)
+      const resultSchema = automateSchema.components.schemas[schemaName]
+      const resultSetRef = resultSchema.properties.ResultSet.items.$ref
+      const itemType = registerRefType(types, resultSetRef)
+      return toResponseTypeInfo(`Array<${itemType}>`, itemType)
+    }
+
+    const typeName = registerRefType(types, ref)
+    return toResponseTypeInfo(typeName)
+  }
+
+  return toResponseTypeInfo(schema.type)
+}
+
 const typeMapSanitize = (input = '') => {
   switch (input) {
     case 'integer':
@@ -192,6 +266,14 @@ function generateAPIClass({ apiName, operations = [], generatorType }) {
         requestParams.push(`path: \`${url.replaceAll(/({.+?})/g, (_, p1) => `$${p1}`)}\``)
         requestParams.push(`method: '${method}'`)
 
+        if (
+          generatorType === 'Manage' &&
+          method === 'post' &&
+          url === '/system/members/{memberIdentifier}/tokens'
+        ) {
+          requestParams.push(`headers: { 'x-cw-usertype': 'member' }`)
+        }
+
         if (requestBody) {
           if (isMultipart) {
             usedToFormData = true
@@ -209,87 +291,28 @@ function generateAPIClass({ apiName, operations = [], generatorType }) {
           }
         }
 
-        if (queryParams.length > 0) {
-          functionParams.push('params: CommonParameters = {}')
-          requestParams.push(`params`)
-        }
-        let returnType
         let responseTypeHint = null
-        if (responses[204]) {
-          returnType = 'NoContentResponse'
-        } else {
-          const { description, content } = responses[Object.keys(responses).pop()]
+        const responseTypeInfo = getResponseTypeInfo({ responses, types })
+        let returnType = responseTypeInfo.returnType
 
-          // Detect non-JSON response content types and emit a responseType hint.
-          if (content) {
-            const contentTypes = Object.keys(content)
-            if (
-              contentTypes.includes('application/octet-stream') ||
-              contentTypes.includes('application/pdf')
-            ) {
-              responseTypeHint = 'arraybuffer'
-            } else if (contentTypes.includes('text/html')) {
-              responseTypeHint = 'text'
-            }
-          }
+        const response = responses[Object.keys(responses).pop()]
+        const content = response?.content
 
-          if (responses['default']) {
-            returnType = 'any'
-            if (responses['default'].description) {
-              returnType = `${returnType}`
-            }
-          } else if (content) {
-            const { schema } = content[Object.keys(content).pop()]
-
-            if (schema.items) {
-              if (schema.items.$ref) {
-                const ref = schema.items.$ref
-                const tempName = ref.split('/').pop()
-                returnType = `Array<${tempName}>`
-                types[tempName] = {
-                  schemaType: ref.includes('requestBodies') ? 'requestBody' : 'schemas',
-                }
-              } else if (schema.items.additionalProperties?.$ref) {
-                const ref = schema.items.additionalProperties.$ref
-                const tempName = ref.split('/').pop()
-                returnType = `Array<${tempName}>`
-                types[tempName] = {
-                  schemaType: ref.includes('requestBodies') ? 'requestBody' : 'schemas',
-                }
-              } else if (schema.type) {
-                if (schema.items.type) {
-                  returnType = `Array<${schema.items.type}>`
-                } else {
-                  returnType = schema.type
-                }
-              }
-            } else if (schema.$ref) {
-              const ref = schema.$ref
-              // fix for incorrect types from ResultSetWithCount
-              if (ref.includes('LabTech.Database.ResultSetWithCount')) {
-                const schemaName = ref.split('/').pop()
-                const resultSchema = automateSchema.components.schemas[schemaName]
-                const ResultSetRef = resultSchema.properties.ResultSet.items.$ref
-                const tempName = ResultSetRef.split('/').pop()
-                returnType = `Array<${tempName}>`
-                types[tempName] = {
-                  schemaType: ref.includes('requestBodies') ? 'requestBody' : 'schemas',
-                }
-              } else {
-                returnType = schema.$ref.split('/').pop()
-                types[returnType] = {
-                  schemaType: ref.includes('requestBodies') ? 'requestBody' : 'schemas',
-                }
-              }
-            } else {
-              returnType = schema.type
-            }
-          } else {
-            returnType = description.split(' ').pop()
+        // Detect non-JSON response content types and emit a responseType hint.
+        // Binary hints also override the schema's return type (spec says
+        // string/binary, runtime hands back a Buffer).
+        if (content) {
+          const contentTypes = Object.keys(content)
+          if (contentTypes.includes('application/pdf')) {
+            responseTypeHint = 'arraybuffer'
+            returnType = 'PDFResponse'
+          } else if (contentTypes.includes('application/octet-stream')) {
+            responseTypeHint = 'arraybuffer'
+            returnType = 'OctetStreamResponse'
+          } else if (contentTypes.includes('text/html')) {
+            responseTypeHint = 'text'
           }
         }
-
-        returnType = typeMapSanitize(returnType)
 
         if (!returnType) {
           returnType = 'any'
@@ -297,6 +320,15 @@ function generateAPIClass({ apiName, operations = [], generatorType }) {
 
         if (responseTypeHint) {
           requestParams.push(`responseType: '${responseTypeHint}'`)
+        }
+
+        if (queryParams.length > 0) {
+          const commonParametersType =
+            generatorType === 'Manage'
+              ? `CommonParameters<${responseTypeInfo.paramsType}>`
+              : 'CommonParameters'
+          functionParams.push(`params: ${commonParametersType} = {}`)
+          requestParams.push(`params`)
         }
 
         return `

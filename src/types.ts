@@ -65,6 +65,8 @@ export type RequestOptions = {
   contentType?: ContentType
   /** Hint for how axios should decode the response; generator sets this for binary endpoints. */
   responseType?: ResponseType
+  /** Endpoint-specific headers to merge into the request. */
+  headers?: Record<string, string>
 }
 
 export type LoggingLevels = 'error' | 'warn' | 'info' | 'debug'
@@ -86,8 +88,9 @@ export type ErrorResponse = {
 
 // missing types from api spec
 export type NoContentResponse = undefined
+// both arrive as Buffer, axios arraybuffer responses in node
 export type OctetStreamResponse = Buffer
-export type PDFResponse = Blob
+export type PDFResponse = Buffer
 export type HTMLResponse = string
 export type PatchOperation = ManageAPIs.PatchOperation
 export type { ManageAPIs, AutomateApis }

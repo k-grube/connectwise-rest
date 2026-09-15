@@ -10,6 +10,7 @@
 
 const fs = require('fs')
 const path = require('path')
+const { factory, SyntaxKind } = require('typescript')
 const { ESLint } = require('eslint')
 const { generateAPIClass } = require('./generator.js')
 const { getAutomateJson } = require('./automate-json.js')
@@ -23,11 +24,47 @@ function pascal(str) {
   return str.charAt(0).toUpperCase() + str.slice(1)
 }
 
+function createProperty(name, type, optional = false) {
+  return factory.createPropertySignature(
+    undefined,
+    factory.createIdentifier(name),
+    optional ? factory.createToken(SyntaxKind.QuestionToken) : undefined,
+    type,
+  )
+}
+
+function createOpType(...ops) {
+  return factory.createUnionTypeNode(
+    ops.map((op) => factory.createLiteralTypeNode(factory.createStringLiteral(op))),
+  )
+}
+
+// spec types Op as bare string, Value as empty object; override with real
+// json-patch shape (PascalCase, unlike Manage)
+function createPatchOperationTransform(_schemaObject, meta) {
+  if (meta.path !== '#/components/schemas/LabTech.RESTApi.Models.PatchOperation') {
+    return undefined
+  }
+
+  return factory.createUnionTypeNode([
+    factory.createTypeLiteralNode([
+      createProperty('Op', createOpType('add', 'replace')),
+      createProperty('Path', factory.createKeywordTypeNode(SyntaxKind.StringKeyword)),
+      createProperty('Value', factory.createKeywordTypeNode(SyntaxKind.UnknownKeyword)),
+    ]),
+    factory.createTypeLiteralNode([
+      createProperty('Op', createOpType('remove')),
+      createProperty('Path', factory.createKeywordTypeNode(SyntaxKind.StringKeyword)),
+      createProperty('Value', factory.createKeywordTypeNode(SyntaxKind.UnknownKeyword), true),
+    ]),
+  ])
+}
+
 async function emitTypes(spec) {
   console.log('generating AutomateTypes.ts from merged spec')
   const mod = await import('openapi-typescript')
   const openapiTS = mod.default ?? mod
-  const result = await openapiTS(spec)
+  const result = await openapiTS(spec, { transform: createPatchOperationTransform })
   let output
   if (typeof result === 'string') {
     output = result

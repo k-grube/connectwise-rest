@@ -1,6 +1,6 @@
 {
   "name": "connectwise-rest",
-  "version": "2.0.0-alpha.2",
+  "version": "2.0.0-beta.2",
   "description": "A nodejs module for interacting with the ConnectWise Manage and Automate REST APIs.",
   "type": "commonjs",
   "main": "dist/index.js",
@@ -41,7 +41,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/covenanttechnologysolutions/connectwise-rest"
+    "url": "git+https://github.com/k-grube/connectwise-rest"
   },
   "keywords": [
     "connectwise",
@@ -57,11 +57,11 @@
   },
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/covenanttechnologysolutions/connectwise-rest/issues"
+    "url": "https://github.com/k-grube/connectwise-rest/issues"
   },
-  "homepage": "https://github.com/covenanttechnologysolutions/connectwise-rest",
+  "homepage": "https://github.com/k-grube/connectwise-rest",
   "dependencies": {
-    "axios": "^1.15.0",
+    "axios": "^1.18.0",
     "promise-retry": "^2.0.1"
   },
   "devDependencies": {
@@ -81,7 +81,7 @@
     "gh-pages": "^6.3.0",
     "globals": "^17.5.0",
     "lodash": "^4.18.1",
-    "mocha": "^11.7.5",
+    "mocha": "12.0.1",
     "nyc": "^18.0.0",
     "openapi-typescript": "^7.13.0",
     "prettier": "^3.8.2",

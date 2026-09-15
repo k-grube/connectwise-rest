@@ -31,6 +31,7 @@ describe('request options', () => {
       data: 'body',
       contentType: 'multipart',
       responseType: 'arraybuffer',
+      headers: undefined,
     })
   })
 
@@ -64,6 +65,7 @@ describe('request options', () => {
       data: 'body',
       contentType: 'multipart',
       responseType: 'arraybuffer',
+      headers: undefined,
     })
   })
 })

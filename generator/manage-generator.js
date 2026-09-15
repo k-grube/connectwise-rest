@@ -9,6 +9,7 @@
 
 const fs = require('fs')
 const path = require('path')
+const { factory, SyntaxKind } = require('typescript')
 const { ESLint } = require('eslint')
 const { generateAPIClass } = require('./generator.js')
 
@@ -22,6 +23,40 @@ function pascal(str) {
   return str.charAt(0).toUpperCase() + str.slice(1)
 }
 
+function createProperty(name, type, optional = false) {
+  return factory.createPropertySignature(
+    undefined,
+    factory.createIdentifier(name),
+    optional ? factory.createToken(SyntaxKind.QuestionToken) : undefined,
+    type,
+  )
+}
+
+function createOpType(...ops) {
+  return factory.createUnionTypeNode(
+    ops.map((op) => factory.createLiteralTypeNode(factory.createStringLiteral(op))),
+  )
+}
+
+function createPatchOperationTransform(_schemaObject, meta) {
+  if (meta.path !== '#/components/schemas/PatchOperation') {
+    return undefined
+  }
+
+  return factory.createUnionTypeNode([
+    factory.createTypeLiteralNode([
+      createProperty('op', createOpType('add', 'replace')),
+      createProperty('path', factory.createKeywordTypeNode(SyntaxKind.StringKeyword)),
+      createProperty('value', factory.createKeywordTypeNode(SyntaxKind.UnknownKeyword)),
+    ]),
+    factory.createTypeLiteralNode([
+      createProperty('op', createOpType('remove')),
+      createProperty('path', factory.createKeywordTypeNode(SyntaxKind.StringKeyword)),
+      createProperty('value', factory.createKeywordTypeNode(SyntaxKind.UnknownKeyword), true),
+    ]),
+  ])
+}
+
 async function emitTypes(spec) {
   console.log('generating ManageTypes.ts from spec')
   // openapi-typescript v7 is ESM-only; use dynamic import from this CJS script.
@@ -29,7 +64,7 @@ async function emitTypes(spec) {
   const openapiTS = mod.default ?? mod
   // v7 returns an AST (array of ts.Node); we must format via astToString.
   // v6 returns a string. Handle both.
-  const result = await openapiTS(spec)
+  const result = await openapiTS(spec, { transform: createPatchOperationTransform })
   let output
   if (typeof result === 'string') {
     output = result
@@ -100,17 +135,14 @@ import Manage from './Manage'
 import { CWLogger, RetryOptions } from './types'
 ${imports}
 
+import type { components } from './ManageTypes'
 ${typeExports}
 
 /**
  * @public
  * Manage patch operation input object, usually passed in an array of operations
  */
-export type PatchOperation = {
-  op: 'add' | 'replace' | 'remove'
-  path: string
-  value: unknown
-}
+export type PatchOperation = components['schemas']['PatchOperation']
 
 /**
  * @public
@@ -142,16 +174,49 @@ export interface CWMOptions {
   debug?: boolean
 }
 
+type FieldPathPrimitive = bigint | boolean | null | number | string | symbol | undefined
+
+type FieldPathTerminal = Date | FieldPathPrimitive | RegExp
+
+type FieldPathValue<T> = T extends ReadonlyArray<infer U> ? U : T
+
+type FieldPathDepth = [never, 0, 1, 2, 3, 4, 5]
+
+type FieldPath<T, Depth extends number = 5> = [Depth] extends [never]
+  ? never
+  : T extends FieldPathTerminal
+    ? never
+    : T extends object
+      ? {
+          [K in keyof T & string]: NonNullable<T[K]> extends FieldPathTerminal
+            ? K
+            : NonNullable<FieldPathValue<T[K]>> extends object
+              ? K | \`\${K}/\${FieldPath<NonNullable<FieldPathValue<T[K]>>, FieldPathDepth[Depth]>}\`
+              : K
+        }[keyof T & string]
+      : never
+
+type FieldSelection<T> = ReadonlyArray<FieldPath<NonNullable<T>>>
+
+type OrderByField<T> = FieldPath<NonNullable<T>>
+
+type SortOrder = 'asc' | 'desc'
+
+type OrderByValue<T> = ReadonlyArray<{
+  field: OrderByField<T>
+  direction: SortOrder
+}>
+
 /**
  * @public
  * Manage common parameters
  */
-export type CommonParameters = {
+export type CommonParameters<T = any> = {
   conditions?: string
   childConditions?: string
   customFieldConditions?: string
-  orderBy?: string
-  fields?: string
+  orderBy?: OrderByValue<T> | string
+  fields?: FieldSelection<T> | string
   page?: number
   pageSize?: number
   pageId?: number

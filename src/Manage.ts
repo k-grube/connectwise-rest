@@ -87,11 +87,11 @@ export default class Manage {
    *
    * ```
    */
-  paginate: (
-    apiMethod: PaginationApiMethod,
+  paginate: <T, Args extends unknown[]>(
+    apiMethod: PaginationApiMethod<T, Args>,
     paginateArgs: PaginationOptions,
-    ...methodArgs: Record<string, unknown>[]
-  ) => Promise<unknown[]>
+    ...methodArgs: Args
+  ) => Promise<T[]>
 
   constructor({
     companyId,
@@ -157,6 +157,7 @@ export default class Manage {
     data,
     contentType,
     responseType,
+    headers: requestHeaders,
   }: RequestOptions): Promise<ErrorResponse | DataResponse> {
     try {
       // For multipart uploads let the runtime set Content-Type + boundary.
@@ -164,12 +165,47 @@ export default class Manage {
       // object with contentType: 'multipart' falls back to the caller's
       // FormData (consumers should use toFormData() from BaseAPI).
       const headers: Record<string, string> | undefined =
-        contentType === 'multipart' ? { 'Content-Type': 'multipart/form-data' } : undefined
+        contentType === 'multipart'
+          ? { ...requestHeaders, 'Content-Type': 'multipart/form-data' }
+          : requestHeaders
+
+      // empty arrays return undefined so axios omits the param entirely
+      const normalizeFieldValue = (value: unknown) =>
+        Array.isArray(value) ? (value.length ? value.join(',') : undefined) : value
+
+      const normalizeOrderByValue = (value: unknown) => {
+        if (!Array.isArray(value)) {
+          return value
+        }
+        if (!value.length) {
+          return undefined
+        }
+
+        return value
+          .map((item) => {
+            if (!item || typeof item !== 'object' || !('field' in item) || !('direction' in item)) {
+              return item
+            }
+
+            const { field, direction } = item as { field: string; direction: 'asc' | 'desc' }
+            return `${field} ${direction}`
+          })
+          .join(',')
+      }
+
+      const normalizedParams =
+        params && typeof params === 'object' && ('fields' in params || 'orderBy' in params)
+          ? {
+              ...params,
+              fields: normalizeFieldValue(params.fields),
+              orderBy: normalizeOrderByValue(params.orderBy),
+            }
+          : params
 
       const result = await this.instance({
         url: path,
         method,
-        params,
+        params: normalizedParams,
         data,
         headers,
         responseType: responseType ?? 'json',

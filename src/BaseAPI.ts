@@ -97,6 +97,7 @@ export const makeRequest =
     data,
     contentType,
     responseType,
+    headers,
   }: RequestOptions): Promise<unknown> => {
     const retryCodes = ['ECONNRESET', 'ETIMEDOUT', 'ESOCKETTIMEDOUT']
     const boundApi = api.bind(thisObj)
@@ -109,7 +110,7 @@ export const makeRequest =
     const { retry, retryOptions, logger } = config
 
     if (!retry) {
-      return boundApi({ path, method, params, data, contentType, responseType })
+      return boundApi({ path, method, params, data, contentType, responseType, headers })
         .then((result: any) => {
           logger(
             'info',
@@ -127,7 +128,7 @@ export const makeRequest =
         })
     } else {
       return promiseRetry(retryOptions, (retry, number) => {
-        return boundApi({ path, method, params, data, contentType, responseType }).catch(
+        return boundApi({ path, method, params, data, contentType, responseType, headers }).catch(
           (error) => {
             logger(
               'warn',
@@ -168,8 +169,9 @@ export interface PaginationConfig {
   thisObj: InstanceType<typeof Automate | typeof Manage>
 }
 
-// eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
-export type PaginationApiMethod = Function
+export type PaginationApiMethod<T = unknown, Args extends unknown[] = unknown[]> = (
+  ...args: Args
+) => Promise<T[]>
 
 export type PaginationOptions = {
   pageSize?: number
@@ -182,14 +184,14 @@ export type PaginationOptions = {
  */
 export const makePaginate =
   ({ thisObj }: PaginationConfig) =>
-  async (
-    apiMethod: PaginationApiMethod,
+  async <T, Args extends unknown[]>(
+    apiMethod: PaginationApiMethod<T, Args>,
     paginateArgs: PaginationOptions = {},
-    ...methodArgs: Record<string, unknown>[]
-  ): Promise<unknown[]> => {
+    ...methodArgs: Args
+  ): Promise<T[]> => {
     const { startPage = 1, pageSize = 1000 } = paginateArgs
 
-    let results: unknown[] = []
+    let results: T[] = []
     let page = startPage
 
     if (startPage === undefined || startPage < 1) {
@@ -217,29 +219,31 @@ export const makePaginate =
 /**
  * @internal
  */
-function getPage(
-  apiMethod: PaginationApiMethod,
-  methodArgs: Record<string, unknown>[],
+function getPage<T, Args extends unknown[]>(
+  apiMethod: PaginationApiMethod<T, Args>,
+  methodArgs: Args,
   thisObj: InstanceType<typeof Automate | typeof Manage>,
   page = 1,
   pageSize = 1000,
-): Promise<unknown[]> {
+): Promise<T[]> {
+  const args = [...methodArgs] as unknown[]
+
   // Javascript Function.length returns number of non-default values
   // the method args will always be greater than the api method args
   // due to this, if params is not passed in, even as an empty object,
   // we need to throw an error
-  if (methodArgs.length < apiMethod.length) {
+  if (args.length < apiMethod.length) {
     throw new Error(
       `CommonParams must be passed in for pagination to work properly for function ${apiMethod.name}`,
     )
   }
 
   // look for CommonParams and inject page and pageSize
-  const commonParams = <CommonParameters>methodArgs.pop()
+  const commonParams = args.pop() as CommonParameters
   commonParams.page = page
   commonParams.pageSize = pageSize
 
-  methodArgs.push(commonParams)
+  args.push(commonParams)
 
-  return apiMethod.apply(thisObj, methodArgs)
+  return apiMethod.apply(thisObj, args as Args)
 }

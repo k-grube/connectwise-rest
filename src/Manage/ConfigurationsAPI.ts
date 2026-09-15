@@ -21,7 +21,7 @@ export class ConfigurationsAPI extends ManageBaseAPI {
     grandparentId: number,
     parentId: number,
     id: number,
-    params: CommonParameters = {},
+    params: CommonParameters<ConfigurationTypeQuestionInfo> = {},
   ): Promise<ConfigurationTypeQuestionInfo> {
     return this.request({
       path: `/configurations/types/${grandparentId}/questions/${parentId}/values/${id}/info`,
@@ -33,7 +33,7 @@ export class ConfigurationsAPI extends ManageBaseAPI {
   getConfigurationsTypesByGrandparentIdQuestionsByParentIdValuesInfo(
     grandparentId: number,
     parentId: number,
-    params: CommonParameters = {},
+    params: CommonParameters<ConfigurationTypeQuestionValueInfo> = {},
   ): Promise<Array<ConfigurationTypeQuestionValueInfo>> {
     return this.request({
       path: `/configurations/types/${grandparentId}/questions/${parentId}/values/info`,
@@ -45,7 +45,7 @@ export class ConfigurationsAPI extends ManageBaseAPI {
   getConfigurationsTypesByGrandparentIdQuestionsByParentIdValuesInfoCount(
     grandparentId: number,
     parentId: number,
-    params: CommonParameters = {},
+    params: CommonParameters<Count> = {},
   ): Promise<Count> {
     return this.request({
       path: `/configurations/types/${grandparentId}/questions/${parentId}/values/info/count`,
@@ -57,7 +57,7 @@ export class ConfigurationsAPI extends ManageBaseAPI {
   getConfigurationsTypesByParentIdQuestionsByIdInfo(
     id: number,
     parentId: number,
-    params: CommonParameters = {},
+    params: CommonParameters<ConfigurationTypeQuestionInfo> = {},
   ): Promise<ConfigurationTypeQuestionInfo> {
     return this.request({
       path: `/configurations/types/${parentId}/questions/${id}/info`,
@@ -68,7 +68,7 @@ export class ConfigurationsAPI extends ManageBaseAPI {
 
   getConfigurationsTypesByParentIdQuestionsInfo(
     parentId: number,
-    params: CommonParameters = {},
+    params: CommonParameters<ConfigurationTypeQuestionInfo> = {},
   ): Promise<Array<ConfigurationTypeQuestionInfo>> {
     return this.request({
       path: `/configurations/types/${parentId}/questions/info`,
@@ -79,7 +79,7 @@ export class ConfigurationsAPI extends ManageBaseAPI {
 
   getConfigurationsTypesByParentIdQuestionsInfoCount(
     parentId: number,
-    params: CommonParameters = {},
+    params: CommonParameters<Count> = {},
   ): Promise<Count> {
     return this.request({
       path: `/configurations/types/${parentId}/questions/info/count`,
@@ -88,7 +88,9 @@ export class ConfigurationsAPI extends ManageBaseAPI {
     })
   }
 
-  getConfigurationsTypesInfo(params: CommonParameters = {}): Promise<Array<ConfigurationTypeInfo>> {
+  getConfigurationsTypesInfo(
+    params: CommonParameters<ConfigurationTypeInfo> = {},
+  ): Promise<Array<ConfigurationTypeInfo>> {
     return this.request({
       path: `/configurations/types/info`,
       method: 'get',
@@ -96,7 +98,7 @@ export class ConfigurationsAPI extends ManageBaseAPI {
     })
   }
 
-  getConfigurationsTypesInfoCount(params: CommonParameters = {}): Promise<Count> {
+  getConfigurationsTypesInfoCount(params: CommonParameters<Count> = {}): Promise<Count> {
     return this.request({
       path: `/configurations/types/info/count`,
       method: 'get',

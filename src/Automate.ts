@@ -73,11 +73,11 @@ export default class Automate {
    *
    * ```
    */
-  paginate: (
-    apiMethod: PaginationApiMethod,
+  paginate: <T, Args extends unknown[]>(
+    apiMethod: PaginationApiMethod<T, Args>,
     paginateArgs: PaginationOptions,
-    ...methodArgs: Record<string, unknown>[]
-  ) => Promise<unknown[]>
+    ...methodArgs: Args
+  ) => Promise<T[]>
 
   constructor({
     serverUrl,
@@ -177,6 +177,7 @@ export default class Automate {
     data,
     contentType,
     responseType,
+    headers: requestHeaders,
   }: RequestOptions): Promise<ErrorResponse | DataResponse> {
     const { username, password, serverUrl, twoFactorPasscode } = this.config
     if (!this.config.token || !this.instance) {
@@ -187,7 +188,9 @@ export default class Automate {
 
     try {
       const headers: Record<string, string> | undefined =
-        contentType === 'multipart' ? { 'Content-Type': 'multipart/form-data' } : undefined
+        contentType === 'multipart'
+          ? { ...requestHeaders, 'Content-Type': 'multipart/form-data' }
+          : requestHeaders
 
       const result = await this.instance({
         url: path,

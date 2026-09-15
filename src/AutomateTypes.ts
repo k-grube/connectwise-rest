@@ -2838,9 +2838,13 @@ export interface components {
             CategoryName?: string;
         };
         "LabTech.RESTApi.Models.PatchOperation": {
-            Op?: string;
-            Path?: string;
-            Value?: Record<string, never>;
+            Op: "add" | "replace";
+            Path: string;
+            Value: unknown;
+        } | {
+            Op: "remove";
+            Path: string;
+            Value?: unknown;
         };
         "Automate.Api.Domain.Contracts.Patching.ApprovalPolicyStats": {
             /** Format: int32 */

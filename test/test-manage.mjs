@@ -17,17 +17,17 @@ const {
   MANAGE_API_CLIENT_ID = 'test-client-id',
 } = process.env
 
-const cwm = new ManageAPI({
-  companyId: MANAGE_API_COMPANY,
-  companyUrl: MANAGE_API_URL,
-  publicKey: MANAGE_API_PUBLIC_KEY,
-  privateKey: MANAGE_API_PRIVATE_KEY,
-  clientId: MANAGE_API_CLIENT_ID,
-  apiVersion: '2021.2',
-  logger: () => {},
-})
-
 describe('Manage', () => {
+  const cwm = new ManageAPI({
+    companyId: MANAGE_API_COMPANY,
+    companyUrl: MANAGE_API_URL,
+    publicKey: MANAGE_API_PUBLIC_KEY,
+    privateKey: MANAGE_API_PRIVATE_KEY,
+    clientId: MANAGE_API_CLIENT_ID,
+    apiVersion: '2021.2',
+    logger: () => {},
+  })
+
   describe('instance', () => {
     it('should be an instance of ManageAPI', () => {
       assert(cwm instanceof ManageAPI)
@@ -47,5 +47,30 @@ describe('Manage', () => {
         assert.strictEqual(cwm[section], instance, `${section} should cache on access`)
       })
     }
+  })
+
+  describe('request params', () => {
+    it('serializes typed fields and orderBy arrays for Manage queries', async () => {
+      let requestArgs
+      cwm.instance = async (args) => {
+        requestArgs = args
+        return { data: [] }
+      }
+
+      await cwm.ServiceAPI.getServiceTickets({
+        fields: ['id', 'summary', 'company/id'],
+        orderBy: [
+          { field: 'company/id', direction: 'asc' },
+          { field: 'summary', direction: 'desc' },
+        ],
+        conditions: 'closedFlag = false',
+      })
+
+      assert.deepStrictEqual(requestArgs.params, {
+        fields: 'id,summary,company/id',
+        orderBy: 'company/id asc,summary desc',
+        conditions: 'closedFlag = false',
+      })
+    })
   })
 })

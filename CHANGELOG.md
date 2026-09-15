@@ -2,6 +2,34 @@
 
 ## 2.0.0
 
+### Features
+
+#### Binary endpoints typed as `Buffer`
+
+`getFinanceInvoicesByIdPdf`, `getSystemDocumentsByIdDownload`, and
+`getSystemDocumentsByIdThumbnail` return `Promise<PDFResponse>` /
+`Promise<OctetStreamResponse>` (both `Buffer`), matching what axios actually
+hands back for `arraybuffer` responses.
+
+#### JSON-patch types on both products
+
+Manage and Automate `PatchOperation` schemas generate as discriminated unions
+(`add`/`replace` require a value, `remove` doesn't) instead of shapes that
+rejected every real value.
+
+#### Typed `fields` and `orderBy` on Manage common parameters
+
+`CommonParameters` is now generic over the endpoint's response model. `fields`
+accepts an array of model field paths (nested via `/`, e.g. `company/id`) and
+`orderBy` accepts `{ field, direction }` objects, both with autocomplete and
+compile-time validation. Arrays are serialized to the comma-separated strings the
+Manage API expects at request time.
+
+The plain-string forms (`fields: 'id,summary'`, `orderBy: 'id asc'`) remain
+accepted, both at the type level and at runtime, so existing code compiles
+unchanged. Bare `CommonParameters` (no type argument) stays valid and
+unconstrained.
+
 ### Breaking changes
 
 #### Axios instance count (correctness fix)
