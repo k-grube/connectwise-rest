@@ -1,6 +1,6 @@
 {
   "name": "connectwise-rest",
-  "version": "2.0.0-beta.1",
+  "version": "2.0.0-beta.2",
   "description": "A nodejs module for interacting with the ConnectWise Manage and Automate REST APIs.",
   "type": "commonjs",
   "main": "dist/index.js",
