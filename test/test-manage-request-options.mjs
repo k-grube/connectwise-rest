@@ -72,5 +72,28 @@ describe('Manage request options', () => {
 
       assert.strictEqual(requestArgs.responseType, 'arraybuffer')
     })
+
+    // The spec describes these response content types only in prose.
+    const described = [
+      ['CompanyAPI', 'getCompanyContactsByIdImage', 'arraybuffer'],
+      ['CompanyAPI', 'getCompanyManagementByIdLogDownload', 'arraybuffer'],
+      ['FinanceAPI', 'getFinanceCompanyFinanceByIdStatementPdf', 'arraybuffer'],
+      ['ServiceAPI', 'getServicePrioritiesByIdImage', 'arraybuffer'],
+      ['SystemAPI', 'getSystemMembersByIdImage', 'arraybuffer'],
+      ['SystemAPI', 'getSystemMenuentriesByIdImage', 'arraybuffer'],
+    ]
+    for (const [api, method, responseType] of described) {
+      it(`${method} requests ${responseType}`, async () => {
+        await cwm[api][method](123)
+
+        assert.strictEqual(requestArgs.responseType, responseType)
+      })
+    }
+
+    it('requests the document upload sample as text', async () => {
+      await cwm.SystemAPI.getSystemDocumentsUploadsample()
+
+      assert.strictEqual(requestArgs.responseType, 'text')
+    })
   })
 })
