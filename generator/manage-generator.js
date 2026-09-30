@@ -12,6 +12,7 @@ const path = require('path')
 const { factory, SyntaxKind } = require('typescript')
 const { ESLint } = require('eslint')
 const { generateAPIClass } = require('./generator.js')
+const { normalizeManageSpec } = require('./normalize-manage-spec.js')
 
 const SPEC_PATH = path.join(__dirname, 'manage-json', 'manage.json')
 const SRC_DIR = path.join(__dirname, '..', 'src')
@@ -280,7 +281,7 @@ async function runEslintFix() {
 
 async function generate() {
   console.log('loading Manage spec from', SPEC_PATH)
-  const spec = require(SPEC_PATH)
+  const spec = normalizeManageSpec(require(SPEC_PATH))
 
   await emitTypes(spec)
 

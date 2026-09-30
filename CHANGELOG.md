@@ -1,5 +1,10 @@
 # Changelog
 
+## Unreleased
+
+- Regenerated Manage types and API clients from spec 2026.11 (previously 2025.16).
+  The spec now contains 1,874 paths (+36) and 862 schemas (+20).
+
 ## 2.0.0
 
 ### Features

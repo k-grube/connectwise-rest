@@ -68,6 +68,8 @@ export type ProjectTemplateTicket = schemas['ProjectTemplateTicket']
 export type ProjectTemplateWorkPlan = schemas['ProjectTemplateWorkPlan']
 /** {@link ProjectTicket} */
 export type ProjectTicket = schemas['ProjectTicket']
+/** {@link ProjectTicketFinance} */
+export type ProjectTicketFinance = schemas['ProjectTicketFinance']
 /** {@link ProjectTicketNote} */
 export type ProjectTicketNote = schemas['ProjectTicketNote']
 /** {@link ProjectType} */
@@ -82,6 +84,8 @@ export type ScheduleEntryReference = schemas['ScheduleEntryReference']
 export type StatusIndicator = schemas['StatusIndicator']
 /** {@link SuccessResponse} */
 export type SuccessResponse = schemas['SuccessResponse']
+/** {@link TicketAllNote} */
+export type TicketAllNote = schemas['TicketAllNote']
 /** {@link TicketNote} */
 export type TicketNote = schemas['TicketNote']
 /** {@link TicketTask} */
@@ -1665,6 +1669,26 @@ export class ProjectAPI extends ManageBaseAPI {
     })
   }
 
+  getProjectTicketnotes(
+    params: CommonParameters<TicketAllNote> = {},
+  ): Promise<Array<TicketAllNote>> {
+    return this.request({
+      path: `/project/ticketnotes/`,
+      method: 'get',
+      params,
+    })
+  }
+
+  getProjectTicketnotesCount(
+    params: CommonParameters<TicketAllNote> = {},
+  ): Promise<Array<TicketAllNote>> {
+    return this.request({
+      path: `/project/ticketnotes/count`,
+      method: 'get',
+      params,
+    })
+  }
+
   getProjectTickets(params: CommonParameters<ProjectTicket> = {}): Promise<Array<ProjectTicket>> {
     return this.request({
       path: `/project/tickets`,
@@ -1718,6 +1742,17 @@ export class ProjectAPI extends ManageBaseAPI {
     })
   }
 
+  getProjectTicketsByIdFinance(
+    id: number,
+    params: CommonParameters<ProjectTicketFinance> = {},
+  ): Promise<ProjectTicketFinance> {
+    return this.request({
+      path: `/project/tickets/${id}/finance`,
+      method: 'get',
+      params,
+    })
+  }
+
   getProjectTicketsByParentIdActivities(
     parentId: number,
     params: CommonParameters<ActivityReference> = {},
@@ -1746,6 +1781,17 @@ export class ProjectAPI extends ManageBaseAPI {
   ): Promise<Array<ProjectTicketNote>> {
     return this.request({
       path: `/project/tickets/${parentId}/allNotes`,
+      method: 'get',
+      params,
+    })
+  }
+
+  getProjectTicketsByParentIdAllNotesCount(
+    parentId: number,
+    params: CommonParameters<Count> = {},
+  ): Promise<Count> {
+    return this.request({
+      path: `/project/tickets/${parentId}/allNotes/count`,
       method: 'get',
       params,
     })
