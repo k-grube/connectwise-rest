@@ -71,8 +71,61 @@ function operationName(method, path) {
   )
 }
 
+// The JSON media type the spec declares elsewhere, so synthesized content
+// matches the rest of the generated response types.
+function jsonMediaType(spec) {
+  for (const item of Object.values(spec.paths)) {
+    for (const operation of Object.values(item)) {
+      for (const response of Object.values(operation?.responses || {})) {
+        const mediaType = Object.keys(response.content || {}).find((type) => /json/.test(type))
+        if (mediaType) {
+          return mediaType
+        }
+      }
+    }
+  }
+  return 'application/json'
+}
+
+// Some responses describe their body only in prose. Declare it as content so
+// the generator and openapi-typescript both see the real response shape.
+function describedContent(description = '', spec, jsonType) {
+  const contentType = /^ContentType = (\S+)$/.exec(description)?.[1]
+  if (contentType === 'application/json') {
+    return undefined
+  }
+  if (contentType?.startsWith('text/')) {
+    return { [contentType]: { schema: { type: 'string' } } }
+  }
+  if (contentType) {
+    return { [contentType]: { schema: { type: 'string', format: 'binary' } } }
+  }
+  // The customer statement endpoint describes its PDF only in prose.
+  if (description.startsWith('PDF attachment')) {
+    return { 'application/pdf': { schema: { type: 'string', format: 'binary' } } }
+  }
+  // A bare schema name, e.g. "TimeEntry".
+  if (identifier.test(description) && spec.components?.schemas?.[description]) {
+    return { [jsonType]: { schema: { $ref: `#/components/schemas/${description}` } } }
+  }
+  return undefined
+}
+
+function normalizeResponseContent(operation, spec, jsonType) {
+  for (const response of Object.values(operation.responses || {})) {
+    if (response.content) {
+      continue
+    }
+    const content = describedContent(response.description, spec, jsonType)
+    if (content) {
+      response.content = content
+    }
+  }
+}
+
 function normalizeManageSpec(input) {
   const spec = structuredClone(input)
+  const jsonType = jsonMediaType(spec)
   const paths = {}
   for (const [original, item] of Object.entries(spec.paths)) {
     const { path, constrained } = normalizePath(original)
@@ -80,7 +133,11 @@ function normalizeManageSpec(input) {
       throw new Error(`Manage paths collide after normalization: ${original} -> ${path}`)
     }
     for (const [method, operation] of Object.entries(item)) {
-      if (!HTTP_METHODS.has(method) || !constrained.length) {
+      if (!HTTP_METHODS.has(method)) {
+        continue
+      }
+      normalizeResponseContent(operation, spec, jsonType)
+      if (!constrained.length) {
         continue
       }
       // Keep intentional operation IDs; replace IDs derived from leaked constraints.

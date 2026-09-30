@@ -2405,11 +2405,12 @@ export class CompanyAPI extends ManageBaseAPI {
 
   getCompanyContactsByIdImage(
     id: number,
-    params: CommonParameters<OctetStreamResponse> = {},
+    params: CommonParameters<string> = {},
   ): Promise<OctetStreamResponse> {
     return this.request({
       path: `/company/contacts/${id}/image`,
       method: 'get',
+      responseType: 'arraybuffer',
       params,
     })
   }
@@ -3856,11 +3857,12 @@ export class CompanyAPI extends ManageBaseAPI {
 
   getCompanyManagementByIdLogDownload(
     id: number,
-    params: CommonParameters<OctetStreamResponse> = {},
+    params: CommonParameters<string> = {},
   ): Promise<OctetStreamResponse> {
     return this.request({
       path: `/company/management/${id}/log/download`,
       method: 'get',
+      responseType: 'arraybuffer',
       params,
     })
   }

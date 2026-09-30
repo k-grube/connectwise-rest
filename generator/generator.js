@@ -26,18 +26,10 @@ const getResponseTypeInfo = ({ responses, types }) => {
     return toResponseTypeInfo('NoContentResponse')
   }
 
-  const { description, content } = getSuccessResponse(responses)
+  const { content } = getSuccessResponse(responses)
 
-  if (responses.default) {
+  if (responses.default || !content) {
     return toResponseTypeInfo('any')
-  }
-
-  if (!content) {
-    if (description?.startsWith('PDF attachment')) {
-      return toResponseTypeInfo('PDFResponse')
-    }
-    const typeName = description.split(' ').pop()
-    return toResponseTypeInfo(typeName)
   }
 
   const { schema } = content[Object.keys(content).pop()]
@@ -89,12 +81,6 @@ const typeMapSanitize = (input = '') => {
   switch (input) {
     case 'integer':
       return 'number'
-    case 'application/octet-stream':
-      return 'OctetStreamResponse'
-    case 'application/pdf':
-      return 'PDFResponse'
-    case 'text/html':
-      return 'HTMLResponse'
     default:
       return sanitizeType(input)
   }
@@ -319,10 +305,8 @@ function generateAPIClass({ apiName, operations = [], generatorType }) {
             returnType = 'OctetStreamResponse'
           } else if (contentTypes.includes('text/html')) {
             responseTypeHint = 'text'
+            returnType = 'HTMLResponse'
           }
-        } else if (response?.description?.startsWith('PDF attachment')) {
-          // Manage's customer statement endpoint describes its PDF only in prose.
-          responseTypeHint = 'arraybuffer'
         }
 
         if (!returnType) {

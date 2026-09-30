@@ -1458,12 +1458,11 @@ export class SystemAPI extends ManageBaseAPI {
     })
   }
 
-  getSystemDocumentsUploadsample(
-    params: CommonParameters<HTMLResponse> = {},
-  ): Promise<HTMLResponse> {
+  getSystemDocumentsUploadsample(params: CommonParameters<string> = {}): Promise<HTMLResponse> {
     return this.request({
       path: `/system/documents/uploadsample`,
       method: 'get',
+      responseType: 'text',
       params,
     })
   }
@@ -3233,11 +3232,12 @@ export class SystemAPI extends ManageBaseAPI {
 
   getSystemMembersByIdImage(
     id: number,
-    params: CommonParameters<OctetStreamResponse> = {},
+    params: CommonParameters<string> = {},
   ): Promise<OctetStreamResponse> {
     return this.request({
       path: `/system/members/${id}/image`,
       method: 'get',
+      responseType: 'arraybuffer',
       params,
     })
   }
@@ -4125,11 +4125,12 @@ export class SystemAPI extends ManageBaseAPI {
 
   getSystemMenuentriesByIdImage(
     id: number,
-    params: CommonParameters<OctetStreamResponse> = {},
+    params: CommonParameters<string> = {},
   ): Promise<OctetStreamResponse> {
     return this.request({
       path: `/system/menuentries/${id}/image`,
       method: 'get',
+      responseType: 'arraybuffer',
       params,
     })
   }

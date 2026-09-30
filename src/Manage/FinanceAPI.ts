@@ -2451,7 +2451,7 @@ export class FinanceAPI extends ManageBaseAPI {
 
   getFinanceCompanyFinanceByIdStatementPdf(
     id: number,
-    params: CommonParameters<PDFResponse> = {},
+    params: CommonParameters<string> = {},
   ): Promise<PDFResponse> {
     return this.request({
       path: `/finance/companyFinance/${id}/statement/pdf`,

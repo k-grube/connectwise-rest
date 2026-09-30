@@ -92,4 +92,60 @@ describe('Manage spec normalization', () => {
     }
     assert.throws(() => normalizeManageSpec(spec), /collide/)
   })
+
+  it('declares response content types that are only named in the description', () => {
+    const get = operation()
+    get.responses = {
+      200: { description: 'ContentType = application/octet-stream' },
+      201: { description: 'ContentType = text/html' },
+      202: { description: 'ContentType = application/json' },
+    }
+    const responses = normalizeManageSpec(specFor('/widgets/{id}/image', get)).paths[
+      '/widgets/{id}/image'
+    ].get.responses
+    assert.deepEqual(responses[200].content, {
+      'application/octet-stream': { schema: { type: 'string', format: 'binary' } },
+    })
+    assert.deepEqual(responses[201].content, { 'text/html': { schema: { type: 'string' } } })
+    assert.equal(responses[202].content, undefined)
+  })
+
+  it('declares PDF and schema-named response bodies described in prose', () => {
+    const jsonType = 'application/vnd.connectwise.com+json; version=1'
+    const spec = {
+      paths: {
+        '/widgets': {
+          get: { responses: { 200: { description: 'OK', content: { [jsonType]: {} } } } },
+        },
+        '/widgets/{id}/statement': {
+          get: { responses: { 200: { description: 'PDF attachment (as a document).' } } },
+        },
+        '/widgets/{id}/detach': {
+          post: { responses: { 200: { description: 'Widget' } } },
+        },
+        '/widgets/{id}/recalculate': {
+          post: { responses: { 200: { description: 'Unknown' }, 201: { description: '' } } },
+        },
+      },
+      components: { schemas: { Widget: { type: 'object' } } },
+    }
+    const { paths } = normalizeManageSpec(spec)
+    assert.deepEqual(paths['/widgets/{id}/statement'].get.responses[200].content, {
+      'application/pdf': { schema: { type: 'string', format: 'binary' } },
+    })
+    assert.deepEqual(paths['/widgets/{id}/detach'].post.responses[200].content, {
+      [jsonType]: { schema: { $ref: '#/components/schemas/Widget' } },
+    })
+    const recalculate = paths['/widgets/{id}/recalculate'].post.responses
+    assert.equal(recalculate[200].content, undefined)
+    assert.equal(recalculate[201].content, undefined)
+  })
+
+  it('keeps an explicitly declared response content type', () => {
+    const get = operation()
+    const content = { 'application/pdf': { schema: { type: 'string', format: 'binary' } } }
+    get.responses = { 200: { description: 'ContentType = application/octet-stream', content } }
+    const normalized = normalizeManageSpec(specFor('/widgets/{id}/pdf', get))
+    assert.deepEqual(normalized.paths['/widgets/{id}/pdf'].get.responses[200].content, content)
+  })
 })
