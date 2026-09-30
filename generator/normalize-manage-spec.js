@@ -7,7 +7,9 @@ function normalizePath(path) {
   const constrained = []
   let result = ''
   for (let i = 0; i < path.length;) {
-    if (path[i] === '}') throw new Error(`Malformed Manage path template: ${path}`)
+    if (path[i] === '}') {
+      throw new Error(`Malformed Manage path template: ${path}`)
+    }
     if (path[i] !== '{') {
       result += path[i++]
       continue
@@ -40,7 +42,9 @@ function normalizePath(path) {
     if (depth && (!constraint.startsWith('regex(') || constraint.includes('/'))) {
       throw new Error(`Ambiguous or unclosed Manage path template: ${path}`)
     }
-    if (colon >= 0) constrained.push({ name, token })
+    if (colon >= 0) {
+      constrained.push({ name, token })
+    }
     result += `{${name}}`
   }
   return { path: result, constrained }
@@ -54,7 +58,9 @@ function operationName(method, path) {
       .filter(Boolean)
       .map((part) => {
         const parameter = /^\{(.+)\}$/.exec(part)
-        if (parameter) return `By${parameter[1][0].toUpperCase()}${parameter[1].slice(1)}`
+        if (parameter) {
+          return `By${parameter[1][0].toUpperCase()}${parameter[1].slice(1)}`
+        }
         return part
           .split(/[^A-Za-z0-9_$]+/)
           .filter(Boolean)
@@ -74,7 +80,9 @@ function normalizeManageSpec(input) {
       throw new Error(`Manage paths collide after normalization: ${original} -> ${path}`)
     }
     for (const [method, operation] of Object.entries(item)) {
-      if (!HTTP_METHODS.has(method) || !constrained.length) continue
+      if (!HTTP_METHODS.has(method) || !constrained.length) {
+        continue
+      }
       // Keep intentional operation IDs; replace IDs derived from leaked constraints.
       if (
         !operation.operationId ||
@@ -97,7 +105,9 @@ function normalizeManageSpec(input) {
               .slice(2)
               .split('/')
               .reduce((value, key) => value?.[key.replace(/~1/g, '/').replace(/~0/g, '~')], spec)
-            if (!parameter) throw new Error(`Unresolved parameter reference in ${original}`)
+            if (!parameter) {
+              throw new Error(`Unresolved parameter reference in ${original}`)
+            }
           }
           return parameter.in === 'path' && parameter.name === name
         })
