@@ -2086,11 +2086,12 @@ export class ServiceAPI extends ManageBaseAPI {
 
   getServicePrioritiesByIdImage(
     id: number,
-    params: CommonParameters<OctetStreamResponse> = {},
+    params: CommonParameters<string> = {},
   ): Promise<OctetStreamResponse> {
     return this.request({
       path: `/service/priorities/${id}/image`,
       method: 'get',
+      responseType: 'arraybuffer',
       params,
     })
   }
