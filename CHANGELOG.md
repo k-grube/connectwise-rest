@@ -1,9 +1,24 @@
 # Changelog
 
-## Unreleased
+## 2.0.1
 
 - Regenerated Manage types and API clients from spec 2026.11 (previously 2025.16).
   The spec now contains 1,874 paths (+36) and 862 schemas (+20).
+
+### Breaking changes
+
+- `SalesAPI.postSalesOrdersByIdConvertToServiceTicket(id, conversionSettings)` ->
+  `postSalesOrdersByIdConvertToServiceTicket(id)`. The spec dropped the request body
+  and the `ConvertOrderToServiceTicket` schema.
+- `TimeAPI.postTimeSheetsByIdReject(id)` -> `postTimeSheetsByIdReject(id, sheetId)`.
+  `sheetId` is a required `TimeSheetTierUpdate` body.
+- `ProcurementAPI.getProcurementRmaStatusesByParentIdEmailTemplates` ->
+  `getProcurementRmaStatusesByParentIdEmailtemplates`.
+- `SystemAPI.getSystemMembersmemberIdentifierregextypes()` ->
+  `getSystemMembersByMemberIdentifier(memberIdentifier)`, and
+  `SystemAPI.getSystemInfoMembersmemberIdentifierregextypes()` ->
+  `getSystemInfoMembersByMemberIdentifier(memberIdentifier)`. The old names came from
+  a truncated route constraint in the spec and requested an unusable URL.
 
 ## 2.0.0
 
