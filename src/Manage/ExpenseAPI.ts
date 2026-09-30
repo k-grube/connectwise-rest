@@ -14,6 +14,8 @@ export type ExpenseEntry = schemas['ExpenseEntry']
 export type ExpenseEntryAudit = schemas['ExpenseEntryAudit']
 /** {@link ExpenseReport} */
 export type ExpenseReport = schemas['ExpenseReport']
+/** {@link ExpenseReportAttachment} */
+export type ExpenseReportAttachment = schemas['ExpenseReportAttachment']
 /** {@link ExpenseReportAudit} */
 export type ExpenseReportAudit = schemas['ExpenseReportAudit']
 /** {@link ExpenseReportTierUpdate} */
@@ -300,6 +302,18 @@ export class ExpenseAPI extends ManageBaseAPI {
       path: `/expense/reports/${id}/approve`,
       method: 'post',
       data: reportId,
+    })
+  }
+
+  getExpenseReportsByIdAttachmentsByMemberRecId(
+    id: number,
+    memberRecId: number,
+    params: CommonParameters<ExpenseReportAttachment> = {},
+  ): Promise<Array<ExpenseReportAttachment>> {
+    return this.request({
+      path: `/expense/reports/${id}/attachments/${memberRecId}`,
+      method: 'get',
+      params,
     })
   }
 

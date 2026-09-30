@@ -168,6 +168,8 @@ export type PortalSecurity = schemas['PortalSecurity']
 export type PortalSecurityLevel = schemas['PortalSecurityLevel']
 /** {@link PortalSecuritySetting} */
 export type PortalSecuritySetting = schemas['PortalSecuritySetting']
+/** {@link ReportHeaderCompanyName} */
+export type ReportHeaderCompanyName = schemas['ReportHeaderCompanyName']
 /** {@link RequestPasswordRequest} */
 export type RequestPasswordRequest = schemas['RequestPasswordRequest']
 /** {@link ServiceTemplate} */
@@ -1469,6 +1471,16 @@ export class CompanyAPI extends ManageBaseAPI {
     })
   }
 
+  getCompanyCompaniesReportHeaderCompanyName(
+    params: CommonParameters<ReportHeaderCompanyName> = {},
+  ): Promise<ReportHeaderCompanyName> {
+    return this.request({
+      path: `/company/companies/reportHeader/companyName`,
+      method: 'get',
+      params,
+    })
+  }
+
   getCompanyCompaniesStatuses(
     params: CommonParameters<CompanyStatus> = {},
   ): Promise<Array<CompanyStatus>> {
@@ -2275,6 +2287,30 @@ export class CompanyAPI extends ManageBaseAPI {
       path: `/company/configurations/types/${parentId}/questions/${id}`,
       method: 'patch',
       data: patchOperations,
+    })
+  }
+
+  getCompanyConfigurationsTypesByParentIdQuestionsByIdUsages(
+    id: number,
+    parentId: number,
+    params: CommonParameters<Usage> = {},
+  ): Promise<Array<Usage>> {
+    return this.request({
+      path: `/company/configurations/types/${parentId}/questions/${id}/usages`,
+      method: 'get',
+      params,
+    })
+  }
+
+  getCompanyConfigurationsTypesByParentIdQuestionsByIdUsagesList(
+    id: number,
+    parentId: number,
+    params: CommonParameters<Usage> = {},
+  ): Promise<Array<Usage>> {
+    return this.request({
+      path: `/company/configurations/types/${parentId}/questions/${id}/usages/list`,
+      method: 'get',
+      params,
     })
   }
 

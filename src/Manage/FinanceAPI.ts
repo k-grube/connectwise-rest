@@ -84,6 +84,8 @@ export type ConfigurationReference = schemas['ConfigurationReference']
 export type Count = schemas['Count']
 /** {@link CreateAccountingBatchRequest} */
 export type CreateAccountingBatchRequest = schemas['CreateAccountingBatchRequest']
+/** {@link CreateStandardInvoiceRequest} */
+export type CreateStandardInvoiceRequest = schemas['CreateStandardInvoiceRequest']
 /** {@link CurrencyCode} */
 export type CurrencyCode = schemas['CurrencyCode']
 /** {@link CurrencyInfo} */
@@ -2447,6 +2449,18 @@ export class FinanceAPI extends ManageBaseAPI {
     })
   }
 
+  getFinanceCompanyFinanceByIdStatementPdf(
+    id: number,
+    params: CommonParameters<PDFResponse> = {},
+  ): Promise<PDFResponse> {
+    return this.request({
+      path: `/finance/companyFinance/${id}/statement/pdf`,
+      method: 'get',
+      responseType: 'arraybuffer',
+      params,
+    })
+  }
+
   getFinanceCompanyFinanceCount(params: CommonParameters<Count> = {}): Promise<Count> {
     return this.request({
       path: `/finance/companyFinance/count`,
@@ -3303,6 +3317,14 @@ export class FinanceAPI extends ManageBaseAPI {
       path: `/finance/invoices/count`,
       method: 'get',
       params,
+    })
+  }
+
+  postFinanceInvoicesCreateStandard(request: CreateStandardInvoiceRequest): Promise<Invoice> {
+    return this.request({
+      path: `/finance/invoices/createStandard`,
+      method: 'post',
+      data: request,
     })
   }
 
